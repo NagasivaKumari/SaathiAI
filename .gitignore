@@ -1,0 +1,79 @@
+# =========================
+# Flutter / Dart
+# =========================
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.metadata
+coverage/
+
+# =========================
+# IDE
+# =========================
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# =========================
+# Android
+# =========================
+android/.gradle/
+android/local.properties
+android/app/debug.keystore
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# =========================
+# iOS / macOS
+# =========================
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/ephemeral/
+macos/Pods/
+macos/Flutter/ephemeral/
+
+# =========================
+# Windows / Linux
+# =========================
+windows/flutter/ephemeral/
+linux/flutter/ephemeral/
+
+# =========================
+# Logs & System
+# =========================
+*.log
+.DS_Store
+Thumbs.db
+
+# =========================
+# Secrets
+# =========================
+.env
+.env.*
+*.key
+*.pem
+*.crt
+*.p12
+*.jks
+google-services.json
+firebase_options.dart
+
+# =========================
+# AWS / Amplify
+# =========================
+aws-exports.js
+awsconfiguration.json
+amplify/
+
+# =========================
+# Optional: Personal Notes
+# =========================
+prsentation old.txt
+updations.txt

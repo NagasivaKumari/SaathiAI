@@ -21,8 +21,22 @@ SathiAI is the "Village Sathi" platform that gives every rural Indian a cultural
 - **Government Impact:** Automates scheme discovery and application assistance while surfacing usage analytics for better targeting.
 - **Economic Empowerment:** Accelerates income growth through timely market insights and relevant skill pathways.
 
+<<<<<<< HEAD
+=======
+## Roadmap
+1. Pilot in Maharashtra (10,000 users) with Hindi + Marathi support.
+2. Expand to five states with additional languages and gamification tiers.
+3. Scale nationwide with government partnerships, B2B skill programs, and premium personalization services.
+
+>>>>>>> 60b8c3d (Initial commit: SaathiAI project structure)
 ## Getting Started
 1. Install dependencies (`npm install` / native modules) inside `mobile/` if present.
 2. Wire up AWS credentials for Bedrock, Lex, Polly, and Lambda endpoints.
 3. Seed DynamoDB tables with scheme metadata and sync strategies for offline data.
 4. Run property-based tests (`npm run test:properties` or equivalent) to verify persona and recommendation logic.
+<<<<<<< HEAD
+=======
+
+## Contributions
+Stories, voice scripts, localization help, and data connectors are welcome — open a task in `.kiro/specs/sathiai-platform` or reach out to the team.
+>>>>>>> 60b8c3d (Initial commit: SaathiAI project structure)
