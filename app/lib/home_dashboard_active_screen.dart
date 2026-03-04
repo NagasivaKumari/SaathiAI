@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class HomeDashboardActiveScreen extends StatelessWidget {
+  const HomeDashboardActiveScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

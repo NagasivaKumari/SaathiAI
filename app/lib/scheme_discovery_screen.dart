@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SchemeDiscoveryScreen extends StatelessWidget {
+  const SchemeDiscoveryScreen({super.key});
+
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
@@ -234,8 +236,8 @@ class _ChatButton extends StatelessWidget {
 		return FloatingActionButton(
 			onPressed: () {},
 			backgroundColor: Color(0xFF131711),
-			child: Icon(Icons.chat_bubble_outline, color: Color(0xFF4CDF20), size: 32),
 			elevation: 8,
+			child: Icon(Icons.chat_bubble_outline, color: Color(0xFF4CDF20), size: 32),
 		);
 	}
 }

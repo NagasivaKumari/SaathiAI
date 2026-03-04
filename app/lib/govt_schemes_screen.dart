@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class GovtSchemesScreen extends StatelessWidget {
+  const GovtSchemesScreen({super.key});
+
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
@@ -246,8 +248,8 @@ class _VoiceButton extends StatelessWidget {
 		return FloatingActionButton(
 			onPressed: () {},
 			backgroundColor: Color(0xFF131711),
-			child: Icon(Icons.mic, color: Color(0xFF4CDF20), size: 32),
 			elevation: 8,
+			child: Icon(Icons.mic, color: Color(0xFF4CDF20), size: 32),
 		);
 	}
 }

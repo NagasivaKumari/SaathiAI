@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AchievementsBadgesScreen extends StatelessWidget {
+  const AchievementsBadgesScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

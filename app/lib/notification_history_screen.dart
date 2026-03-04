@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class NotificationHistoryScreen extends StatelessWidget {
+  const NotificationHistoryScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
