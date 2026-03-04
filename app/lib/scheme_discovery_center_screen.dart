@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SchemeDiscoveryCenterScreen extends StatelessWidget {
+  const SchemeDiscoveryCenterScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

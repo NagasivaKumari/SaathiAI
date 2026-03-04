@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class MySathiProgressScreen extends StatelessWidget {
+  const MySathiProgressScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

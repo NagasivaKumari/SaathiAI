@@ -1,5 +1,11 @@
 
 import 'package:flutter/material.dart';
+import 'features/home/home_screen.dart';
+import 'features/schemes/schemes_screen.dart';
+import 'features/market/market_screen.dart';
+import 'features/skills/skills_screen.dart';
+import 'features/voice/voice_screen.dart';
+import 'features/profile/profile_screen.dart';
 
 // --- Data Models ---
 class Scheme {
@@ -53,6 +59,8 @@ class SathiAIApp extends StatelessWidget {
 }
 
 class MainNavigation extends StatefulWidget {
+  const MainNavigation({super.key});
+
   @override
   State<MainNavigation> createState() => _MainNavigationState();
 }
@@ -84,7 +92,6 @@ class _MainNavigationState extends State<MainNavigation> {
         Stack(
           alignment: Alignment.center,
           children: [
-            // Pulse animation
             AnimatedContainer(
               duration: Duration(milliseconds: 800),
               width: 70,
@@ -99,10 +106,10 @@ class _MainNavigationState extends State<MainNavigation> {
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (_) => VoiceScreen()));
               },
-              child: Icon(Icons.mic, color: Colors.white, size: 32),
               tooltip: 'Ask Saathi',
               elevation: 6,
               shape: CircleBorder(),
+              child: Icon(Icons.mic, color: Colors.white, size: 32),
             ),
           ],
         ),
@@ -151,6 +158,8 @@ class _MainNavigationState extends State<MainNavigation> {
 
 // --- Screen Stubs ---
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final String userName = 'Sunil, Sanchi';
@@ -178,148 +187,148 @@ class HomeScreen extends StatelessWidget {
             icon: Icon(Icons.person, color: Colors.white),
             onPressed: () {
               Navigator.push(context, MaterialPageRoute(builder: (_) => ProfileScreen()));
-            },
-            tooltip: 'Profile & Settings',
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                CircleAvatar(
-                  radius: 28,
-                  backgroundColor: Colors.green.shade200,
-                  child: const Icon(Icons.person, size: 36, color: Colors.white),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Hi, $userName', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                      const SizedBox(height: 4),
-                      Text('Next payout: $nextPayout', style: const TextStyle(color: Colors.grey)),
-                      Text('Next scheme: $nextScheme', style: const TextStyle(color: Colors.grey)),
-                    ],
+            return Scaffold(
+              backgroundColor: Color(0xFFF6F8F6),
+              appBar: AppBar(
+                backgroundColor: Color(0xFF219653),
+                elevation: 0,
+                title: Text('SathiAI', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
+                actions: [
+                  IconButton(
+                    icon: Icon(Icons.person, color: Colors.white),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => ProfileScreen()));
+                    },
+                    tooltip: 'Profile & Settings',
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
-            // Today’s Action Card
-            Card(
-              color: Colors.blue.shade50,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-              child: ListTile(
-                leading: Icon(Icons.check_circle, color: Colors.blue),
-                title: Text("Today's Action", style: TextStyle(fontWeight: FontWeight.bold)),
-                subtitle: Text('Apply for PM Kisan scheme today!'),
-                trailing: ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                  onPressed: () {},
-                  child: Text('Apply'),
-                ),
+                ],
               ),
-            ),
-            const SizedBox(height: 16),
-            // Status Cards (color coded)
-            Row(
-              children: [
-                Expanded(
-                  child: Card(
-                    color: Colors.green.shade50,
-                    child: ListTile(
-                      leading: Icon(Icons.trending_up, color: Colors.green),
-                      title: Text('Market: Price Rise', style: TextStyle(color: Colors.green)),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Card(
-                    color: Colors.red.shade50,
-                    child: ListTile(
-                      leading: Icon(Icons.warning, color: Colors.red),
-                      title: Text('Deadline: 2 days', style: TextStyle(color: Colors.red)),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            // Notifications
-            Card(
-              color: Colors.yellow.shade50,
-              child: ListTile(
-                leading: Icon(Icons.notifications, color: Colors.yellow.shade700),
-                title: Text('New Notification'),
-                subtitle: Text('Scheme payout credited!'),
-              ),
-            ),
-            const SizedBox(height: 16),
-            // Sync/Offline State
-            Card(
-              color: Colors.grey.shade200,
-              child: ListTile(
-                leading: Icon(Icons.sync, color: Colors.blueGrey),
-                title: Text('Sync Status'),
-                subtitle: Text('Last synced: Today 10:30 AM'),
-              ),
-            ),
-            const SizedBox(height: 24),
-            // Badges
-            const Text('My Badges', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 12),
-            SizedBox(
-              height: 90,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemCount: badges.length,
-                separatorBuilder: (context, idx) => const SizedBox(width: 16),
-                itemBuilder: (context, idx) {
-                  final badge = badges[idx];
-                  return Container(
-                    width: 120,
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.green.shade50,
-                          blurRadius: 4,
-                          offset: const Offset(0, 2),
+              body: SingleChildScrollView(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 28,
+                          backgroundColor: Colors.green.shade200,
+                          child: const Icon(Icons.person, size: 36, color: Colors.white),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Hi, $userName', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                              const SizedBox(height: 4),
+                              Text('Next payout: $nextPayout', style: const TextStyle(color: Colors.grey)),
+                              Text('Next scheme: $nextScheme', style: const TextStyle(color: Colors.grey)),
+                            ],
+                          ),
                         ),
                       ],
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    const SizedBox(height: 24),
+                    Card(
+                      color: Colors.blue.shade50,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                      child: ListTile(
+                        leading: Icon(Icons.check_circle, color: Colors.blue),
+                        title: Text("Today's Action", style: TextStyle(fontWeight: FontWeight.bold)),
+                        subtitle: Text('Apply for PM Kisan scheme today!'),
+                        trailing: ElevatedButton(
+                          style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                          onPressed: () {},
+                          child: Text('Apply'),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
                       children: [
-                        Icon(badge['icon'], color: Colors.amber, size: 32),
-                        const SizedBox(height: 8),
-                        Text(badge['label'], style: const TextStyle(fontWeight: FontWeight.bold)),
-                        Text(badge['desc'], style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                        Expanded(
+                          child: Card(
+                            color: Colors.green.shade50,
+                            child: ListTile(
+                              leading: Icon(Icons.trending_up, color: Colors.green),
+                              title: Text('Market: Price Rise', style: TextStyle(color: Colors.green)),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Card(
+                            color: Colors.red.shade50,
+                            child: ListTile(
+                              leading: Icon(Icons.warning, color: Colors.red),
+                              title: Text('Deadline: 2 days', style: TextStyle(color: Colors.red)),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
-                  );
-                },
+                    const SizedBox(height: 16),
+                    Card(
+                      color: Colors.yellow.shade50,
+                      child: ListTile(
+                        leading: Icon(Icons.notifications, color: Colors.yellow.shade700),
+                        title: Text('New Notification'),
+                        subtitle: Text('Scheme payout credited!'),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Card(
+                      color: Colors.grey.shade200,
+                      child: ListTile(
+                        leading: Icon(Icons.sync, color: Colors.blueGrey),
+                        title: Text('Sync Status'),
+                        subtitle: Text('Last synced: Today 10:30 AM'),
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    const Text('My Badges', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      height: 90,
+                      child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: badges.length,
+                        separatorBuilder: (context, idx) => const SizedBox(width: 16),
+                        itemBuilder: (context, idx) {
+                          final badge = badges[idx];
+                          return Container(
+                            width: 120,
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(16),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.green.shade50,
+                                  blurRadius: 4,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(badge['icon'], color: Colors.amber, size: 32),
+                                const SizedBox(height: 8),
+                                Text(badge['label'], style: const TextStyle(fontWeight: FontWeight.bold)),
+                                Text(badge['desc'], style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 32),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 32),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class SchemesScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+            );
     return Scaffold(
       backgroundColor: Color(0xFFF6F8F6),
       appBar: AppBar(
@@ -332,7 +341,7 @@ class SchemesScreen extends StatelessWidget {
   }
 }
 
-class SkillsScreen extends StatelessWidget {
+class SkillsScreen extends void StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -347,7 +356,7 @@ class SkillsScreen extends StatelessWidget {
   }
 }
 
-class MarketScreen extends StatelessWidget {
+class MarketScreen extends void StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -362,7 +371,7 @@ class MarketScreen extends StatelessWidget {
   }
 }
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends void StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -377,7 +386,7 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-class VoiceHomeScreen extends StatefulWidget {
+class VoiceHomeScreen extends void StatefulWidget {
   final int initialTab;
   const VoiceHomeScreen({super.key, this.initialTab = 0});
 
@@ -385,10 +394,10 @@ class VoiceHomeScreen extends StatefulWidget {
   State<VoiceHomeScreen> createState() => _VoiceHomeScreenState();
 }
 
-class _VoiceHomeScreenState extends State<VoiceHomeScreen> {
+class _VoiceHomeScreenState extends void State<VoiceHomeScreen> {
   String aiResponse = 'Ask me anything about schemes, skills, or markets!';
   bool isListening = false;
-  late int _selectedIndex;
+  late int selectedIndex;
 
   // --- Sample/mock data for now ---
   final List<Scheme> schemes = [
@@ -411,10 +420,10 @@ class _VoiceHomeScreenState extends State<VoiceHomeScreen> {
   @override
   void initState() {
     super.initState();
-    _selectedIndex = widget.initialTab;
+    selectedIndex = widget.initialTab;
   }
 
-  void _onMicPressed() {
+  void onMicPressed() {
     setState(() {
       isListening = !isListening;
       aiResponse = isListening
@@ -424,13 +433,13 @@ class _VoiceHomeScreenState extends State<VoiceHomeScreen> {
     // TODO: Integrate voice recognition and Bedrock API call here
   }
 
-  void _onItemTapped(int index) {
+  void onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      selectedIndex = index;
     });
   }
 
-  Widget _getScreen(int index) {
+  Widget getScreen(int index) {
     switch (index) {
       case 1:
         return DashboardScreen(
@@ -441,11 +450,11 @@ class _VoiceHomeScreenState extends State<VoiceHomeScreen> {
       case 2:
         return GamificationScreen(badges: badges, progress: progress);
       default:
-        return _voiceScreen();
+        return voiceScreen();
     }
   }
 
-  Widget _voiceScreen() {
+  Widget voiceScreen() {
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: Column(
@@ -468,7 +477,7 @@ class _VoiceHomeScreenState extends State<VoiceHomeScreen> {
           ),
           const SizedBox(height: 40),
           FloatingActionButton(
-            onPressed: _onMicPressed,
+            onPressed: onMicPressed,
             backgroundColor: isListening ? Colors.red : Colors.green,
             child: Icon(isListening ? Icons.mic : Icons.mic_none, size: 32),
           ),
@@ -489,7 +498,7 @@ class _VoiceHomeScreenState extends State<VoiceHomeScreen> {
         title: const Text('SathiAI'),
         backgroundColor: Colors.green.shade700,
       ),
-      body: _getScreen(_selectedIndex),
+      body: getScreen(selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -505,15 +514,15 @@ class _VoiceHomeScreenState extends State<VoiceHomeScreen> {
             label: 'Gamification',
           ),
         ],
-        currentIndex: _selectedIndex,
+        currentIndex: selectedIndex,
         selectedItemColor: Colors.green.shade700,
-        onTap: _onItemTapped,
+        onTap: onItemTapped,
       ),
     );
   }
 }
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends void StatelessWidget {
   final List<Scheme> schemes;
   final List<Skill> skills;
   final UserProgress progress;
@@ -558,7 +567,7 @@ class DashboardScreen extends StatelessWidget {
   }
 }
 
-class GamificationScreen extends StatelessWidget {
+class GamificationScreen extends void StatelessWidget {
   final List<Badge> badges;
   final UserProgress progress;
   const GamificationScreen({super.key, required this.badges, required this.progress});

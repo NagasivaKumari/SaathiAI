@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class HomeDashboardScreen extends StatelessWidget {
+  const HomeDashboardScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -360,7 +362,7 @@ class _UpdateCard extends StatelessWidget {
 class _VoiceButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 80,
       width: 80,
       child: Stack(
@@ -368,8 +370,8 @@ class _VoiceButton extends StatelessWidget {
           FloatingActionButton(
             onPressed: () {},
             backgroundColor: Color(0xFF4CDF20),
-            child: Icon(Icons.mic, color: Colors.white, size: 36),
             elevation: 8,
+            child: Icon(Icons.mic, color: Colors.white, size: 36),
           ),
           Positioned(
             bottom: 0,
