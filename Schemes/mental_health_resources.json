@@ -1,0 +1,75 @@
+{
+  "helplines": [
+    {
+      "name": "NIMHANS Helpline",
+      "number": "080-46110007",
+      "available": "24/7",
+      "languages": ["English", "Hindi", "Kannada"],
+      "type": "mental_health"
+    },
+    {
+      "name": "Vandrevala Foundation",
+      "number": "1860-2662-345",
+      "available": "24/7",
+      "languages": ["English", "Hindi", "Multiple regional languages"],
+      "type": "suicide_prevention"
+    },
+    {
+      "name": "iCall - TISS",
+      "number": "9152987821",
+      "email": "icall@tiss.edu",
+      "available": "Monday to Saturday, 8 AM to 10 PM",
+      "languages": ["English", "Hindi"],
+      "type": "counseling"
+    },
+    {
+      "name": "Sneha India Foundation",
+      "number": "044-24640050",
+      "available": "24/7",
+      "languages": ["English", "Tamil", "Hindi"],
+      "type": "suicide_prevention"
+    }
+  ],
+  "ngos": [
+    {
+      "name": "The Live Love Laugh Foundation",
+      "focus": "Mental health awareness and support",
+      "website": "https://www.thelivelovelaughfoundation.org",
+      "services": ["Awareness", "Resources", "Support groups"]
+    },
+    {
+      "name": "Mpower",
+      "focus": "Mental health services",
+      "website": "https://mpowerminds.com",
+      "services": ["Counseling", "Therapy", "Workshops"]
+    }
+  ],
+  "grounding_techniques": [
+    {
+      "name": "5-4-3-2-1 Technique",
+      "steps": [
+        "Name 5 things you can see",
+        "Name 4 things you can touch",
+        "Name 3 things you can hear",
+        "Name 2 things you can smell",
+        "Name 1 thing you can taste"
+      ]
+    },
+    {
+      "name": "Box Breathing",
+      "steps": [
+        "Breathe in for 4 counts",
+        "Hold for 4 counts",
+        "Breathe out for 4 counts",
+        "Hold for 4 counts",
+        "Repeat 4 times"
+      ]
+    }
+  ],
+  "disclaimers": [
+    "This is not a replacement for professional mental health care",
+    "If you are in immediate danger, please call emergency services (112)",
+    "AI cannot provide diagnosis or treatment"
+  ]
+}
+

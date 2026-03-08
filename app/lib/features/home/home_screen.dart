@@ -1,17 +1,112 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  Map<String, dynamic>? dashboard;
+  bool loading = true;
+  String? error;
+  List<dynamic> recommendations = [];
+
+  final Map<String, Map<String, String>> localGreetings = {
+    'en-US': {
+      'greeting': 'Hi',
+      'payout': 'Next payout',
+      'recommendations': 'Proactive Recommendations',
+    },
+    'hi-IN': {
+      'greeting': 'नमस्ते',
+      'payout': 'अगला भुगतान',
+      'recommendations': 'सुझाव',
+    },
+    'mr-IN': {
+      'greeting': 'नमस्कार',
+      'payout': 'पुढील पेमेंट',
+      'recommendations': 'सूचना',
+    },
+    'bn-IN': {
+      'greeting': 'নমস্কার',
+      'payout': 'পরবর্তী পেমেন্ট',
+      'recommendations': 'প্রস্তাবনা',
+    },
+  };
+  String selectedLanguage = 'en-US';
+
+  @override
+  void initState() {
+    super.initState();
+    fetchDashboard();
+    fetchRecommendations();
+  }
+
+  Future<void> fetchDashboard() async {
+    setState(() { loading = true; error = null; });
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final cachedDashboard = prefs.getString('dashboard');
+      if (cachedDashboard != null) {
+        dashboard = json.decode(cachedDashboard);
+        setState(() { loading = false; });
+      }
+      final res = await http.get(Uri.parse('http://localhost:3000/api/user/dashboard'));
+      if (res.statusCode == 200) {
+        dashboard = json.decode(res.body);
+        await prefs.setString('dashboard', res.body);
+      } else {
+        error = 'Failed to load dashboard';
+      }
+    } catch (e) {
+      error = 'Network error';
+    }
+    setState(() { loading = false; });
+  }
+
+  Future<void> fetchRecommendations() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final cachedRecs = prefs.getString('recommendations');
+      if (cachedRecs != null) {
+        recommendations = json.decode(cachedRecs);
+        setState(() {});
+      }
+      final res = await http.get(Uri.parse('http://localhost:3000/api/ai/predictive-recommendations?userId=demoUser&lang=en-US'));
+      if (res.statusCode == 200) {
+        final data = json.decode(res.body);
+        recommendations = data['recommendations'] ?? [];
+        await prefs.setString('recommendations', json.encode(recommendations));
+        setState(() {});
+      }
+    } catch (e) {
+      // ignore errors for now
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final String userName = 'Sunil, Sanchi';
-    final String nextPayout = '3 Days';
-    final String nextScheme = '4:30 PM';
-    final List<Map<String, dynamic>> badges = [
-      {'icon': Icons.emoji_events, 'label': 'Gold Badge', 'desc': 'Scheme Seeker'},
-      {'icon': Icons.star, 'label': 'Skill Starter', 'desc': 'Started a skill'},
-    ];
+    if (loading) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+    if (error != null) {
+      return Scaffold(
+        body: Center(child: Text(error!, style: TextStyle(color: Colors.red))),
+      );
+    }
+    final user = dashboard?['user'] ?? {};
+    final badges = dashboard?['badges'] ?? [];
+    final userName = user['name'] ?? '';
+    final nextPayout = user['nextPayout'] ?? '';
+    final nextScheme = user['nextScheme'] ?? '';
+    final greetings = localGreetings[selectedLanguage] ?? localGreetings['en-US']!;
 
     return Scaffold(
       backgroundColor: Color(0xFFF6F8F6),
@@ -20,6 +115,19 @@ class HomeScreen extends StatelessWidget {
         elevation: 0,
         title: Text('SathiAI', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
         actions: [
+          DropdownButton<String>(
+            value: selectedLanguage,
+            dropdownColor: Colors.white,
+            items: [
+              DropdownMenuItem(value: 'en-US', child: Text('English')),
+              DropdownMenuItem(value: 'hi-IN', child: Text('हिंदी')),
+              DropdownMenuItem(value: 'mr-IN', child: Text('मराठी')),
+              DropdownMenuItem(value: 'bn-IN', child: Text('বাংলা')),
+            ],
+            onChanged: (val) {
+              setState(() { selectedLanguage = val ?? 'en-US'; });
+            },
+          ),
           IconButton(
             icon: Icon(Icons.person, color: Colors.white),
             onPressed: () {
@@ -46,9 +154,9 @@ class HomeScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Hi, $userName', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                      Text('${greetings['greeting']}, $userName', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                       const SizedBox(height: 4),
-                      Text('Next payout: $nextPayout', style: const TextStyle(color: Colors.grey)),
+                      Text('${greetings['payout']}: $nextPayout', style: const TextStyle(color: Colors.grey)),
                       Text('Next scheme: $nextScheme', style: const TextStyle(color: Colors.grey)),
                     ],
                   ),
@@ -151,6 +259,50 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 32),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton.icon(
+                  icon: Icon(Icons.emoji_events),
+                  label: Text('Leaderboard'),
+                  onPressed: () => Navigator.pushNamed(context, '/leaderboard'),
+                ),
+                ElevatedButton.icon(
+                  icon: Icon(Icons.notifications),
+                  label: Text('Alerts'),
+                  onPressed: () => Navigator.pushNamed(context, '/alerts'),
+                ),
+                ElevatedButton.icon(
+                  icon: Icon(Icons.analytics),
+                  label: Text('Predict'),
+                  onPressed: () => Navigator.pushNamed(context, '/market-predict'),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            if (recommendations.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(greetings['recommendations']!, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    ...recommendations.map((rec) => Card(
+                      child: ListTile(
+                        leading: Icon(
+                          rec['type'] == 'scheme' ? Icons.account_balance :
+                          rec['type'] == 'skill' ? Icons.school :
+                          rec['type'] == 'market' ? Icons.shopping_basket :
+                          Icons.notifications,
+                          color: Colors.green,
+                        ),
+                        title: Text(rec['message'] ?? ''),
+                      ),
+                    ))
+                  ],
+                ),
+              ),
+            const SizedBox(height: 24),
           ],
         ),
       ),

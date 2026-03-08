@@ -6,7 +6,7 @@ const router = express.Router();
 
 // AI Query
 router.post("/query", async (req, res) => {
-  const { query, userId } = req.body;
+  const { query, userId, lang } = req.body;
 
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey || apiKey === "MY_GEMINI_API_KEY") {
@@ -22,22 +22,26 @@ router.post("/query", async (req, res) => {
 
     const response = await ai.models.generateContent({
       model: "gemini-2.0-flash",
-      contents: `You are SathiAI, a friendly rural assistant. 
+      contents: `You are SathiAI, a friendly rural AI companion for rural India. 
       User Name: ${userName}.
       User Query: ${query}
+      Language: ${lang || 'en-US'}
       
-      Tasks:
-      1. Identify the intent (e.g., farming_advice, scheme_info, market_query, general_help).
-      2. Provide a friendly, encouraging response in simple steps.
-      3. Suggest 2-3 follow-up actions.
-      
-      Respond in JSON format:
+      Instructions:
+      - Respond in the user's language (${lang || 'en-US'}). If Hindi, use simple, friendly Hindi with local idioms and analogies. If Marathi, use Marathi idioms. If Bengali, use Bengali idioms. If English, use simple rural English.
+      - Always use a supportive, patient, and culturally aware tone, like a village mentor.
+      - Break down complex processes into simple steps.
+      - Suggest 2-3 follow-up actions relevant to rural users.
+      - If the query is about government schemes, skills, or market, provide actionable advice.
+      - If possible, use local analogies (e.g., farming, festivals, daily life).
+      - Respond in JSON format:
       {
         "intent": "string",
         "confidence": number,
         "response": "string",
         "suggestions": ["string"]
-      }`,
+      }
+      `,
       config: {
         responseMimeType: "application/json"
       }
@@ -86,6 +90,49 @@ router.get("/recommendations", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: "Failed to get recommendations" });
   }
+});
+
+// Predictive/Proactive Recommendations
+router.get("/predictive-recommendations", async (req, res) => {
+  const { userId, lang } = req.query as { userId?: string; lang?: string };
+  const now = new Date();
+  const hour = now.getHours();
+  const recommendations: { type: string; message: string }[] = [];
+
+  if (hour < 12) {
+    recommendations.push({
+      type: "scheme",
+      message:
+        lang === "hi-IN"
+          ? "आज प्रधानमंत्री किसान योजना के लिए आवेदन करें!"
+          : "Apply for PM Kisan scheme today!",
+    });
+    recommendations.push({
+      type: "skill",
+      message:
+        lang === "hi-IN"
+          ? "नई कौशल सीखें: सिलाई या कंप्यूटर"
+          : "Learn a new skill: tailoring or computers",
+    });
+  } else {
+    recommendations.push({
+      type: "market",
+      message:
+        lang === "hi-IN"
+          ? "बाजार में प्याज के दाम बढ़ रहे हैं, बेचने का अच्छा समय है।"
+          : "Onion prices are rising, good time to sell.",
+    });
+  }
+
+  recommendations.push({
+    type: "alert",
+    message:
+      lang === "hi-IN"
+        ? "आपका अगला भुगतान 7 मार्च को है।"
+        : "Your next payout is on March 7.",
+  });
+
+  res.json({ recommendations });
 });
 
 export default router;

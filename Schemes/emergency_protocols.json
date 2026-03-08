@@ -1,0 +1,66 @@
+{
+  "protocols": [
+    {
+      "id": "cpr",
+      "name": "CPR (Cardiopulmonary Resuscitation)",
+      "when_to_use": "Person is unconscious and not breathing",
+      "steps": [
+        "Call 112 immediately or ask someone else to call",
+        "Place person on firm, flat surface",
+        "Kneel beside the person's chest",
+        "Place heel of one hand on center of chest",
+        "Place other hand on top, interlock fingers",
+        "Keep arms straight, position shoulders above hands",
+        "Push hard and fast - at least 2 inches deep",
+        "Push at rate of 100-120 compressions per minute",
+        "Continue until help arrives or person starts breathing"
+      ],
+      "warnings": [
+        "Do not stop compressions unless person shows signs of life",
+        "If trained, give 2 rescue breaths after every 30 compressions"
+      ]
+    },
+    {
+      "id": "choking",
+      "name": "Choking - Heimlich Maneuver",
+      "when_to_use": "Person cannot breathe, cough, or speak",
+      "steps": [
+        "Stand behind the person",
+        "Wrap arms around their waist",
+        "Make a fist with one hand, place above navel",
+        "Grasp fist with other hand",
+        "Give quick, upward thrusts",
+        "Repeat until object is expelled",
+        "Call 112 if object doesn't come out"
+      ],
+      "warnings": [
+        "Do not slap the back if person is standing",
+        "For pregnant women or obese persons, give chest thrusts instead"
+      ]
+    },
+    {
+      "id": "fire",
+      "name": "Fire Emergency",
+      "when_to_use": "Fire in building or nearby",
+      "steps": [
+        "Alert everyone - shout 'Fire!'",
+        "Call 101 (Fire) or 112 (Emergency)",
+        "If fire is small and you have extinguisher, use PASS method:",
+        "  P - Pull the pin",
+        "  A - Aim at base of fire",
+        "  S - Squeeze handle",
+        "  S - Sweep side to side",
+        "If fire is large, evacuate immediately",
+        "Stay low to avoid smoke",
+        "Feel doors before opening (if hot, don't open)",
+        "Use stairs, never elevator",
+        "Once out, stay out - don't go back"
+      ],
+      "warnings": [
+        "Never use water on electrical or oil fires",
+        "Smoke is more dangerous than flames"
+      ]
+    }
+  ]
+}
+

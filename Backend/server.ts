@@ -8,6 +8,12 @@ import authRoutes from "./src/routes/auth";
 import aiRoutes from "./src/routes/ai";
 import marketRoutes from "./src/routes/market";
 import gamificationRoutes from "./src/routes/gamification";
+import userRoutes from "./src/routes/user";
+import schemesRoutes from "./src/routes/schemes";
+import skillsRoutes from "./src/routes/skills";
+import alertsRoutes from "./src/routes/alerts";
+import syncRoutes from "./src/routes/sync";
+import userProfileRoutes from "./src/routes/user_profile";
 import { startScheduler } from "./src/services/scheduler";
 
 // Load environment variables
@@ -29,6 +35,12 @@ async function startServer() {
   app.use("/api/ai", aiRoutes);
   app.use("/api/market", marketRoutes);
   app.use("/api/gamification", gamificationRoutes);
+  app.use("/api/user", userRoutes);
+  app.use("/api/schemes", schemesRoutes);
+  app.use("/api/skills", skillsRoutes);
+  app.use("/api/alerts", alertsRoutes);
+  app.use("/api/sync", syncRoutes);
+  app.use("/api/user_profile", userProfileRoutes);
 
   // Health check
   app.get("/api/health", (req, res) => {

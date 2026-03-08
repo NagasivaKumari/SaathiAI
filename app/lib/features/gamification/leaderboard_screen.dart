@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class AchievementsBadgesScreen extends StatefulWidget {
-  const AchievementsBadgesScreen({super.key});
+class LeaderboardScreen extends StatefulWidget {
+  const LeaderboardScreen({super.key});
 
   @override
-  State<AchievementsBadgesScreen> createState() => _AchievementsBadgesScreenState();
+  State<LeaderboardScreen> createState() => _LeaderboardScreenState();
 }
 
-class _AchievementsBadgesScreenState extends State<AchievementsBadgesScreen> {
+class _LeaderboardScreenState extends State<LeaderboardScreen> {
   List<dynamic> leaderboard = [];
   bool loading = true;
-  String error = '';
+  String? error;
 
   @override
   void initState() {
@@ -21,7 +21,7 @@ class _AchievementsBadgesScreenState extends State<AchievementsBadgesScreen> {
   }
 
   Future<void> fetchLeaderboard() async {
-    setState(() { loading = true; error = ''; });
+    setState(() { loading = true; error = null; });
     try {
       final res = await http.get(Uri.parse('http://localhost:3000/api/gamification/leaderboard'));
       if (res.statusCode == 200) {
@@ -41,8 +41,8 @@ class _AchievementsBadgesScreenState extends State<AchievementsBadgesScreen> {
       appBar: AppBar(title: Text('Leaderboard')),
       body: loading
           ? Center(child: CircularProgressIndicator())
-          : error.isNotEmpty
-              ? Center(child: Text(error, style: TextStyle(color: Colors.red)))
+          : error != null
+              ? Center(child: Text(error!, style: TextStyle(color: Colors.red)))
               : ListView.builder(
                   itemCount: leaderboard.length,
                   itemBuilder: (context, idx) {
