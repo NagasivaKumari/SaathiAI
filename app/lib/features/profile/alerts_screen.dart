@@ -23,7 +23,7 @@ class _AlertsScreenState extends State<AlertsScreen> {
   Future<void> fetchAlerts() async {
     setState(() { loading = true; error = null; });
     try {
-      final res = await http.get(Uri.parse('http://localhost:3000/api/alerts'));
+      final res = await http.get(Uri.parse('https://f47f-2405-201-c033-282b-98d-a46-df4e-a61.ngrok-free.app/api/alerts'));
       if (res.statusCode == 200) {
         alerts = json.decode(res.body);
       } else {

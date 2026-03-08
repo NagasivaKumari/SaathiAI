@@ -17,7 +17,7 @@ class _GamificationActionScreenState extends State<GamificationActionScreen> {
     setState(() { loading = true; result = null; });
     try {
       final res = await http.post(
-        Uri.parse('http://localhost:3000/api/gamification/action'),
+        Uri.parse('https://f47f-2405-201-c033-282b-98d-a46-df4e-a61.ngrok-free.app/api/gamification/action'),
         headers: {'Content-Type': 'application/json'},
         body: json.encode({'action': action}),
       );

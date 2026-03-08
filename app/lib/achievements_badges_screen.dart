@@ -23,7 +23,7 @@ class _AchievementsBadgesScreenState extends State<AchievementsBadgesScreen> {
   Future<void> fetchLeaderboard() async {
     setState(() { loading = true; error = ''; });
     try {
-      final res = await http.get(Uri.parse('http://localhost:3000/api/gamification/leaderboard'));
+      final res = await http.get(Uri.parse('https://f47f-2405-201-c033-282b-98d-a46-df4e-a61.ngrok-free.app/api/gamification/leaderboard'));
       if (res.statusCode == 200) {
         leaderboard = json.decode(res.body);
       } else {

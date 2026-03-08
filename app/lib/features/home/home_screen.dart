@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../services/api_client.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,10 +12,23 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Map<String, dynamic>? dashboard;
-  bool loading = true;
+  final ApiClient api = ApiClient(baseUrl: 'http://10.0.2.2:8000');
+  final TextEditingController _searchController = TextEditingController();
+  List<dynamic> searchResults = [];
+  bool searching = false;
+  Map<String, dynamic>? dashboard = const {
+    'user': {'name': 'Demo User', 'nextPayout': '15 Mar 2026', 'nextScheme': 'PM-Kisan'},
+    'badges': [
+      {'name': 'Starter', 'icon': '🏅'},
+      {'name': 'Farmer', 'icon': '🌾'}
+    ]
+  };
+  bool loading = false;
   String? error;
-  List<dynamic> recommendations = [];
+  List<dynamic> recommendations = const [
+    {'title': 'Try Organic Farming', 'desc': 'Learn about organic methods for better yield.'},
+    {'title': 'Check Market Prices', 'desc': 'Stay updated with latest mandi rates.'}
+  ];
 
   final Map<String, Map<String, String>> localGreetings = {
     'en-US': {
@@ -43,12 +57,27 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    fetchDashboard();
-    fetchRecommendations();
+    // Show demo data immediately, then try to fetch real data
+    Future.microtask(() {
+      fetchDashboard();
+      fetchRecommendations();
+    });
+  }
+
+  Future<void> doGlobalSearch(String query) async {
+    if (query.trim().isEmpty) return;
+    setState(() { searching = true; searchResults = []; });
+    try {
+      final results = await api.globalSearch(query, lang: selectedLanguage);
+      setState(() { searchResults = results; });
+    } catch (e) {
+      setState(() { searchResults = []; });
+    }
+    setState(() { searching = false; });
   }
 
   Future<void> fetchDashboard() async {
-    setState(() { loading = true; error = null; });
+    setState(() { error = null; });
     try {
       final prefs = await SharedPreferences.getInstance();
       final cachedDashboard = prefs.getString('dashboard');
@@ -56,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
         dashboard = json.decode(cachedDashboard);
         setState(() { loading = false; });
       }
-      final res = await http.get(Uri.parse('http://localhost:3000/api/user/dashboard'));
+      final res = await http.get(Uri.parse('https://f47f-2405-201-c033-282b-98d-a46-df4e-a61.ngrok-free.app/api/user/dashboard'));
       if (res.statusCode == 200) {
         dashboard = json.decode(res.body);
         await prefs.setString('dashboard', res.body);
@@ -77,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
         recommendations = json.decode(cachedRecs);
         setState(() {});
       }
-      final res = await http.get(Uri.parse('http://localhost:3000/api/ai/predictive-recommendations?userId=demoUser&lang=en-US'));
+      final res = await http.get(Uri.parse('https://f47f-2405-201-c033-282b-98d-a46-df4e-a61.ngrok-free.app/api/ai/predictive-recommendations?userId=demoUser&lang=en-US'));
       if (res.statusCode == 200) {
         final data = json.decode(res.body);
         recommendations = data['recommendations'] ?? [];
@@ -91,11 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (loading) {
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
-    }
+    // Always show at least demo data
     if (error != null) {
       return Scaffold(
         body: Center(child: Text(error!, style: TextStyle(color: Colors.red))),
@@ -142,6 +167,45 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // --- Search Bar ---
+            TextField(
+              controller: _searchController,
+              decoration: InputDecoration(
+                hintText: 'Search schemes, crop prices, skills...',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                filled: true,
+                fillColor: Colors.white,
+              ),
+              onSubmitted: doGlobalSearch,
+            ),
+            const SizedBox(height: 12),
+            if (searching) ...[
+              Center(child: CircularProgressIndicator()),
+              const SizedBox(height: 12),
+            ],
+            if (searchResults.isNotEmpty)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Search Results', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                  const SizedBox(height: 8),
+                  ...searchResults.map((r) => Card(
+                        child: ListTile(
+                          leading: Icon(
+                            r['type'] == 'scheme' ? Icons.account_balance :
+                            r['type'] == 'skill' ? Icons.school :
+                            r['type'] == 'market' ? Icons.shopping_basket :
+                            Icons.search,
+                            color: Colors.green,
+                          ),
+                          title: Text(r['name'] ?? r['crop'] ?? r['title'] ?? ''),
+                          subtitle: Text(r['description'] ?? r['market'] ?? ''),
+                        ),
+                      )),
+                  const SizedBox(height: 16),
+                ],
+              ),
             Row(
               children: [
                 CircleAvatar(
@@ -224,7 +288,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const Text('My Badges', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 12),
             SizedBox(
-              height: 90,
+              height: 80,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 itemCount: badges.length,
@@ -232,8 +296,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, idx) {
                   final badge = badges[idx];
                   return Container(
-                    width: 120,
-                    padding: const EdgeInsets.all(12),
+                    width: 110,
+                    padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(16),
@@ -248,10 +312,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(badge['icon'], color: Colors.amber, size: 32),
-                        const SizedBox(height: 8),
-                        Text(badge['label'], style: const TextStyle(fontWeight: FontWeight.bold)),
-                        Text(badge['desc'], style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                        Icon(badge['icon'], color: Colors.amber, size: 26),
+                        const SizedBox(height: 4),
+                        Text(badge['label'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+                        Text(badge['desc'], style: const TextStyle(fontSize: 10, color: Colors.grey), maxLines: 1, overflow: TextOverflow.ellipsis),
                       ],
                     ),
                   );

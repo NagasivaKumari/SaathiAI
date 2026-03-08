@@ -2,6 +2,33 @@ from src.device_fingerprint import get_device_fingerprint
 
 from fastapi import APIRouter, HTTPException, Body, Response, Request
 from pydantic import BaseModel, EmailStr
+# ...existing code...
+
+
+# ...existing code...
+
+router = APIRouter()
+
+# Resend OTP endpoint
+class ResendOtpRequest(BaseModel):
+    email: EmailStr
+
+@router.post("/resend-otp")
+async def resend_otp(request: ResendOtpRequest, req: Request):
+    check_rate_limit(req)
+    fingerprint = get_device_fingerprint(req)
+    print(f"OTP resend requested from device: {fingerprint}")
+    otp = str(random.randint(100000, 999999))
+    db_service.save_otp(request.email, otp)
+    message_id = ses_service.send_otp_email(request.email, otp)
+    if not message_id:
+        print(f"DEBUG: OTP {otp} for {request.email} (SES failed or not setup)")
+        return {"message": "OTP generated (Trial Mode)", "otp": otp}
+    return {"message": "OTP resent successfully to your email"}
+from src.device_fingerprint import get_device_fingerprint
+
+from fastapi import APIRouter, HTTPException, Body, Response, Request
+from pydantic import BaseModel, EmailStr
 import random
 import datetime
 import jwt

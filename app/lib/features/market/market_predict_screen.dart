@@ -19,7 +19,7 @@ class _MarketPredictScreenState extends State<MarketPredictScreen> {
     setState(() { loading = true; error = null; prediction = null; });
     try {
       final res = await http.post(
-        Uri.parse('http://localhost:3000/api/market/predict'),
+        Uri.parse('https://f47f-2405-201-c033-282b-98d-a46-df4e-a61.ngrok-free.app/api/market/predict'),
         headers: {'Content-Type': 'application/json'},
         body: json.encode({'crop': crop}),
       );

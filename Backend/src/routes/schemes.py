@@ -3,11 +3,18 @@ from src.aws_db import db_service
 
 router = APIRouter()
 
+# In-memory fallback when DynamoDB is not configured (no API keys required)
+_SCHEMES_FALLBACK = [
+    {"id": "s1", "name": "PM-Kisan Samman Nidhi", "description": "₹6,000 yearly direct income support for small and marginal farmers.", "status": "Active", "category": "Agriculture"},
+    {"id": "s2", "name": "Ayushman Bharat (PM-JAY)", "description": "Free health cover up to ₹5 Lakhs per family per year.", "status": "Active", "category": "Health"},
+    {"id": "s3", "name": "PM Awas Yojana (Gramin)", "description": "Housing for all in rural areas.", "status": "Active", "category": "Housing"},
+]
+
 @router.get("")
 async def get_schemes(q: str = None, category: str = None, state: str = None, lang: str = "en-US"):
     schemes = db_service.get_all_schemes()
     if not schemes:
-        return []
+        schemes = list(_SCHEMES_FALLBACK)
     
     if q:
         q = q.lower()

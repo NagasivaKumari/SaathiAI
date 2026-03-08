@@ -1,3 +1,16 @@
+
+from fastapi import APIRouter, HTTPException, Query, Body, UploadFile, File
+import tempfile
+from src.s3_service import s3_service
+from src.aws_db import db_service
+import os
+import jwt
+from typing import Optional, List
+
+router = APIRouter()
+JWT_SECRET = os.getenv("JWT_SECRET", "sathiai-secret-key")
+
+
 # Push notification endpoint (Firebase/FCM)
 @router.post("/send-push")
 async def send_push(email: str = Body(...), token: str = Body(...), title: str = Body(...), body: str = Body(...)):

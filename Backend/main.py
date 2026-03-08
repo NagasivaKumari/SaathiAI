@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 # Load environment variables BEFORE importing routes
 load_dotenv()
 
-from src.routes import auth, ai, market, schemes, user, skills, sync, gamification
+from src.routes import auth, ai, market, schemes, user, skills, sync, gamification, search
 
 app = FastAPI(title="SathiAI AWS-Powered API", version="1.0.0")
 
@@ -49,6 +49,7 @@ app.include_router(user.router, prefix="/api/user", tags=["user"])
 app.include_router(skills.router, prefix="/api/skills", tags=["skills"])
 app.include_router(sync.router, prefix="/api/sync", tags=["sync"])
 app.include_router(gamification.router, prefix="/api/gamification", tags=["gamification"])
+app.include_router(search.router, prefix="/api/search", tags=["search"])
 
 if __name__ == "__main__":
     import uvicorn

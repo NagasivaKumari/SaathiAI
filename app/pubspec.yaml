@@ -39,6 +39,8 @@ dependencies:
   shared_preferences: ^2.2.2
   flutter_tts: ^3.8.5
   speech_to_text: ^7.3.0
+  provider: ^6.1.2
+  flutter_dotenv: ^5.2.1
 
 dev_dependencies:
   flutter_test:
@@ -61,6 +63,9 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets:
+    - assets/lang/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

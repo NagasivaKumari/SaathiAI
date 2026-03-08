@@ -1,24 +1,25 @@
-    def get_user_by_username(self, username: str) -> Optional[Dict[str, Any]]:
-        try:
-            response = self.users_table.scan(
-                FilterExpression='username = :username',
-                ExpressionAttributeValues={':username': username}
-            )
-            items = response.get('Items', [])
-            return items[0] if items else None
-        except Exception:
-            return None
+from typing import Optional, Dict, Any
+def get_user_by_username(self, username: str) -> Optional[Dict[str, Any]]:
+    try:
+        response = self.users_table.scan(
+            FilterExpression='username = :username',
+            ExpressionAttributeValues={':username': username}
+        )
+        items = response.get('Items', [])
+        return items[0] if items else None
+    except Exception:
+        return None
 
-    def get_user_by_phone(self, phone: str) -> Optional[Dict[str, Any]]:
-        try:
-            response = self.users_table.scan(
-                FilterExpression='phone = :phone',
-                ExpressionAttributeValues={':phone': phone}
-            )
-            items = response.get('Items', [])
-            return items[0] if items else None
-        except Exception:
-            return None
+def get_user_by_phone(self, phone: str) -> Optional[Dict[str, Any]]:
+    try:
+        response = self.users_table.scan(
+            FilterExpression='phone = :phone',
+            ExpressionAttributeValues={':phone': phone}
+        )
+        items = response.get('Items', [])
+        return items[0] if items else None
+    except Exception:
+        return None
 import boto3
 import os
 import time
@@ -28,16 +29,31 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 class DynamoDBService:
+    def delete_all_users(self):
+        """Delete all users from the users table. Use for admin/cleanup only!"""
+        try:
+            scan = self.users_table.scan()
+            with self.users_table.batch_writer() as batch:
+                for item in scan.get('Items', []):
+                    batch.delete_item(Key={"email": item["email"]})
+            print("All users deleted from DynamoDB users table.")
+        except Exception as e:
+            print(f"Error deleting all users: {e}")
+
     def __init__(self):
         access_key = os.getenv("AWS_ACCESS_KEY_ID")
         secret_key = os.getenv("AWS_SECRET_ACCESS_KEY")
-        
+
         if not access_key or "YOUR" in access_key or not secret_key:
             print("❌ CRITICAL: AWS Credentials missing or invalid in .env!")
-            if not access_key: print("   - AWS_ACCESS_KEY_ID is missing")
-            elif "YOUR" in access_key: print("   - AWS_ACCESS_KEY_ID still has placeholder value")
-            if not secret_key: print("   - AWS_SECRET_ACCESS_KEY is missing")
+            if not access_key:
+                print("   - AWS_ACCESS_KEY_ID is missing")
+            elif "YOUR" in access_key:
+                print("   - AWS_ACCESS_KEY_ID still has placeholder value")
+            if not secret_key:
+                print("   - AWS_SECRET_ACCESS_KEY is missing")
             self.dynamodb = None
             return
 
@@ -110,6 +126,8 @@ class DynamoDBService:
             pass
 
     def get_all_schemes(self) -> List[Dict[str, Any]]:
+        if not self.dynamodb:
+            return []
         try:
             response = self.schemes_table.scan()
             return response.get('Items', [])
@@ -120,6 +138,8 @@ class DynamoDBService:
         """Fetch a single scheme from DynamoDB by its ID.
         Returns the scheme dict or None if not found.
         """
+        if not self.dynamodb:
+            return None
         try:
             response = self.schemes_table.get_item(Key={'id': scheme_id})
             return response.get('Item')
@@ -127,6 +147,8 @@ class DynamoDBService:
             return None
 
     def get_market_data(self) -> List[Dict[str, Any]]:
+        if not self.dynamodb:
+            return []
         try:
             table = self.dynamodb.Table(os.getenv("DYNAMO_MARKET_TABLE", "SathiAI_MarketData"))
             response = table.scan()

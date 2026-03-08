@@ -16,57 +16,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String? error;
 
   @override
-  void initState() {
-    super.initState();
-    fetchProfile();
-  }
-
-  Future<void> fetchProfile() async {
-    setState(() { loading = true; error = null; });
-    try {
-      final res = await http.get(Uri.parse('http://localhost:3000/api/auth/profile'));
-      if (res.statusCode == 200) {
-        profile = json.decode(res.body);
-      } else {
-        error = 'Failed to load profile';
-      }
-    } catch (e) {
-      error = 'Network error';
-    }
-    setState(() { loading = false; });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    Future<void> showAuth() async {
-      final token = await Navigator.pushNamed(context, '/auth');
-      // Save token securely for future API calls
-    }
-    if (loading) {
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
-    }
-    if (error != null) {
-      return Scaffold(
-        body: Center(child: Text(error!, style: TextStyle(color: Colors.red))),
-      );
-    }
-    final name = profile?['name'] ?? '';
-    final points = profile?['points'] ?? 0;
+    // Demo profile info (replace with real data if needed)
+    final name = 'Sunita Devi';
+    final points = 450;
     return Scaffold(
       backgroundColor: Color(0xFFF6F8F6),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         title: Text('Profile & Settings', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600)),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.login, color: Colors.green),
-            tooltip: 'Login/Register',
-            onPressed: showAuth,
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),

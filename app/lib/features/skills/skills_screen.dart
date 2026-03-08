@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import '../../core/config.dart';
+import '../../services/api_client.dart';
 
 class SkillsScreen extends StatefulWidget {
   const SkillsScreen({super.key});
@@ -10,29 +10,33 @@ class SkillsScreen extends StatefulWidget {
 }
 
 class _SkillsScreenState extends State<SkillsScreen> {
-  List<dynamic> skills = [];
-  bool loading = true;
+  List<dynamic> skills = _fallbackSkills;
+  bool loading = false;
   String? error;
+  late final ApiClient api;
 
   @override
   void initState() {
     super.initState();
-    fetchSkills();
+    api = ApiClient(baseUrl: AppConfig.BASE_URL);
+    // Show fallback data immediately, then try to fetch real data
+    Future.microtask(() => fetchSkills());
   }
 
+  static List<Map<String, dynamic>> get _fallbackSkills => [
+    {'id': '1', 'name': 'Organic Farming', 'category': 'Agriculture', 'description': 'Learn sustainable farming', 'progress': 0.7, 'duration': '3 weeks', 'certificate': true, 'status': 'In Progress'},
+    {'id': '2', 'name': 'Dairy Management', 'category': 'Agriculture', 'description': 'Cow care basics', 'progress': 1.0, 'duration': '2 weeks', 'certificate': true, 'status': 'Completed'},
+    {'id': '3', 'name': 'Digital Literacy', 'category': 'Digital', 'description': 'Using apps for market', 'progress': 0.2, 'duration': '1 week', 'certificate': false, 'status': 'In Progress'},
+  ];
+
   Future<void> fetchSkills() async {
-    setState(() { loading = true; error = null; });
+    setState(() { error = null; });
     try {
-      final res = await http.get(Uri.parse('http://localhost:3000/api/skills'));
-      if (res.statusCode == 200) {
-        skills = json.decode(res.body);
-      } else {
-        error = 'Failed to load skills';
-      }
-    } catch (e) {
-      error = 'Network error';
+      skills = await api.getSkills();
+    } catch (_) {
+      skills = _fallbackSkills;
     }
-    setState(() { loading = false; });
+    if (mounted) setState(() { loading = false; });
   }
 
   IconData _skillIcon(String name) {
@@ -44,11 +48,7 @@ class _SkillsScreenState extends State<SkillsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (loading) {
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
-    }
+    // Always show at least fallback/demo data
     if (error != null) {
       return Scaffold(
         body: Center(child: Text(error!, style: TextStyle(color: Colors.red))),

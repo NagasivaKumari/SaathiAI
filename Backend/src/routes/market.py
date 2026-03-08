@@ -69,8 +69,16 @@ async def get_prices(commodity: str = None, state: str = None, lang: str = "en-U
             # If live fetch fails, fall back to DynamoDB
             pass
 
-    # 2. Fallback: DynamoDB market table (seeded + scraper)
+    # 2. DynamoDB (seeded + scraper) or in-memory demo when no API key and no DB
     data = db_service.get_market_data()
+    if not data:
+        # No API key and no DB: return demo data so app still shows content
+        data = [
+            {"id": "m1", "crop": "Wheat", "price": "2345", "trend": "up", "change": "120", "market": "Indore Mandi"},
+            {"id": "m2", "crop": "Tomato", "price": "2450", "trend": "up", "change": "120", "market": "Azadpur Mandi"},
+            {"id": "m3", "crop": "Potato", "price": "1580", "trend": "up", "change": "45", "market": "Agra Mandi"},
+            {"id": "m4", "crop": "Rice (Basmati)", "price": "3800", "trend": "up", "change": "45", "market": "Punjab Mandi"},
+        ]
     if commodity:
         commodity_l = commodity.lower()
         data = [

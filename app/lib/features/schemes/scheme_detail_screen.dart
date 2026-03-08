@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
+import '../../core/config.dart';
+import '../../services/api_client.dart';
 
 class SchemeDetailScreen extends StatefulWidget {
   final String schemeId;
@@ -14,6 +16,7 @@ class _SchemeDetailScreenState extends State<SchemeDetailScreen> {
   Map<String, dynamic>? scheme;
   bool loading = true;
   String? error;
+  final ApiClient api = ApiClient(baseUrl: AppConfig.BASE_URL);
 
   @override
   void initState() {
@@ -24,12 +27,7 @@ class _SchemeDetailScreenState extends State<SchemeDetailScreen> {
   Future<void> fetchSchemeDetail() async {
     setState(() { loading = true; error = null; });
     try {
-      final res = await http.get(Uri.parse('http://localhost:3000/api/schemes/${widget.schemeId}'));
-      if (res.statusCode == 200) {
-        scheme = json.decode(res.body);
-      } else {
-        error = 'Failed to load scheme details';
-      }
+      scheme = await api.getSchemeDetail(widget.schemeId);
     } catch (e) {
       error = 'Network error';
     }
@@ -95,10 +93,11 @@ class _SchemeDetailScreenState extends State<SchemeDetailScreen> {
                 final userId = 'demoUser';
                 final schemeId = scheme!['id'];
                 final applicationData = {'name': scheme!['name']};
+                final base = AppConfig.BASE_URL.endsWith('/') ? AppConfig.BASE_URL.substring(0, AppConfig.BASE_URL.length - 1) : AppConfig.BASE_URL;
                 final res = await http.post(
-                  Uri.parse('http://localhost:3000/api/schemes/apply'),
+                  Uri.parse('$base/api/schemes/apply'),
                   headers: {'Content-Type': 'application/json'},
-                  body: json.encode({
+                  body: jsonEncode({
                     'userId': userId,
                     'schemeId': schemeId,
                     'applicationData': applicationData,
@@ -106,7 +105,7 @@ class _SchemeDetailScreenState extends State<SchemeDetailScreen> {
                 );
                 String msg;
                 if (res.statusCode == 200) {
-                  final resp = json.decode(res.body);
+                  final resp = jsonDecode(res.body) as Map<String, dynamic>;
                   msg = resp['message'] ?? 'Application submitted';
                 } else {
                   msg = 'Failed to apply';
@@ -132,12 +131,13 @@ class _SchemeDetailScreenState extends State<SchemeDetailScreen> {
               onPressed: () async {
                 final userId = 'demoUser';
                 final schemeId = scheme!['id'];
+                final base = AppConfig.BASE_URL.endsWith('/') ? AppConfig.BASE_URL.substring(0, AppConfig.BASE_URL.length - 1) : AppConfig.BASE_URL;
                 final res = await http.get(
-                  Uri.parse('http://localhost:3000/api/schemes/application-status?userId=$userId&schemeId=$schemeId'),
+                  Uri.parse('$base/api/schemes/application-status?userId=$userId&schemeId=$schemeId'),
                 );
                 String msg;
                 if (res.statusCode == 200) {
-                  final resp = json.decode(res.body);
+                  final resp = jsonDecode(res.body) as Map<String, dynamic>;
                   msg = 'Status: ${resp['status']}';
                 } else {
                   msg = 'No application found';

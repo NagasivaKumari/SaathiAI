@@ -26,7 +26,10 @@ SathiAI is a production-ready, AI-powered platform for rural empowerment, built 
 
 ### Setup
 1. Clone the repo and `cd Backend`
-2. Copy `.env.example` to `.env` and fill in all required AWS and API keys
+2. Copy `.env.example` to `.env` and fill in your keys:
+   - **AWS:** `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION` (used for Bedrock, Polly, Transcribe, DynamoDB, S3)
+   - **Bedrock:** `AWS_BEDROCK_MODEL_ID` (e.g. `anthropic.claude-3-haiku-20240307-v1:0`)
+   - **Live data:** `DATA_GOV_IN_API_KEY` for real agri market prices from data.gov.in; optional `SCHEMES_API_URL` / `SCHEMES_SCRAPE_URL` for scheme scraping
 3. Install dependencies:
    ```bash
    pip install -r requirements.txt
