@@ -1,0 +1,38 @@
+service: sathiai-backend
+
+provider:
+  name: aws
+  runtime: python3.11
+  region: us-east-1
+  environment:
+    AWS_REGION: ${self:provider.region}
+    AWS_ACCESS_KEY_ID: ${env:AWS_ACCESS_KEY_ID}
+    AWS_SECRET_ACCESS_KEY: ${env:AWS_SECRET_ACCESS_KEY}
+    AWS_S3_BUCKET: sathiai-assets
+    DYNAMO_USERS_TABLE: SathiAI_Users
+    DYNAMO_SCHEMES_TABLE: SathiAI_Schemes
+    DYNAMO_OTPS_TABLE: SathiAI_OTPs
+    AWS_BEDROCK_MODEL_ID: anthropic.claude-3-haiku-20240307-v1:0
+
+functions:
+  api:
+    handler: src.main.handler
+    events:
+      - httpApi: '*'
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: true
+    layer: true
+    slim: true
+
+package:
+  exclude:
+    - node_modules/**
+    - tests/**
+    - scripts/**
+    - .venv/**
+    - __pycache__/**

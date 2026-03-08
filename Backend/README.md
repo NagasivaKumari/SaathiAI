@@ -1,43 +1,101 @@
-# Security & Cloud Deployment
+# SathiAI Backend
 
-## Security Best Practices
-- All sensitive API keys (Gemini, Agmarknet, etc.) are stored in environment variables and never hardcoded.
-- JWT authentication is used for all user endpoints. Tokens are required for profile and protected routes.
-- Passwords are hashed using bcrypt before storing in the database.
-- CORS is enabled for API routes.
-- Always use HTTPS in production deployments.
-- Regularly update dependencies to patch vulnerabilities.
+SathiAI is a production-ready, AI-powered platform for rural empowerment, built on AWS and designed for seamless integration with Flutter and web/mobile frontends.
 
-## Cloud Deployment
-- Recommended platforms: AWS Lambda/API Gateway, Google Cloud Run, or Azure Functions for backend APIs.
-- Use managed databases (AWS RDS, Google Cloud SQL) for scalability.
-- Store secrets in cloud secret managers (AWS Secrets Manager, GCP Secret Manager).
-- Use CI/CD pipelines for automated deployment and testing.
-- Enable auto-scaling and health checks for high availability.
-- Use S3 or GCS for static asset hosting and backups.
+---
 
-## Scalability
-- Stateless backend APIs for easy scaling.
-- Modular codebase for adding new features and endpoints.
-- Use caching (Redis, CDN) for frequently accessed data.
-- Monitor usage and errors with cloud logging and alerting.
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+## Features
 
-# Run and deploy your AI Studio app
+- **User Management:** OTP-based signup/login, password reset, profile update, account deletion/export, profile completeness check
+- **Authentication:** JWT access/refresh tokens, secure cookies, rate limiting, device fingerprinting, suspicious activity logging
+- **Notifications:** Push notifications (Firebase/FCM), in-app notification center, SMS/email alerts
+- **AI/ML:** Amazon Bedrock-powered chat, text-to-speech (Polly), speech-to-text (Transcribe)
+- **Analytics:** User activity logging, crash/error reporting
+- **Compliance:** GDPR-ready account export/deletion, privacy/terms/help endpoints
+- **Cloud Native:** AWS DynamoDB, S3, SES, SNS, Bedrock, Polly, Transcribe
+- **Security:** Bcrypt password hashing, CORS, HTTPS, environment-based secrets
 
-This contains everything you need to run your app locally.
+---
 
-View your app in AI Studio: https://ai.studio/apps/f0323112-2235-42d9-b6e4-e374dc59482c
+## Quickstart
 
-## Run Locally
+### Prerequisites
+- Python 3.10+
+- AWS account (for DynamoDB, S3, SES, SNS, Bedrock, Polly, Transcribe)
+- Node.js (for frontend)
 
-**Prerequisites:**  Node.js
+### Setup
+1. Clone the repo and `cd Backend`
+2. Copy `.env.example` to `.env` and fill in all required AWS and API keys
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Run the backend:
+   ```bash
+   uvicorn src.main:app --reload
+   ```
 
+---
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## API Overview
+
+### Auth/User
+- `POST /api/auth/send-otp` — Send OTP for signup/login
+- `POST /api/auth/verify-otp` — Verify OTP and create/login user
+- `POST /api/auth/login` — Login with email/password
+- `POST /api/auth/refresh-token` — Get new access token
+- `POST /api/auth/password-reset-request` — Request password reset OTP
+- `POST /api/auth/password-reset-confirm` — Reset password
+- `GET /api/user/profile` — Get user profile
+- `PUT /api/user/update` — Update profile
+- `POST /api/user/profile-picture` — Upload profile picture (S3)
+- `GET /api/user/profile-completeness` — Profile completeness %
+- `DELETE /api/user/delete-account` — Delete account
+- `GET /api/user/export-account` — Export user data
+
+### Notifications
+- `POST /api/user/send-push` — Send push notification (FCM)
+- `POST /api/user/notify-in-app` — Add in-app notification
+- `GET /api/user/in-app-notifications` — List in-app notifications
+- `POST /api/user/mark-notification-read` — Mark notification as read
+- `POST /api/user/send-sms-alert` — Send SMS alert
+
+### Analytics/Crash
+- `POST /api/user/log-analytics` — Log analytics event
+- `POST /api/user/log-crash` — Log crash/error
+
+### AI/Voice
+- `POST /api/ai/query` — AI chat (Bedrock)
+- `POST /api/ai/tts` — Text-to-speech (Polly)
+- `POST /api/ai/stt` — Speech-to-text (Transcribe)
+
+---
+
+## Integration Guide
+
+- Call these endpoints from your Flutter/web app for all user flows.
+- For push notifications, register device tokens in the app and send to `/send-push`.
+- For analytics/crash, POST events/errors to `/log-analytics` and `/log-crash`.
+- Use cookies for session management (access/refresh tokens).
+- For file uploads (profile picture), use multipart/form-data.
+
+---
+
+## Deployment
+
+- Deploy on AWS Lambda/API Gateway (see `serverless.yml`), or any cloud supporting FastAPI.
+- Use AWS DynamoDB, S3, SES, SNS, Bedrock, Polly, Transcribe for full feature set.
+- Store secrets in `.env` (see `.env.example`).
+
+---
+
+## Security & Compliance
+- All secrets in environment variables
+- JWT, bcrypt, CORS, HTTPS
+- GDPR-ready account export/deletion
+
+---
+
+## License
+MIT
