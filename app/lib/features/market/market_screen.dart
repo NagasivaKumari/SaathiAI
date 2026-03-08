@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import '../../services/api_client.dart';
 
-  MarketScreen({super.key});
+class MarketScreen extends StatelessWidget {
+  const MarketScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +21,7 @@ class _MarketScreenBodyState extends State<MarketScreenBody> {
   List<dynamic> crops = [];
   bool loading = true;
   String? error;
+  final ApiClient api = ApiClient(baseUrl: 'http://10.0.2.2:3000');
 
   @override
   void initState() {
@@ -34,20 +35,12 @@ class _MarketScreenBodyState extends State<MarketScreenBody> {
       error = null;
     });
     try {
-      // TODO: Replace with your deployed backend URL
-      final url = Uri.parse('http://localhost:3000/api/market/prices');
-      final response = await http.get(url);
-      if (response.statusCode == 200) {
-        setState(() {
-          crops = json.decode(response.body);
-          loading = false;
-        });
-      } else {
-        setState(() {
-          error = 'Failed to load data';
-          loading = false;
-        });
-      }
+      // Example: fetch onion prices from backend (which now uses Agmarknet)
+      final data = await api.marketPrices();
+      setState(() {
+        crops = data;
+        loading = false;
+      });
     } catch (e) {
       setState(() {
         error = 'Error: $e';

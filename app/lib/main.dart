@@ -1,11 +1,15 @@
-
 import 'package:flutter/material.dart';
-import 'features/home/home_screen.dart';
+
 import 'features/schemes/schemes_screen.dart';
 import 'features/market/market_screen.dart';
 import 'features/skills/skills_screen.dart';
 import 'features/voice/voice_screen.dart';
 import 'features/profile/profile_screen.dart';
+
+
+
+
+
 
 // --- Data Models ---
 class Scheme {
@@ -33,29 +37,6 @@ class Badge {
   final String description;
   final bool earned;
   Badge({required this.name, required this.description, this.earned = false});
-}
-
-
-void main() {
-  runApp(const SathiAIApp());
-}
-
-class SathiAIApp extends StatelessWidget {
-  const SathiAIApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'SathiAI',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
-        useMaterial3: true,
-        fontFamily: 'Lexend',
-      ),
-      home: MainNavigation(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
 }
 
 class MainNavigation extends StatefulWidget {
@@ -154,7 +135,6 @@ class _MainNavigationState extends State<MainNavigation> {
     );
   }
 }
-}
 
 // --- Screen Stubs ---
 class HomeScreen extends StatelessWidget {
@@ -165,12 +145,6 @@ class HomeScreen extends StatelessWidget {
     final String userName = 'Sunil, Sanchi';
     final String nextPayout = '3 Days';
     final String nextScheme = '4:30 PM';
-    final List<Map<String, dynamic>> quickAccess = [
-      {'icon': Icons.mic, 'label': 'Ask Sathi'},
-      {'icon': Icons.school, 'label': 'Skills'},
-      {'icon': Icons.account_balance, 'label': 'Schemes'},
-      {'icon': Icons.shopping_basket, 'label': 'Market'},
-    ];
     final List<Map<String, dynamic>> badges = [
       {'icon': Icons.emoji_events, 'label': 'Gold Badge', 'desc': 'Scheme Seeker'},
       {'icon': Icons.star, 'label': 'Skill Starter', 'desc': 'Started a skill'},
@@ -187,342 +161,140 @@ class HomeScreen extends StatelessWidget {
             icon: Icon(Icons.person, color: Colors.white),
             onPressed: () {
               Navigator.push(context, MaterialPageRoute(builder: (_) => ProfileScreen()));
-            return Scaffold(
-              backgroundColor: Color(0xFFF6F8F6),
-              appBar: AppBar(
-                backgroundColor: Color(0xFF219653),
-                elevation: 0,
-                title: Text('SathiAI', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
-                actions: [
-                  IconButton(
-                    icon: Icon(Icons.person, color: Colors.white),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (_) => ProfileScreen()));
-                    },
-                    tooltip: 'Profile & Settings',
+            },
+            tooltip: 'Profile & Settings',
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                CircleAvatar(
+                  radius: 28,
+                  backgroundColor: Colors.green.shade200,
+                  child: Icon(Icons.person, size: 36, color: Colors.white),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Hi, $userName', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                      SizedBox(height: 4),
+                      Text('Next payout: $nextPayout', style: TextStyle(color: Colors.grey)),
+                      Text('Next scheme: $nextScheme', style: TextStyle(color: Colors.grey)),
+                    ],
                   ),
-                ],
-              ),
-              body: SingleChildScrollView(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 28,
-                          backgroundColor: Colors.green.shade200,
-                          child: const Icon(Icons.person, size: 36, color: Colors.white),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Hi, $userName', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                              const SizedBox(height: 4),
-                              Text('Next payout: $nextPayout', style: const TextStyle(color: Colors.grey)),
-                              Text('Next scheme: $nextScheme', style: const TextStyle(color: Colors.grey)),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 24),
-                    Card(
-                      color: Colors.blue.shade50,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                      child: ListTile(
-                        leading: Icon(Icons.check_circle, color: Colors.blue),
-                        title: Text("Today's Action", style: TextStyle(fontWeight: FontWeight.bold)),
-                        subtitle: Text('Apply for PM Kisan scheme today!'),
-                        trailing: ElevatedButton(
-                          style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                          onPressed: () {},
-                          child: Text('Apply'),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Card(
-                            color: Colors.green.shade50,
-                            child: ListTile(
-                              leading: Icon(Icons.trending_up, color: Colors.green),
-                              title: Text('Market: Price Rise', style: TextStyle(color: Colors.green)),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Card(
-                            color: Colors.red.shade50,
-                            child: ListTile(
-                              leading: Icon(Icons.warning, color: Colors.red),
-                              title: Text('Deadline: 2 days', style: TextStyle(color: Colors.red)),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    Card(
-                      color: Colors.yellow.shade50,
-                      child: ListTile(
-                        leading: Icon(Icons.notifications, color: Colors.yellow.shade700),
-                        title: Text('New Notification'),
-                        subtitle: Text('Scheme payout credited!'),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Card(
-                      color: Colors.grey.shade200,
-                      child: ListTile(
-                        leading: Icon(Icons.sync, color: Colors.blueGrey),
-                        title: Text('Sync Status'),
-                        subtitle: Text('Last synced: Today 10:30 AM'),
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-                    const Text('My Badges', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                    const SizedBox(height: 12),
-                    SizedBox(
-                      height: 90,
-                      child: ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: badges.length,
-                        separatorBuilder: (context, idx) => const SizedBox(width: 16),
-                        itemBuilder: (context, idx) {
-                          final badge = badges[idx];
-                          return Container(
-                            width: 120,
-                            padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(16),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.green.shade50,
-                                  blurRadius: 4,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(badge['icon'], color: Colors.amber, size: 32),
-                                const SizedBox(height: 8),
-                                Text(badge['label'], style: const TextStyle(fontWeight: FontWeight.bold)),
-                                Text(badge['desc'], style: const TextStyle(fontSize: 12, color: Colors.grey)),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                    const SizedBox(height: 32),
-                  ],
+                ),
+              ],
+            ),
+            SizedBox(height: 24),
+            Card(
+              color: Colors.blue.shade50,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              child: ListTile(
+                leading: Icon(Icons.check_circle, color: Colors.blue),
+                title: Text("Today's Action", style: TextStyle(fontWeight: FontWeight.bold)),
+                subtitle: Text('Apply for PM Kisan scheme today!'),
+                trailing: ElevatedButton(
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                  onPressed: () {},
+                  child: Text('Apply'),
                 ),
               ),
-            );
-    return Scaffold(
-      backgroundColor: Color(0xFFF6F8F6),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Text('Schemes', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600)),
-      ),
-      body: Center(child: Text('Schemes UI here')), // Replace with full UI
-    );
-  }
-}
-
-class SkillsScreen extends void StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFFF6F8F6),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Text('Skills', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600)),
-      ),
-      body: Center(child: Text('Skills UI here')), // Replace with full UI
-    );
-  }
-}
-
-class MarketScreen extends void StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFFF6F8F6),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Text('Market', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600)),
-      ),
-      body: Center(child: Text('Market UI here')), // Replace with full UI
-    );
-  }
-}
-
-class ProfileScreen extends void StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFFF6F8F6),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Text('Profile', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600)),
-      ),
-      body: Center(child: Text('Profile UI here')), // Replace with full UI
-    );
-  }
-}
-
-class VoiceHomeScreen extends void StatefulWidget {
-  final int initialTab;
-  const VoiceHomeScreen({super.key, this.initialTab = 0});
-
-  @override
-  State<VoiceHomeScreen> createState() => _VoiceHomeScreenState();
-}
-
-class _VoiceHomeScreenState extends void State<VoiceHomeScreen> {
-  String aiResponse = 'Ask me anything about schemes, skills, or markets!';
-  bool isListening = false;
-  late int selectedIndex;
-
-  // --- Sample/mock data for now ---
-  final List<Scheme> schemes = [
-    Scheme(name: 'PM-Kisan', description: 'Income support for farmers', applied: true),
-    Scheme(name: 'Soil Health Card', description: 'Soil quality info for better farming'),
-    Scheme(name: 'PMAY-G', description: 'Housing for rural families'),
-  ];
-  final List<Skill> skills = [
-    Skill(name: 'Organic Farming', status: 'In Progress'),
-    Skill(name: 'Digital Literacy', status: 'Completed'),
-    Skill(name: 'Dairy Management', status: 'Not Started'),
-  ];
-  final UserProgress progress = UserProgress(schemesApplied: 1, skillsCompleted: 1, badgesEarned: 2);
-  final List<Badge> badges = [
-    Badge(name: 'Scheme Seeker', description: 'Applied for a government scheme', earned: true),
-    Badge(name: 'Skill Starter', description: 'Started a skill program', earned: true),
-    Badge(name: 'Market Explorer', description: 'Checked market prices'),
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    selectedIndex = widget.initialTab;
-  }
-
-  void onMicPressed() {
-    setState(() {
-      isListening = !isListening;
-      aiResponse = isListening
-          ? 'Listening... (voice input will appear here)'
-          : 'Processing your query... (AI response will appear here)';
-    });
-    // TODO: Integrate voice recognition and Bedrock API call here
-  }
-
-  void onItemTapped(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-  }
-
-  Widget getScreen(int index) {
-    switch (index) {
-      case 1:
-        return DashboardScreen(
-          schemes: schemes,
-          skills: skills,
-          progress: progress,
-        );
-      case 2:
-        return GamificationScreen(badges: badges, progress: progress);
-      default:
-        return voiceScreen();
-    }
-  }
-
-  Widget voiceScreen() {
-    return Padding(
-      padding: const EdgeInsets.all(24.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(Icons.account_circle, size: 80, color: Colors.green.shade400),
-          const SizedBox(height: 24),
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.green.shade50,
-              borderRadius: BorderRadius.circular(16),
             ),
-            child: Text(
-              aiResponse,
-              style: const TextStyle(fontSize: 18),
-              textAlign: TextAlign.center,
+            SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: Card(
+                    color: Colors.green.shade50,
+                    child: ListTile(
+                      leading: Icon(Icons.trending_up, color: Colors.green),
+                      title: Text('Market: Price Rise', style: TextStyle(color: Colors.green)),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 8),
+                Expanded(
+                  child: Card(
+                    color: Colors.red.shade50,
+                    child: ListTile(
+                      leading: Icon(Icons.warning, color: Colors.red),
+                      title: Text('Deadline: 2 days', style: TextStyle(color: Colors.red)),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-          const SizedBox(height: 40),
-          FloatingActionButton(
-            onPressed: onMicPressed,
-            backgroundColor: isListening ? Colors.red : Colors.green,
-            child: Icon(isListening ? Icons.mic : Icons.mic_none, size: 32),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            isListening ? 'Listening...' : 'Tap to speak',
-            style: TextStyle(color: Colors.grey.shade700),
-          ),
-        ],
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('SathiAI'),
-        backgroundColor: Colors.green.shade700,
-      ),
-      body: getScreen(selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.mic),
-            label: 'Voice',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
-            label: 'Dashboard',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.emoji_events),
-            label: 'Gamification',
-          ),
-        ],
-        currentIndex: selectedIndex,
-        selectedItemColor: Colors.green.shade700,
-        onTap: onItemTapped,
+            SizedBox(height: 16),
+            Card(
+              color: Colors.yellow.shade50,
+              child: ListTile(
+                leading: Icon(Icons.notifications, color: Colors.yellow.shade700),
+                title: Text('New Notification'),
+                subtitle: Text('Scheme payout credited!'),
+              ),
+            ),
+            SizedBox(height: 16),
+            Card(
+              color: Colors.grey.shade200,
+              child: ListTile(
+                leading: Icon(Icons.sync, color: Colors.blueGrey),
+                title: Text('Sync Status'),
+                subtitle: Text('Last synced: Today 10:30 AM'),
+              ),
+            ),
+            SizedBox(height: 24),
+            Text('My Badges', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            SizedBox(height: 12),
+            SizedBox(
+              height: 90,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount: badges.length,
+                separatorBuilder: (context, idx) => SizedBox(width: 16),
+                itemBuilder: (context, idx) {
+                  final badge = badges[idx];
+                  return Container(
+                    width: 120,
+                    padding: EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.green.shade50,
+                          blurRadius: 4,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(badge['icon'], color: Colors.amber, size: 32),
+                        SizedBox(height: 8),
+                        Text(badge['label'], style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(badge['desc'], style: TextStyle(fontSize: 12, color: Colors.grey)),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+            SizedBox(height: 32),
+          ],
+        ),
       ),
     );
   }
 }
-
-class DashboardScreen extends void StatelessWidget {
+class DashboardScreen extends StatelessWidget {
   final List<Scheme> schemes;
   final List<Skill> skills;
   final UserProgress progress;
@@ -567,7 +339,7 @@ class DashboardScreen extends void StatelessWidget {
   }
 }
 
-class GamificationScreen extends void StatelessWidget {
+class GamificationScreen extends StatelessWidget {
   final List<Badge> badges;
   final UserProgress progress;
   const GamificationScreen({super.key, required this.badges, required this.progress});

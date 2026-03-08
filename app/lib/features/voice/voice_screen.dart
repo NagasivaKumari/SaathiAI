@@ -1,7 +1,85 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:voice_search/voice_search.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
-class VoiceScreen extends StatelessWidget {
+class VoiceScreen extends StatefulWidget {
   const VoiceScreen({super.key});
+
+  @override
+  State<VoiceScreen> createState() => _VoiceScreenState();
+}
+
+class _VoiceScreenState extends State<VoiceScreen> {
+  final TextEditingController _controller = TextEditingController();
+  String transcript = '';
+  String aiResponse = '';
+  bool loading = false;
+  String selectedLanguage = 'en-US';
+  final FlutterTts flutterTts = FlutterTts();
+  late stt.SpeechToText speech;
+  bool isListening = false;
+
+  @override
+  void initState() {
+    super.initState();
+    speech = stt.SpeechToText();
+  }
+
+  Future<void> _askAI() async {
+    final query = transcript.isNotEmpty ? transcript : _controller.text.trim();
+    if (query.isEmpty) return;
+    setState(() { loading = true; aiResponse = ''; });
+    try {
+      final res = await http.post(
+        Uri.parse('http://localhost:3000/api/ai/query'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({'query': query, 'lang': selectedLanguage}),
+      );
+      final data = json.decode(res.body);
+      setState(() {
+        aiResponse = data['response'] ?? 'No response';
+      });
+    } catch (e) {
+      setState(() { aiResponse = 'Network error'; });
+    }
+    setState(() { loading = false; });
+  }
+
+  void _onVoiceResult(String result) {
+    setState(() {
+      transcript = result;
+      _controller.text = result;
+    });
+  }
+
+  Future<void> _speak(String text) async {
+    await flutterTts.setLanguage(selectedLanguage);
+    await flutterTts.speak(text);
+  }
+
+  Future<void> _startListening() async {
+    bool available = await speech.initialize();
+    if (available) {
+      setState(() => isListening = true);
+      speech.listen(
+        onResult: (result) {
+          setState(() {
+            transcript = result.recognizedWords;
+            _controller.text = transcript;
+          });
+        },
+        localeId: selectedLanguage,
+      );
+    }
+  }
+
+  void _stopListening() {
+    speech.stop();
+    setState(() => isListening = false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,34 +91,80 @@ class VoiceScreen extends StatelessWidget {
         title: Text('Ask Saathi', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600)),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 120,
-              height: 120,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.green.shade100,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 120,
+                height: 120,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.green.shade100,
+                ),
+                child: Icon(Icons.mic, color: Colors.green, size: 64),
               ),
-              child: Icon(Icons.mic, color: Colors.green, size: 64),
-            ),
-            SizedBox(height: 24),
-            Text('Tap the mic and ask your question',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            SizedBox(height: 16),
-            ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-                minimumSize: Size(160, 48),
+              SizedBox(height: 16),
+              VoiceSearchWidget(
+                localeCode: selectedLanguage,
+                activeWidgetColor: Colors.green.shade200,
+                inactiveWidgetColor: Colors.green.shade100,
+                activeIcon: Icons.mic,
+                inactiveIcon: Icons.mic_none,
+                onResult: _onVoiceResult,
               ),
-              icon: Icon(Icons.mic, color: Colors.white),
-              label: Text('Start Listening', style: TextStyle(color: Colors.white)),
-              onPressed: () {},
-            ),
-            SizedBox(height: 32),
-            Text('Transcript will appear here...', style: TextStyle(color: Colors.grey)),
-          ],
+              SizedBox(height: 8),
+              DropdownButton<String>(
+                value: selectedLanguage,
+                items: [
+                  DropdownMenuItem(value: 'en-US', child: Text('English')),
+                  DropdownMenuItem(value: 'hi-IN', child: Text('Hindi')),
+                  DropdownMenuItem(value: 'mr-IN', child: Text('Marathi')),
+                  DropdownMenuItem(value: 'bn-IN', child: Text('Bengali')),
+                  // Add more languages as needed
+                ],
+                onChanged: (val) {
+                  setState(() { selectedLanguage = val ?? 'en-US'; });
+                },
+              ),
+              SizedBox(height: 24),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: TextField(
+                  controller: _controller,
+                  decoration: InputDecoration(
+                    labelText: 'Type your question',
+                    border: OutlineInputBorder(),
+                  ),
+                  onSubmitted: (_) => _askAI(),
+                ),
+              ),
+              SizedBox(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton.icon(
+                    icon: Icon(isListening ? Icons.stop : Icons.mic),
+                    label: Text(isListening ? 'Stop Listening' : 'Speech to Text'),
+                    onPressed: isListening ? _stopListening : _startListening,
+                  ),
+                  SizedBox(width: 16),
+                  ElevatedButton.icon(
+                    icon: Icon(Icons.volume_up),
+                    label: Text('Text to Speech'),
+                    onPressed: aiResponse.isNotEmpty ? () => _speak(aiResponse) : null,
+                  ),
+                ],
+              ),
+              SizedBox(height: 32),
+              if (loading) CircularProgressIndicator(),
+              if (aiResponse.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: Text(aiResponse, style: TextStyle(color: Colors.black, fontSize: 16)),
+                ),
+            ],
+          ),
         ),
       ),
     );

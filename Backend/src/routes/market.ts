@@ -3,10 +3,22 @@ import db from "../db";
 
 const router = express.Router();
 
-// Get current prices
-router.get("/prices", (req, res) => {
-  const prices = db.prepare("SELECT * FROM market_data ORDER BY date DESC LIMIT 20").all();
-  res.json(prices);
+
+// Get current prices (integrate Agmarknet public API)
+import axios from "axios";
+router.get("/prices", async (req, res) => {
+  try {
+    // Example: fetch onion prices from Agmarknet
+    const crop = req.query.crop || "Onion";
+    const url = `https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070?api-key=YOUR_API_KEY&format=json&filters[crop]=${encodeURIComponent(crop)}`;
+    const response = await axios.get(url);
+    const prices = response.data.records || [];
+    res.json(prices);
+  } catch (err) {
+    // fallback to local DB if API fails
+    const prices = db.prepare("SELECT * FROM market_data ORDER BY date DESC LIMIT 20").all();
+    res.json(prices);
+  }
 });
 
 // Predict prices (Simplified logic using Gemini or simple trend)

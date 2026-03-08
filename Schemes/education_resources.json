@@ -1,0 +1,2188 @@
+{
+  "scholarships": [
+    {
+      "scheme_name": "Pre-Matric Scholarship for SC Students",
+      "category": "Education",
+      "level": "Pre-Matric (Class 1–10)",
+      "target_group": "Scheduled Caste students",
+      "eligibility": {
+        "citizenship": "Indian",
+        "category": "SC",
+        "family_income": "≤ ₹2.5 LPA",
+        "education": "Class 1 to 10"
+      },
+      "documents_required": [
+        "Aadhaar Card",
+        "Caste Certificate",
+        "Income Certificate",
+        "Bonafide Certificate",
+        "Bank Passbook"
+      ],
+      "application_steps": [
+        "Register on National Scholarship Portal (NSP)",
+        "Fill student profile and academic details",
+        "Upload required documents",
+        "Submit application and track status"
+      ],
+      "common_rejection_reasons": [
+        "Income exceeds limit",
+        "Invalid caste certificate",
+        "School verification failure"
+      ],
+      "guidance_note": "Best for early-stage learners from SC background to reduce dropout risk.",
+      "source": "https://scholarships.gov.in"
+    },
+    {
+      "scheme_name": "Post-Matric Scholarship for SC Students",
+      "category": "Education",
+      "level": "Post-Matric",
+      "target_group": "Scheduled Caste students",
+      "eligibility": {
+        "citizenship": "Indian",
+        "category": "SC",
+        "family_income": "≤ ₹2.5 LPA",
+        "education": "Class 11 to Post-Graduation"
+      },
+      "documents_required": [
+        "Aadhaar Card",
+        "Caste Certificate",
+        "Income Certificate",
+        "Previous Marksheets",
+        "Bank Account Details"
+      ],
+      "application_steps": [
+        "Login to NSP",
+        "Select Post-Matric SC Scholarship",
+        "Fill academic and institute details",
+        "Submit and wait for institute verification"
+      ],
+      "common_rejection_reasons": [
+        "Attendance shortage",
+        "Duplicate application",
+        "Institute not registered on NSP"
+      ],
+      "guidance_note": "Supports college continuity for first-generation learners.",
+      "source": "https://scholarships.gov.in"
+    },
+    {
+      "scheme_name": "Merit-cum-Means Scholarship for Minority Students",
+      "category": "Education",
+      "level": "Professional / Technical",
+      "target_group": "Minority communities",
+      "eligibility": {
+        "citizenship": "Indian",
+        "religion": "Muslim, Christian, Sikh, Buddhist, Jain, Parsi",
+        "family_income": "≤ ₹2.5 LPA",
+        "minimum_marks": "50%"
+      },
+      "documents_required": [
+        "Aadhaar Card",
+        "Minority Certificate",
+        "Income Certificate",
+        "Fee Receipt",
+        "Bank Account"
+      ],
+      "application_steps": [
+        "Apply via NSP",
+        "Choose Merit-cum-Means scheme",
+        "Upload academic and income proofs",
+        "Submit for institute verification"
+      ],
+      "common_rejection_reasons": [
+        "Marks below eligibility",
+        "Incorrect minority proof",
+        "Fee mismatch"
+      ],
+      "guidance_note": "Ideal for engineering, medical, and management aspirants.",
+      "source": "https://scholarships.gov.in"
+    },
+    {
+      "scheme_name": "Central Sector Scholarship (CSSS)",
+      "category": "Education",
+      "level": "UG / PG",
+      "target_group": "Meritorious students",
+      "eligibility": {
+        "citizenship": "Indian",
+        "education": "Top 20 percentile in Class 12",
+        "family_income": "≤ ₹8 LPA"
+      },
+      "documents_required": [
+        "Aadhaar Card",
+        "12th Marks Memo",
+        "Income Certificate",
+        "Bank Account"
+      ],
+      "application_steps": [
+        "Register on NSP",
+        "Select Central Sector Scholarship",
+        "Fill academic credentials",
+        "Submit and renew annually"
+      ],
+      "common_rejection_reasons": [
+        "Not in top percentile",
+        "Income proof mismatch",
+        "Failure to renew"
+      ],
+      "guidance_note": "Rewards consistent academic excellence across disciplines.",
+      "source": "https://www.myscheme.gov.in/schemes/csss-cus"
+    },
+    {
+      "scheme_name": "AICTE Pragati Scholarship for Girls",
+      "category": "Education",
+      "level": "Technical Education",
+      "target_group": "Girl students",
+      "eligibility": {
+        "citizenship": "Indian",
+        "gender": "Female",
+        "education": "AICTE approved institutions",
+        "family_income": "≤ ₹8 LPA"
+      },
+      "documents_required": [
+        "Aadhaar Card",
+        "Admission Proof",
+        "Income Certificate",
+        "Bank Account"
+      ],
+      "application_steps": [
+        "Apply via NSP",
+        "Select Pragati Scholarship",
+        "Upload institute admission details",
+        "Submit for verification"
+      ],
+      "common_rejection_reasons": [
+        "Non-AICTE institute",
+        "Income exceeds limit",
+        "Seat not sanctioned"
+      ],
+      "guidance_note": "Encourages women participation in STEM careers.",
+      "source": "https://scholarships.gov.in"
+    },
+    {
+      "scheme_name": "Telangana ePASS Post-Matric Scholarship",
+      "category": "Education",
+      "level": "Post-Matric",
+      "target_group": "SC/ST/BC/EBC/Minority students",
+      "eligibility": {
+        "state": "Telangana",
+        "attendance": "≥ 75%",
+        "family_income": "As per category norms"
+      },
+      "documents_required": [
+        "Aadhaar Card",
+        "Caste Certificate",
+        "Income Certificate",
+        "Bonafide Certificate",
+        "Bank Passbook"
+      ],
+      "application_steps": [
+        "Login to Telangana ePASS portal",
+        "Select Post-Matric Scholarship",
+        "Fill academic and hostel details",
+        "Submit and track status"
+      ],
+      "common_rejection_reasons": [
+        "Low attendance",
+        "Incorrect caste data",
+        "Institute verification failure"
+      ],
+      "guidance_note": "Critical support for economically vulnerable Telangana students.",
+      "source": "https://telanganaepass.cgg.gov.in"
+    },
+    {
+      "scheme_name": "Ambedkar Overseas Vidya Nidhi",
+      "category": "Overseas Education",
+      "level": "Masters / PhD",
+      "target_group": "SC/ST students (Telangana)",
+      "eligibility": {
+        "state": "Telangana",
+        "category": "SC/ST",
+        "minimum_marks": "60%",
+        "family_income": "≤ ₹5 LPA"
+      },
+      "documents_required": [
+        "Aadhaar Card",
+        "Passport",
+        "Foreign University Admission Letter",
+        "Income Certificate",
+        "Bank Details"
+      ],
+      "application_steps": [
+        "Apply via Telangana ePASS",
+        "Upload foreign admission proof",
+        "Submit financial documents",
+        "Await government approval"
+      ],
+      "common_rejection_reasons": [
+        "Unrecognized foreign university",
+        "Incomplete admission proof",
+        "Income criteria failure"
+      ],
+      "guidance_note": "Transforms global education access for marginalized students.",
+      "source": "https://telanganaepass.cgg.gov.in"
+    },
+    {
+      "scheme_name": "Pre-Matric Scholarship for SC Students",
+      "category": "Education",
+      "level": "Pre-Matric (Class 1–10)",
+      "target_group": "SC",
+      "eligibility": {
+        "citizenship": "Indian",
+        "category": "SC",
+        "education": "Class 1–10",
+        "family_income": "≤ ₹2.5 LPA"
+      },
+      "documents_required": [
+        "Aadhaar",
+        "Caste Certificate",
+        "Income Certificate",
+        "Bonafide Certificate",
+        "Bank Passbook"
+      ],
+      "application_steps": [
+        "One Time Registration on NSP",
+        "Select Pre-Matric SC on portal",
+        "Upload academic & income docs",
+        "Submit and track status"
+      ],
+      "common_rejection_reasons": [
+        "Income ineligibility",
+        "Missing caste proof",
+        "Incomplete school verification"
+      ],
+      "guidance_note": "Great for foundational-level support if access to school education is a concern.",
+      "source": "https://scholarships.gov.in"
+    },
+    {
+      "scheme_name": "Post-Matric Scholarship for ST Students",
+      "category": "Education",
+      "level": "Post-Matric",
+      "target_group": "ST",
+      "eligibility": {
+        "citizenship": "Indian",
+        "category": "ST",
+        "education": "Class 11–PG",
+        "family_income": "≤ ₹2.5 LPA"
+      },
+      "documents_required": [
+        "Aadhaar",
+        "Caste Certificate",
+        "Income Certificate",
+        "Academic Mark Sheets",
+        "Bank Details"
+      ],
+      "application_steps": [
+        "Login on NSP",
+        "Choose Post-Matric ST",
+        "Upload required docs",
+        "Submit and verify with institute"
+      ],
+      "common_rejection_reasons": [
+        "Attendance shortfall",
+        "Duplicate application",
+        "Missing bank details"
+      ],
+      "guidance_note": "Supports continued studies beyond class 10 with fees & maintenance aid.",
+      "source": "https://scholarships.gov.in"
+    },
+    {
+      "scheme_name": "Merit-cum-Means Scholarship for Minority Students",
+      "category": "Education",
+      "level": "UG/PG/Professional",
+      "target_group": "Minority communities",
+      "eligibility": {
+        "citizenship": "Indian",
+        "religion": "Minority communities",
+        "family_income": "≤ ₹2.5 LPA",
+        "min_marks": "50%"
+      },
+      "documents_required": [
+        "Aadhaar",
+        "Minority Certificate",
+        "Income Proof",
+        "Fee Receipt",
+        "Bank Passbook"
+      ],
+      "application_steps": [
+        "NSP registration",
+        "Choose Merit-cum-Means category",
+        "Upload docs & submit",
+        "Get institute verification"
+      ],
+      "common_rejection_reasons": [
+        "Marks below threshold",
+        "Wrong minority proof",
+        "Fee mismatch"
+      ],
+      "guidance_note": "Good for minorities planning technical or professional education.",
+      "source": "https://scholarships.gov.in"
+    },
+    {
+      "scheme_name": "Central Sector Scholarship for College & University Students (CSSS)",
+      "category": "Education",
+      "level": "UG/PG",
+      "target_group": "Meritorious general students",
+      "eligibility": {
+        "citizenship": "Indian",
+        "passed_12th": true,
+        "family_income": "≤ ₹8 LPA"
+      },
+      "documents_required": [
+        "Aadhaar",
+        "12th Marks Memo",
+        "Income Proof",
+        "Bank Details"
+      ],
+      "application_steps": [
+        "Apply on NSP",
+        "Fill student details & upload docs",
+        "Submit & renew annually"
+      ],
+      "common_rejection_reasons": [
+        "Not in top-performing bracket",
+        "Incomplete docs",
+        "Income mismatch"
+      ],
+      "guidance_note": "Ideal for high achievers from economically weaker backgrounds.",
+      "source": "https://www.buddy4study.com/scholarship/nsp-central-sector-scheme-of-scholarship-for-college-and-university-students"
+    },
+    {
+      "scheme_name": "AICTE Pragati Scholarship for Girls",
+      "category": "Education",
+      "level": "Technical/Professional",
+      "target_group": "Female students",
+      "eligibility": {
+        "citizenship": "Indian",
+        "gender": "Female",
+        "family_income": "≤ ₹8 LPA",
+        "in_AICTE_institute": true
+      },
+      "documents_required": [
+        "Aadhaar",
+        "Admission Proof",
+        "Income Certificate",
+        "Bank Account"
+      ],
+      "application_steps": [
+        "Apply via NSP",
+        "Upload institute admission & docs",
+        "Submit for verification"
+      ],
+      "common_rejection_reasons": [
+        "Non-AICTE institute",
+        "Income not valid",
+        "Wrong admission details"
+      ],
+      "guidance_note": "Great push for gender equity in STEM & technical education.",
+      "source": "https://scholarships.gov.in"
+    },
+    {
+      "scheme_name": "National Means-cum-Merit Scholarship (NMMS)",
+      "category": "Education",
+      "level": "Class 8 to 12",
+      "target_group": "Meritorious + Low-income students",
+      "eligibility": {
+        "citizenship": "Indian",
+        "passed_Class_8": true,
+        "family_income": "≤ ₹1 LPA",
+        "qualifying_exam_marks": "≥ 55%"
+      },
+      "documents_required": [
+        "Aadhaar",
+        "Class 8 Mark Sheet",
+        "Income Certificate",
+        "Bank Passbook"
+      ],
+      "application_steps": [
+        "Apply via NSP/State board portal",
+        "Upload docs",
+        "Sit for exam & receive scholarship"
+      ],
+      "common_rejection_reasons": [
+        "Income above limit",
+        "Low exam score",
+        "Missing income proof"
+      ],
+      "guidance_note": "Designed to keep talented students in school during critical years.",
+      "source": "https://www.wemakescholars.com/other/government-of-india/scholarships"
+    },
+    {
+      "scheme_name": "National Scholarship for Post Graduate Studies",
+      "category": "Education",
+      "level": "PG",
+      "target_group": "UG pass students",
+      "eligibility": {
+        "citizenship": "Indian",
+        "passed_UG": true
+      },
+      "documents_required": [
+        "Aadhaar",
+        "UG Degree Certificate",
+        "Income Proof",
+        "Bank Details"
+      ],
+      "application_steps": [
+        "Apply on mysceheme.gov.in or NSP",
+        "Upload PG admission & docs",
+        "Submit & track"
+      ],
+      "common_rejection_reasons": [
+        "Incomplete PG admission proof",
+        "Invalid income doc"
+      ],
+      "guidance_note": "Supports mid-career academic growth after UG.",
+      "source": "https://www.myscheme.gov.in/schemes/nsfpgs"
+    },
+    {
+      "scheme_name": "Post-Matric Scholarship for Students with Disabilities",
+      "category": "Education",
+      "level": "Post-Matric",
+      "target_group": "Students with disabilities",
+      "eligibility": {
+        "citizenship": "Indian",
+        "disability": true
+      },
+      "documents_required": [
+        "Aadhaar",
+        "Disability Certificate",
+        "Income Proof",
+        "Academic Docs"
+      ],
+      "application_steps": [
+        "Register on NSP",
+        "Choose disability post-matric category",
+        "Upload docs & submit"
+      ],
+      "common_rejection_reasons": [
+        "Invalid disability certification",
+        "Missing academic docs"
+      ],
+      "guidance_note": "Key support for differently-abled learners to pursue higher studies.",
+      "source": "https://www.wemakescholars.com/other/government-of-india/scholarships"
+    },
+    {
+      "scheme_name": "PM Scholarship Scheme (PMSS) for Wards of Armed Forces Personnel",
+      "category": "Education",
+      "level": "Technical/PG",
+      "target_group": "Wards of Defence personnel",
+      "eligibility": {
+        "citizenship": "Indian",
+        "ward_of_ex_serviceman": true,
+        "technical_courses": true
+      },
+      "documents_required": [
+        "Aadhaar",
+        "Service Proof of Parent",
+        "Admission Proof",
+        "Bank Passbook"
+      ],
+      "application_steps": [
+        "Apply via official portal",
+        "Upload required documents",
+        "Submit before deadline"
+      ],
+      "common_rejection_reasons": [
+        "Missing service proof",
+        "Course not eligible"
+      ],
+      "guidance_note": "Helps military families continue educational journeys.",
+      "source": "https://www.desw.gov.in/prime-ministers-scholarship-scheme-pmss"
+    },
+    {
+      "scheme_name": "Telangana ePASS Pre-Matric Scholarship",
+      "category": "State Scholarship",
+      "level": "Pre-Matric",
+      "target_group": "SC/ST/BC/EBC/Minority/Disabled",
+      "eligibility": {
+        "state": "Telangana",
+        "classes": "5–10",
+        "attendance": "≥75%",
+        "family_income": "as per category"
+      },
+      "documents_required": [
+        "Aadhaar",
+        "Caste/Domicile Certificate",
+        "Income Proof",
+        "Attendance Cert",
+        "Bank Details"
+      ],
+      "application_steps": [
+        "Log in to Telangana ePASS portal",
+        "Register & fill application",
+        "Upload docs",
+        "Submit & track status"
+      ],
+      "common_rejection_reasons": [
+        "Low attendance",
+        "Invalid income doc"
+      ],
+      "guidance_note": "Boosts school retention in Telangana.",
+      "source": "https://telanganaepass.cgg.gov.in"
+    },
+    {
+      "scheme_name": "Telangana ePASS Post-Matric Scholarship",
+      "category": "State Scholarship",
+      "level": "Post-Matric",
+      "target_group": "SC/ST/BC/EBC/Minority/Disabled",
+      "eligibility": {
+        "state": "Telangana",
+        "education": "11th and up",
+        "attendance": "≥ 75%",
+        "family_income": "category-based"
+      },
+      "documents_required": [
+        "Aadhaar",
+        "Caste Certificate",
+        "Income Proof",
+        "Attendance Cert",
+        "Bank Passbook"
+      ],
+      "application_steps": [
+        "Apply on ePASS",
+        "Upload docs",
+        "Submit before deadline"
+      ],
+      "common_rejection_reasons": [
+        "Incomplete docs",
+        "Low attendance"
+      ],
+      "guidance_note": "Supports degree / professional education continuation.",
+      "source": "https://telanganaepass.cgg.gov.in"
+    },
+    {
+      "scheme_name": "Telangana ePASS Ambedkar Overseas Vidya Nidhi",
+      "category": "State Overseas Scholarship",
+      "level": "PG/PhD Abroad",
+      "target_group": "SC/ST",
+      "eligibility": {
+        "state": "Telangana",
+        "min_marks": "60%",
+        "family_income": "Below category cap"
+      },
+      "documents_required": [
+        "Aadhaar",
+        "Passport",
+        "Admission Letter Abroad",
+        "Income Proof",
+        "Bank Details"
+      ],
+      "application_steps": [
+        "Apply via ePASS",
+        "Upload admission & income documents",
+        "Submit and wait for approval"
+      ],
+      "common_rejection_reasons": [
+        "Unqualified foreign admission",
+        "Income ineligibility"
+      ],
+      "guidance_note": "Huge support for international education from Telangana.",
+      "source": "https://telanganaepass.cgg.gov.in"
+    },
+    {
+      "scheme_name": "Telangana ePASS Mahatma Jyothiba Phule Overseas Vidya Nidhi",
+      "category": "State Overseas Scholarship",
+      "level": "PG Abroad",
+      "target_group": "BC/EBC",
+      "eligibility": {
+        "state": "Telangana",
+        "min_marks": "60%",
+        "family_income": "urban & rural limits"
+      },
+      "documents_required": [
+        "Aadhaar",
+        "Foreign Admission Letter",
+        "Income Proof",
+        "Passport Details",
+        "Bank Passbook"
+      ],
+      "application_steps": [
+        "Register on ePASS",
+        "Submit supporting docs",
+        "Await selection list"
+      ],
+      "common_rejection_reasons": [
+        "Family income above limit",
+        "Invalid marks/age"
+      ],
+      "guidance_note": "Enables BC/EBC students to study abroad with financial support.",
+      "source": "https://telanganaepass.cgg.gov.in"
+    },
+    {
+      "scheme_name": "SBI Asha Scholarship",
+      "category": "Private/CSR Scholarship",
+      "level": "School (9–12)",
+      "target_group": "Meritorious needy students",
+      "eligibility": {
+        "citizenship": "Indian",
+        "classes": "9–12",
+        "min_marks": "≥ 75%",
+        "family_income": "≤ ₹3 LPA"
+      },
+      "documents_required": [
+        "Aadhaar",
+        "School Marksheets",
+        "Income Proof",
+        "Bank Account"
+      ],
+      "application_steps": [
+        "Apply on SBI Asha portal",
+        "Upload academic & income docs",
+        "Submit & follow updates"
+      ],
+      "common_rejection_reasons": [
+        "Marks below eligibility",
+        "Missing income proof"
+      ],
+      "guidance_note": "Great for school students to ease financial burden before college.",
+      "source": "https://www.sbiashascholarship.co.in"
+    },
+    {
+      "scheme_name": "ICCR Atal Bihari Vajpayee General Scholarship",
+      "category": "International Scholarship",
+      "level": "Indian Students Abroad",
+      "target_group": "Indian citizens",
+      "eligibility": {
+        "citizenship": "Indian",
+        "admission": "At participating Indian institutions"
+      },
+      "documents_required": [
+        "Aadhaar",
+        "Passport/ID",
+        "Admission Proof",
+        "Academic Docs"
+      ],
+      "application_steps": [
+        "Apply via ICCR scholarship portal",
+        "Upload required docs",
+        "Await selection"
+      ],
+      "common_rejection_reasons": [
+        "Missing passport details",
+        "Incomplete docs"
+      ],
+      "guidance_note": "Great for cultural & academic exchanges abroad.",
+      "source": "https://www.indiaingreece.gov.in/page/iccr-scholarships-2025-26"
+    },
+    {
+      "scheme_name": "ICCR Lata Mangeshkar Dance & Music Scholarship",
+      "category": "Cultural Scholarship",
+      "level": "Arts",
+      "target_group": "Performing arts aspirants",
+      "eligibility": {
+        "citizenship": "Indian",
+        "arts_field": "Dance/Music/Theatre etc."
+      },
+      "documents_required": [
+        "Aadhaar",
+        "Portfolio/Performance Proof",
+        "Income Proof"
+      ],
+      "application_steps": [
+        "Apply on ICCR arts scholarship portal",
+        "Upload performance credentials",
+        "Submit & await outcome"
+      ],
+      "common_rejection_reasons": [
+        "Insufficient performance proof",
+        "Missing income docs"
+      ],
+      "guidance_note": "Supports cultural talent across India.",
+      "source": "https://www.indiaingreece.gov.in/page/iccr-scholarships-2025-26"
+    },
+    {
+      "scheme_name": "Foundation For Excellence (FFE) Scholarship",
+      "category": "Private Scholarship",
+      "level": "Engineering/Medicine/Tech",
+      "target_group": "Merit + Low Income",
+      "eligibility": {
+        "citizenship": "Indian",
+        "family_income": "Low to Moderate",
+        "academics": "Strong performance"
+      },
+      "documents_required": [
+        "Aadhaar",
+        "Academic Performance Proof",
+        "Income Certificate"
+      ],
+      "application_steps": [
+        "Apply on FFE portal",
+        "Upload documents",
+        "Submit & await interview/or assessment"
+      ],
+      "common_rejection_reasons": [
+        "Not meeting performance cutoffs",
+        "Income proof invalid"
+      ],
+      "guidance_note": "Includes mentorship beyond just funds — perfect for long-term growth.",
+      "source": "https://ffe.org/scholarships"
+    }
+  ],
+  "skill_programs": [
+    {
+      "program_name": "Pradhan Mantri Kaushal Vikas Yojana (PMKVY)",
+      "category": "Skill Training",
+      "level": "Beginner to Intermediate",
+      "target_group": "Youth (15–45 years)",
+      "skills_domains": [
+        "IT & ITES",
+        "Retail",
+        "Healthcare",
+        "Construction",
+        "Electronics",
+        "Automotive"
+      ],
+      "eligibility": {
+        "citizenship": "Indian",
+        "education": "School dropouts / 10th / 12th / graduates",
+        "employment_status": "Unemployed or informal workforce"
+      },
+      "benefits": {
+        "training_cost": "Free",
+        "certification": "NSDC approved",
+        "placement_support": "Available (not guaranteed)"
+      },
+      "application_steps": [
+        "Register on Skill India Digital Portal",
+        "Choose PMKVY course",
+        "Select nearby training center",
+        "Complete training and assessment"
+      ],
+      "career_outcomes": [
+        "Entry-level job",
+        "Industry certification",
+        "Foundation for advanced skills"
+      ],
+      "common_dropout_reasons": [
+        "Poor attendance",
+        "Mismatch of expectations",
+        "Relocation issues"
+      ],
+      "guidance_note": "Best starting point if you lack formal skills but want employability.",
+      "source": "https://www.skillindiadigital.gov.in"
+    },
+    {
+      "program_name": "Skill India Digital Platform",
+      "category": "Digital Learning",
+      "level": "All Levels",
+      "target_group": "Students, job seekers, professionals",
+      "skills_domains": [
+        "Digital Literacy",
+        "AI & Data",
+        "Programming",
+        "Soft Skills",
+        "Entrepreneurship"
+      ],
+      "eligibility": {
+        "citizenship": "Indian",
+        "age": "13+"
+      },
+      "benefits": {
+        "training_cost": "Free",
+        "certification": "Government recognized",
+        "mode": "Online / Hybrid"
+      },
+      "application_steps": [
+        "Create account on Skill India Digital",
+        "Browse courses",
+        "Enroll and complete modules",
+        "Download certificate"
+      ],
+      "career_outcomes": [
+        "Skill enhancement",
+        "Resume building",
+        "Career exploration"
+      ],
+      "guidance_note": "Ideal for self-driven learners testing multiple career paths.",
+      "source": "https://www.skillindiadigital.gov.in/courses"
+    },
+    {
+      "program_name": "National Apprenticeship Promotion Scheme (NAPS)",
+      "category": "Apprenticeship",
+      "level": "Intermediate",
+      "target_group": "Students & fresh graduates",
+      "skills_domains": [
+        "Manufacturing",
+        "Engineering",
+        "Services",
+        "IT"
+      ],
+      "eligibility": {
+        "citizenship": "Indian",
+        "education": "ITI / Diploma / Degree"
+      },
+      "benefits": {
+        "stipend": "Government + employer shared",
+        "certification": "Apprenticeship certificate",
+        "industry_exposure": true
+      },
+      "application_steps": [
+        "Register on apprenticeship portal",
+        "Apply for openings",
+        "Join employer-based training"
+      ],
+      "career_outcomes": [
+        "Hands-on experience",
+        "Higher employability",
+        "Industry networking"
+      ],
+      "guidance_note": "Best bridge between education and real-world jobs.",
+      "source": "https://www.apprenticeshipindia.gov.in"
+    },
+    {
+      "program_name": "Jan Shikshan Sansthan (JSS)",
+      "category": "Community Skill Training",
+      "level": "Beginner",
+      "target_group": "Rural youth, women, neo-literates",
+      "skills_domains": [
+        "Tailoring",
+        "Handicrafts",
+        "Beauty & Wellness",
+        "Food Processing"
+      ],
+      "eligibility": {
+        "citizenship": "Indian",
+        "education": "No formal requirement"
+      },
+      "benefits": {
+        "training_cost": "Free",
+        "self_employment_support": true
+      },
+      "application_steps": [
+        "Visit local JSS center",
+        "Enroll in available course",
+        "Complete training"
+      ],
+      "career_outcomes": [
+        "Self-employment",
+        "Local entrepreneurship"
+      ],
+      "guidance_note": "Perfect for livelihood-focused skill building.",
+      "source": "https://dge.gov.in/dge/schemes_programmes"
+    },
+    {
+      "program_name": "Deen Dayal Upadhyaya Grameen Kaushalya Yojana (DDU-GKY)",
+      "category": "Rural Skill Development",
+      "level": "Beginner to Intermediate",
+      "target_group": "Rural poor youth",
+      "skills_domains": [
+        "Hospitality",
+        "Retail",
+        "Logistics",
+        "Healthcare"
+      ],
+      "eligibility": {
+        "citizenship": "Indian",
+        "age": "15–35",
+        "rural_background": true
+      },
+      "benefits": {
+        "training_cost": "Free",
+        "placement_linked": true,
+        "boarding": "Provided in some cases"
+      },
+      "application_steps": [
+        "Register through state nodal agency",
+        "Attend counseling",
+        "Join residential/non-residential training"
+      ],
+      "career_outcomes": [
+        "Formal sector employment",
+        "Migration-ready skills"
+      ],
+      "guidance_note": "Life-changing for rural youth seeking stable income.",
+      "source": "https://nsdcindia.org"
+    },
+    {
+      "program_name": "PM Vishwakarma Skill Program",
+      "category": "Traditional Skills",
+      "level": "Beginner to Advanced",
+      "target_group": "Artisans & craftsmen",
+      "skills_domains": [
+        "Carpentry",
+        "Blacksmithing",
+        "Pottery",
+        "Goldsmithing"
+      ],
+      "eligibility": {
+        "citizenship": "Indian",
+        "traditional_occupation": true
+      },
+      "benefits": {
+        "training": "Modern tools + skills",
+        "toolkit_support": true,
+        "credit_linkage": true
+      },
+      "application_steps": [
+        "Register via CSC/portal",
+        "Skill assessment",
+        "Training and certification"
+      ],
+      "career_outcomes": [
+        "Income enhancement",
+        "Business sustainability"
+      ],
+      "guidance_note": "Modernizes traditional livelihoods without replacing them.",
+      "source": "https://www.pib.gov.in"
+    },
+    {
+      "program_name": "AICTE NEAT (National Educational Alliance for Technology)",
+      "category": "EdTech Skill Program",
+      "level": "Intermediate to Advanced",
+      "target_group": "College students",
+      "skills_domains": [
+        "AI",
+        "Data Science",
+        "Cloud",
+        "Cybersecurity"
+      ],
+      "eligibility": {
+        "citizenship": "Indian",
+        "education": "Enrolled in AICTE-approved institution"
+      },
+      "benefits": {
+        "course_access": "Free / Subsidized",
+        "industry_content": true
+      },
+      "application_steps": [
+        "Register on NEAT portal",
+        "Select EdTech partner",
+        "Complete course"
+      ],
+      "career_outcomes": [
+        "High-demand tech skills",
+        "Industry exposure"
+      ],
+      "guidance_note": "Strong option if you want tech skills without expensive courses.",
+      "source": "https://www.aicte.gov.in/bureaus/skill-development"
+    },
+    {
+      "program_name": "PM Kaushal Kendras",
+      "category": "Training Infrastructure",
+      "level": "Beginner",
+      "target_group": "Local youth",
+      "skills_domains": [
+        "Multi-sector skills"
+      ],
+      "eligibility": {
+        "citizenship": "Indian"
+      },
+      "benefits": {
+        "training_cost": "Free",
+        "certification": "NSDC"
+      },
+      "application_steps": [
+        "Locate PMKK center",
+        "Enroll in available course",
+        "Complete training"
+      ],
+      "career_outcomes": [
+        "Job readiness",
+        "Skill certification"
+      ],
+      "guidance_note": "Best for offline learners needing local centers.",
+      "source": "https://nsdcindia.org/skillcentres"
+    },
+    {
+      "program_name": "State Skill Development Missions (SSDM)",
+      "category": "State Skill Programs",
+      "level": "All Levels",
+      "target_group": "State residents",
+      "skills_domains": [
+        "State-specific industry skills"
+      ],
+      "eligibility": {
+        "citizenship": "Indian",
+        "state_domicile": true
+      },
+      "benefits": {
+        "training": "Free/Subsidized",
+        "local_job_linkage": true
+      },
+      "application_steps": [
+        "Register on state skill portal",
+        "Choose course",
+        "Attend training"
+      ],
+      "career_outcomes": [
+        "Local employment",
+        "MSME readiness"
+      ],
+      "guidance_note": "Highly relevant for regional job markets.",
+      "source": "https://www.ibef.org/government-schemes/skill-india"
+    }
+  ],
+  "online_platforms": [
+    {
+      "platform_name": "freeCodeCamp",
+      "category": "Programming & Software Development",
+      "provider_type": "Non-profit",
+      "delivery_mode": "Online (Self-paced)",
+      "target_audience": "Beginners to intermediate learners",
+      "skills_domains": [
+        "Web Development",
+        "JavaScript",
+        "Python",
+        "Data Structures",
+        "APIs"
+      ],
+      "certification_type": "Free verified certificates",
+      "cost": "100% Free",
+      "career_use_cases": [
+        "Entry-level developer roles",
+        "Portfolio building",
+        "Career transition into tech"
+      ],
+      "limitations": [
+        "Self-discipline required",
+        "No direct placement support"
+      ],
+      "guidance_note": "Best zero-cost platform to build real coding credibility from scratch.",
+      "source": "https://www.freecodecamp.org/news/free-certificates/"
+    },
+    {
+      "platform_name": "Coursera (Free Courses via Audit Mode)",
+      "category": "Multi-discipline",
+      "provider_type": "University / Industry consortium",
+      "delivery_mode": "Online",
+      "target_audience": "Students & professionals",
+      "skills_domains": [
+        "Data Analytics",
+        "AI & ML",
+        "Business",
+        "Cloud",
+        "Health"
+      ],
+      "certification_type": "Certificate sometimes paid (audit learning free)",
+      "cost": "Free learning, certificate paid (some exceptions)",
+      "career_use_cases": [
+        "Skill exploration",
+        "Resume enhancement",
+        "Career pivot validation"
+      ],
+      "limitations": [
+        "Most certificates require payment",
+        "Not all courses free"
+      ],
+      "guidance_note": "Use for learning quality content; pay only if certificate truly adds value.",
+      "source": "https://www.coursera.org/courses?query=free"
+    },
+    {
+      "platform_name": "edX",
+      "category": "Academic & Professional Learning",
+      "provider_type": "University-led (Harvard, MIT, etc.)",
+      "delivery_mode": "Online",
+      "target_audience": "College students & professionals",
+      "skills_domains": [
+        "Computer Science",
+        "Engineering",
+        "Business",
+        "Public Policy"
+      ],
+      "certification_type": "Audit free / Paid verified certificate",
+      "cost": "Learning free, certificate optional paid",
+      "career_use_cases": [
+        "Academic credibility",
+        "Advanced learning",
+        "Graduate school prep"
+      ],
+      "limitations": [
+        "Certificates often paid",
+        "Theoretical depth may be high"
+      ],
+      "guidance_note": "Best for learners who value university-grade content.",
+      "source": "https://www.edx.org/"
+    },
+    {
+      "platform_name": "Skill India Digital",
+      "category": "Government Skill Certification",
+      "provider_type": "Government of India",
+      "delivery_mode": "Online + Hybrid",
+      "target_audience": "Students, job seekers, informal workforce",
+      "skills_domains": [
+        "Digital Literacy",
+        "IT",
+        "Retail",
+        "Healthcare",
+        "Soft Skills"
+      ],
+      "certification_type": "Government-recognized certificate",
+      "cost": "Free",
+      "career_use_cases": [
+        "Entry-level jobs",
+        "Skill validation",
+        "Govt-aligned employability"
+      ],
+      "limitations": [
+        "Course depth varies",
+        "Placement not guaranteed"
+      ],
+      "guidance_note": "Trustworthy baseline certification for Indian job market.",
+      "source": "https://www.skillindiadigital.gov.in/courses"
+    },
+    {
+      "platform_name": "Google Career Certificates (Coursera)",
+      "category": "Industry Certification",
+      "provider_type": "Industry (Google)",
+      "delivery_mode": "Online",
+      "target_audience": "Career switchers & freshers",
+      "skills_domains": [
+        "Data Analytics",
+        "IT Support",
+        "UX Design",
+        "Cybersecurity"
+      ],
+      "certification_type": "Industry-recognized certificate",
+      "cost": "Free trial / Financial aid available",
+      "career_use_cases": [
+        "Job-ready skills",
+        "Tech career entry"
+      ],
+      "limitations": [
+        "Not fully free",
+        "Requires sustained effort"
+      ],
+      "guidance_note": "Strong ROI if paired with projects & internships.",
+      "source": "https://www.coursera.org/professional-certificates/google-data-analytics"
+    },
+    {
+      "platform_name": "Simplilearn SkillUp",
+      "category": "Professional Skills",
+      "provider_type": "Private EdTech",
+      "delivery_mode": "Online",
+      "target_audience": "Students & early professionals",
+      "skills_domains": [
+        "Digital Marketing",
+        "Cloud",
+        "Cybersecurity",
+        "Data Basics"
+      ],
+      "certification_type": "Free course completion certificate",
+      "cost": "Free",
+      "career_use_cases": [
+        "Skill sampling",
+        "Resume fillers"
+      ],
+      "limitations": [
+        "Introductory depth",
+        "Advanced paths are paid"
+      ],
+      "guidance_note": "Use as stepping stone, not final expertise proof.",
+      "source": "https://www.simplilearn.com/skillup-free-online-courses"
+    },
+    {
+      "platform_name": "DataCamp (Free Intro Tracks)",
+      "category": "Data & Analytics",
+      "provider_type": "Private EdTech",
+      "delivery_mode": "Online",
+      "target_audience": "Aspiring data analysts",
+      "skills_domains": [
+        "Python",
+        "SQL",
+        "Data Analysis",
+        "Statistics"
+      ],
+      "certification_type": "Completion certificates",
+      "cost": "Limited free content",
+      "career_use_cases": [
+        "Data career exploration",
+        "Hands-on coding practice"
+      ],
+      "limitations": [
+        "Most content paid",
+        "Certificates not government-recognized"
+      ],
+      "guidance_note": "Good for practice, not enough alone for job readiness.",
+      "source": "https://www.datacamp.com/"
+    },
+    {
+      "platform_name": "Acumen Academy",
+      "category": "Leadership & Social Impact",
+      "provider_type": "Non-profit",
+      "delivery_mode": "Online",
+      "target_audience": "Social entrepreneurs & leaders",
+      "skills_domains": [
+        "Leadership",
+        "Ethical Business",
+        "Social Innovation"
+      ],
+      "certification_type": "Free certificates",
+      "cost": "Free",
+      "career_use_cases": [
+        "NGO leadership",
+        "Social sector careers"
+      ],
+      "limitations": [
+        "Not technical",
+        "Niche career focus"
+      ],
+      "guidance_note": "Excellent for purpose-driven career paths.",
+      "source": "https://acumenacademy.org/courseCatalog/"
+    },
+    {
+      "platform_name": "upGrad Free Courses",
+      "category": "Professional Foundations",
+      "provider_type": "Private EdTech",
+      "delivery_mode": "Online",
+      "target_audience": "College students & working professionals",
+      "skills_domains": [
+        "Management",
+        "Tech Basics",
+        "Data Fundamentals"
+      ],
+      "certification_type": "Free completion certificates",
+      "cost": "Free",
+      "career_use_cases": [
+        "Skill exploration",
+        "MBA prep foundation"
+      ],
+      "limitations": [
+        "Introductory level only"
+      ],
+      "guidance_note": "Good preview before committing to advanced learning.",
+      "source": "https://www.upgrad.com/free-courses/"
+    },
+    {
+      "platform_name": "GeeksforGeeks Courses",
+      "category": "Computer Science",
+      "provider_type": "Private Tech Platform",
+      "delivery_mode": "Online",
+      "target_audience": "CS students",
+      "skills_domains": [
+        "DSA",
+        "Programming",
+        "Interview Prep"
+      ],
+      "certification_type": "Some free certificates",
+      "cost": "Mostly paid, limited free",
+      "career_use_cases": [
+        "Placement prep",
+        "Competitive programming"
+      ],
+      "limitations": [
+        "Certificate value secondary to skills"
+      ],
+      "guidance_note": "Use for practice, not certificate chasing.",
+      "source": "https://www.geeksforgeeks.org/blogs/best-online-courses-with-certifications/"
+    }
+  ],
+  "career_paths": [
+    {
+      "career_domain": "Software Development",
+      "starting_profiles": [
+        "12th pass student",
+        "Non-CS graduate",
+        "Self-taught learner"
+      ],
+      "entry_level_roles": [
+        "Junior Developer",
+        "Web Developer Intern",
+        "Software Trainee"
+      ],
+      "skill_stack": {
+        "foundational": [
+          "HTML",
+          "CSS",
+          "Basic Programming",
+          "Logic Building"
+        ],
+        "intermediate": [
+          "JavaScript",
+          "Python/Java",
+          "Git",
+          "APIs"
+        ],
+        "advanced": [
+          "System Design",
+          "Frameworks",
+          "Databases",
+          "Cloud Basics"
+        ]
+      },
+      "learning_sources": [
+        "freeCodeCamp",
+        "Skill India Digital",
+        "GeeksforGeeks",
+        "Microsoft Learn"
+      ],
+      "certifications_optional": [
+        "Skill India Certificate",
+        "Microsoft Fundamentals"
+      ],
+      "experience_pathways": [
+        "Personal projects",
+        "Open-source contributions",
+        "Internships"
+      ],
+      "mid_level_roles": [
+        "Software Engineer",
+        "Backend Developer",
+        "Frontend Engineer"
+      ],
+      "advanced_roles": [
+        "Senior Engineer",
+        "Tech Lead",
+        "Architect"
+      ],
+      "alternate_routes": [
+        "QA → Developer",
+        "Support → DevOps"
+      ],
+      "common_pitfalls": [
+        "Only collecting certificates",
+        "No real projects",
+        "Skipping fundamentals"
+      ],
+      "mentor_guidance": "Focus on building things, not just finishing courses."
+    },
+    {
+      "career_domain": "Data Analytics & Data Science",
+      "starting_profiles": [
+        "Graduate (any stream)",
+        "Excel-heavy job role",
+        "Statistics student"
+      ],
+      "entry_level_roles": [
+        "Data Analyst Intern",
+        "Business Analyst"
+      ],
+      "skill_stack": {
+        "foundational": [
+          "Excel",
+          "Statistics",
+          "Logical Thinking"
+        ],
+        "intermediate": [
+          "SQL",
+          "Python",
+          "Data Visualization"
+        ],
+        "advanced": [
+          "Machine Learning",
+          "Big Data",
+          "Model Deployment"
+        ]
+      },
+      "learning_sources": [
+        "DataCamp",
+        "Google Data Analytics",
+        "Coursera",
+        "Microsoft Learn"
+      ],
+      "certifications_optional": [
+        "Google Data Analytics Certificate"
+      ],
+      "experience_pathways": [
+        "Kaggle projects",
+        "Case studies",
+        "Internships"
+      ],
+      "mid_level_roles": [
+        "Senior Data Analyst",
+        "Analytics Consultant"
+      ],
+      "advanced_roles": [
+        "Data Scientist",
+        "ML Engineer"
+      ],
+      "alternate_routes": [
+        "MIS Executive → Analyst",
+        "Finance → Analytics"
+      ],
+      "common_pitfalls": [
+        "Skipping statistics",
+        "Jumping directly to ML",
+        "Tool obsession"
+      ],
+      "mentor_guidance": "Strong analysis beats fancy algorithms every time."
+    },
+    {
+      "career_domain": "Government Jobs",
+      "starting_profiles": [
+        "Graduate",
+        "Final year student"
+      ],
+      "entry_level_roles": [
+        "Clerk",
+        "Assistant",
+        "Technician"
+      ],
+      "skill_stack": {
+        "foundational": [
+          "General Studies",
+          "Aptitude",
+          "Reasoning"
+        ],
+        "intermediate": [
+          "Domain-specific subjects"
+        ],
+        "advanced": [
+          "Interview readiness",
+          "Current affairs mastery"
+        ]
+      },
+      "learning_sources": [
+        "Self-study",
+        "Coaching institutes",
+        "Online mock platforms"
+      ],
+      "certifications_optional": [],
+      "experience_pathways": [
+        "Mock exams",
+        "Interview practice"
+      ],
+      "mid_level_roles": [
+        "Officer roles",
+        "Inspector roles"
+      ],
+      "advanced_roles": [
+        "Group A Services",
+        "Administrative roles"
+      ],
+      "alternate_routes": [
+        "State PSC",
+        "PSU exams"
+      ],
+      "common_pitfalls": [
+        "Lack of backup plan",
+        "Multiple exam overload"
+      ],
+      "mentor_guidance": "Always prepare with a parallel career option."
+    },
+    {
+      "career_domain": "Digital Marketing",
+      "starting_profiles": [
+        "Arts/Commerce graduate",
+        "Career switcher"
+      ],
+      "entry_level_roles": [
+        "Marketing Executive",
+        "SEO Trainee"
+      ],
+      "skill_stack": {
+        "foundational": [
+          "Content Writing",
+          "Social Media Basics"
+        ],
+        "intermediate": [
+          "SEO",
+          "Paid Ads",
+          "Analytics"
+        ],
+        "advanced": [
+          "Growth Strategy",
+          "Marketing Automation"
+        ]
+      },
+      "learning_sources": [
+        "Google Skillshop",
+        "Simplilearn SkillUp",
+        "HubSpot Academy"
+      ],
+      "certifications_optional": [
+        "Google Ads Certification"
+      ],
+      "experience_pathways": [
+        "Freelancing",
+        "Internships",
+        "Personal brand building"
+      ],
+      "mid_level_roles": [
+        "Digital Marketing Specialist"
+      ],
+      "advanced_roles": [
+        "Growth Manager",
+        "Marketing Head"
+      ],
+      "alternate_routes": [
+        "Sales → Marketing",
+        "Content → SEO"
+      ],
+      "common_pitfalls": [
+        "Chasing trends",
+        "Ignoring fundamentals"
+      ],
+      "mentor_guidance": "Marketing is results-driven, not certificate-driven."
+    },
+    {
+      "career_domain": "Skilled Trades (ITI)",
+      "starting_profiles": [
+        "10th pass",
+        "School dropout"
+      ],
+      "entry_level_roles": [
+        "Technician",
+        "Helper"
+      ],
+      "skill_stack": {
+        "foundational": [
+          "Trade basics",
+          "Safety"
+        ],
+        "intermediate": [
+          "Hands-on equipment handling"
+        ],
+        "advanced": [
+          "Supervision",
+          "Specialization"
+        ]
+      },
+      "learning_sources": [
+        "ITI",
+        "PMKVY",
+        "NSTI"
+      ],
+      "certifications_optional": [
+        "National Trade Certificate"
+      ],
+      "experience_pathways": [
+        "Apprenticeships",
+        "On-job training"
+      ],
+      "mid_level_roles": [
+        "Senior Technician"
+      ],
+      "advanced_roles": [
+        "Supervisor",
+        "Trainer"
+      ],
+      "alternate_routes": [
+        "Self-employment",
+        "Contract work abroad"
+      ],
+      "common_pitfalls": [
+        "No skill upgrade",
+        "Unsafe practices"
+      ],
+      "mentor_guidance": "Skill depth matters more than degrees here."
+    },
+    {
+      "career_domain": "Management & MBA",
+      "starting_profiles": [
+        "Any graduate",
+        "Working professional"
+      ],
+      "entry_level_roles": [
+        "Management Trainee",
+        "Business Analyst"
+      ],
+      "skill_stack": {
+        "foundational": [
+          "Communication",
+          "Excel",
+          "Business Basics"
+        ],
+        "intermediate": [
+          "Strategy",
+          "Finance",
+          "Operations"
+        ],
+        "advanced": [
+          "Leadership",
+          "Decision Making"
+        ]
+      },
+      "learning_sources": [
+        "upGrad Free Courses",
+        "Coursera",
+        "Industry mentorship"
+      ],
+      "certifications_optional": [
+        "Project Management Certifications"
+      ],
+      "experience_pathways": [
+        "Live projects",
+        "Corporate internships"
+      ],
+      "mid_level_roles": [
+        "Manager",
+        "Consultant"
+      ],
+      "advanced_roles": [
+        "Director",
+        "CXO"
+      ],
+      "alternate_routes": [
+        "Sales → Management",
+        "Tech → Product"
+      ],
+      "common_pitfalls": [
+        "MBA without clarity",
+        "Ignoring domain depth"
+      ],
+      "mentor_guidance": "MBA amplifies skills — it doesn’t create them."
+    },
+    {
+      "career_domain": "Healthcare Support Roles",
+      "starting_profiles": [
+        "12th pass (Science)",
+        "Paramedical aspirants"
+      ],
+      "entry_level_roles": [
+        "Lab Technician",
+        "Medical Assistant"
+      ],
+      "skill_stack": {
+        "foundational": [
+          "Biology basics",
+          "Patient care"
+        ],
+        "intermediate": [
+          "Clinical procedures"
+        ],
+        "advanced": [
+          "Specialization",
+          "Administration"
+        ]
+      },
+      "learning_sources": [
+        "Skill India",
+        "State Paramedical Institutes"
+      ],
+      "certifications_optional": [
+        "Government Paramedical Certificates"
+      ],
+      "experience_pathways": [
+        "Hospital internships"
+      ],
+      "mid_level_roles": [
+        "Senior Technician"
+      ],
+      "advanced_roles": [
+        "Healthcare Manager"
+      ],
+      "alternate_routes": [
+        "Healthcare admin",
+        "Medical sales"
+      ],
+      "common_pitfalls": [
+        "Unrecognized institutes",
+        "Poor practical exposure"
+      ],
+      "mentor_guidance": "Verify institute recognition before enrolling."
+    },
+    {
+      "career_domain": "Creative & Design Careers",
+      "starting_profiles": [
+        "Arts student",
+        "Self-taught creator"
+      ],
+      "entry_level_roles": [
+        "Junior Designer",
+        "Content Creator"
+      ],
+      "skill_stack": {
+        "foundational": [
+          "Design principles",
+          "Creativity"
+        ],
+        "intermediate": [
+          "Design tools",
+          "Branding"
+        ],
+        "advanced": [
+          "UX strategy",
+          "Creative leadership"
+        ]
+      },
+      "learning_sources": [
+        "Coursera",
+        "YouTube",
+        "Portfolio-based learning"
+      ],
+      "certifications_optional": [],
+      "experience_pathways": [
+        "Portfolio",
+        "Freelance work"
+      ],
+      "mid_level_roles": [
+        "UX Designer",
+        "Visual Designer"
+      ],
+      "advanced_roles": [
+        "Creative Director"
+      ],
+      "alternate_routes": [
+        "Marketing → Design"
+      ],
+      "common_pitfalls": [
+        "Tool obsession",
+        "No portfolio"
+      ],
+      "mentor_guidance": "Your portfolio matters more than your resume."
+    }
+  ],
+  "education_levels": [
+    {
+      "education_level_code": "EDU_00",
+      "education_level_name": "No Formal Education",
+      "global_standard_alignment": {
+        "isced_level": "ISCED 0 (pre-primary equivalent – informal)",
+        "sdg4_indicator_links": [
+          "4.1.1",
+          "4.6.1"
+        ],
+        "unesco_category": "Out-of-school population"
+      },
+      "typical_age_range": "Any",
+      "education_stage": "Pre-foundational",
+      "entry_requirements": [],
+      "exit_outcomes": [
+        "Basic literacy",
+        "Numeracy readiness"
+      ],
+      "formal_or_informal": "Informal",
+      "recognized_by_government": false,
+      "learning_focus": [
+        "Basic literacy",
+        "Life skills"
+      ],
+      "assessment_type": [],
+      "dropout_risk_factors": [
+        "Poverty",
+        "Migration",
+        "Gender barriers"
+      ],
+      "data_sources": [
+        "UNESCO UIS",
+        "World Bank Education Statistics"
+      ],
+      "india_context_notes": "Target group for adult literacy and Skill India entry programs.",
+      "agent_guidance_use": "Route user to literacy missions + entry-level skill programs."
+    },
+    {
+      "education_level_code": "EDU_01",
+      "education_level_name": "Pre-Primary / Early Childhood Education",
+      "global_standard_alignment": {
+        "isced_level": "ISCED 0",
+        "sdg4_indicator_links": [
+          "4.2.2"
+        ],
+        "unesco_category": "Early childhood education"
+      },
+      "typical_age_range": "3–6",
+      "education_stage": "Foundational",
+      "entry_requirements": [],
+      "exit_outcomes": [
+        "School readiness",
+        "Cognitive development"
+      ],
+      "formal_or_informal": "Formal + Informal",
+      "recognized_by_government": true,
+      "learning_focus": [
+        "Motor skills",
+        "Language exposure"
+      ],
+      "assessment_type": [
+        "Observation-based"
+      ],
+      "dropout_risk_factors": [
+        "Nutrition issues",
+        "Access gaps"
+      ],
+      "data_sources": [
+        "UNESCO SDG 4 Metadata",
+        "UDISE+"
+      ],
+      "india_context_notes": "Mapped to Anganwadi & ECCE under NEP 2020.",
+      "agent_guidance_use": "Used for parental guidance and early intervention advice."
+    },
+    {
+      "education_level_code": "EDU_02",
+      "education_level_name": "Primary Education",
+      "global_standard_alignment": {
+        "isced_level": "ISCED 1",
+        "sdg4_indicator_links": [
+          "4.1.1"
+        ],
+        "unesco_category": "Primary education"
+      },
+      "typical_age_range": "6–11",
+      "education_stage": "Foundational",
+      "entry_requirements": [
+        "School enrollment"
+      ],
+      "exit_outcomes": [
+        "Basic literacy",
+        "Numeracy proficiency"
+      ],
+      "formal_or_informal": "Formal",
+      "recognized_by_government": true,
+      "learning_focus": [
+        "Reading",
+        "Writing",
+        "Arithmetic"
+      ],
+      "assessment_type": [
+        "Continuous evaluation"
+      ],
+      "dropout_risk_factors": [
+        "Child labor",
+        "Migration",
+        "Gender bias"
+      ],
+      "data_sources": [
+        "UDISE+",
+        "World Bank Education Statistics"
+      ],
+      "india_context_notes": "Covered under RTE Act.",
+      "agent_guidance_use": "Used to detect early dropout risk and suggest scholarships."
+    },
+    {
+      "education_level_code": "EDU_03",
+      "education_level_name": "Upper Primary / Middle School",
+      "global_standard_alignment": {
+        "isced_level": "ISCED 2",
+        "sdg4_indicator_links": [
+          "4.1.1"
+        ],
+        "unesco_category": "Lower secondary education"
+      },
+      "typical_age_range": "11–14",
+      "education_stage": "Preparatory",
+      "entry_requirements": [
+        "Primary completion"
+      ],
+      "exit_outcomes": [
+        "Subject foundation",
+        "Critical thinking basics"
+      ],
+      "formal_or_informal": "Formal",
+      "recognized_by_government": true,
+      "learning_focus": [
+        "Science",
+        "Mathematics",
+        "Social studies"
+      ],
+      "assessment_type": [
+        "School examinations"
+      ],
+      "dropout_risk_factors": [
+        "Academic difficulty",
+        "Lack of guidance"
+      ],
+      "data_sources": [
+        "UNESCO UIS",
+        "UDISE+"
+      ],
+      "india_context_notes": "Transition phase with high dropout probability.",
+      "agent_guidance_use": "Trigger mentoring, NMMS scholarship suggestions."
+    },
+    {
+      "education_level_code": "EDU_04",
+      "education_level_name": "Secondary Education",
+      "global_standard_alignment": {
+        "isced_level": "ISCED 3",
+        "sdg4_indicator_links": [
+          "4.1.1",
+          "4.3.1"
+        ],
+        "unesco_category": "Upper secondary education"
+      },
+      "typical_age_range": "14–16",
+      "education_stage": "Secondary",
+      "entry_requirements": [
+        "Middle school completion"
+      ],
+      "exit_outcomes": [
+        "10th pass certification",
+        "Eligibility for streams or ITI"
+      ],
+      "formal_or_informal": "Formal",
+      "recognized_by_government": true,
+      "learning_focus": [
+        "Academic specialization",
+        "Exam readiness"
+      ],
+      "assessment_type": [
+        "Board examinations"
+      ],
+      "dropout_risk_factors": [
+        "Exam pressure",
+        "Economic stress"
+      ],
+      "data_sources": [
+        "CBSE/State Boards",
+        "UNESCO SDG 4"
+      ],
+      "india_context_notes": "Critical fork point: academics vs skills.",
+      "agent_guidance_use": "Career stream guidance + ITI / diploma routing."
+    },
+    {
+      "education_level_code": "EDU_05",
+      "education_level_name": "Higher Secondary Education",
+      "global_standard_alignment": {
+        "isced_level": "ISCED 3",
+        "sdg4_indicator_links": [
+          "4.3.1"
+        ],
+        "unesco_category": "Upper secondary education"
+      },
+      "typical_age_range": "16–18",
+      "education_stage": "Secondary",
+      "entry_requirements": [
+        "10th pass"
+      ],
+      "exit_outcomes": [
+        "University eligibility",
+        "Entrance exam readiness"
+      ],
+      "formal_or_informal": "Formal",
+      "recognized_by_government": true,
+      "learning_focus": [
+        "Stream specialization",
+        "Career alignment"
+      ],
+      "assessment_type": [
+        "Board exams",
+        "Entrance exams"
+      ],
+      "dropout_risk_factors": [
+        "Wrong stream choice",
+        "Competitive stress"
+      ],
+      "data_sources": [
+        "UNESCO UIS",
+        "Education Ministry Reports"
+      ],
+      "india_context_notes": "Major determinant of higher education access.",
+      "agent_guidance_use": "Scholarship + entrance + backup pathway planning."
+    },
+    {
+      "education_level_code": "EDU_06",
+      "education_level_name": "Vocational / ITI Certification",
+      "global_standard_alignment": {
+        "isced_level": "ISCED 3–4",
+        "sdg4_indicator_links": [
+          "4.4.1"
+        ],
+        "unesco_category": "Technical and vocational education"
+      },
+      "typical_age_range": "15–25",
+      "education_stage": "Skill-focused",
+      "entry_requirements": [
+        "8th or 10th pass"
+      ],
+      "exit_outcomes": [
+        "Job readiness",
+        "Apprenticeship eligibility"
+      ],
+      "formal_or_informal": "Formal",
+      "recognized_by_government": true,
+      "learning_focus": [
+        "Hands-on trade skills",
+        "Safety & productivity"
+      ],
+      "assessment_type": [
+        "Trade tests"
+      ],
+      "dropout_risk_factors": [
+        "Poor institute quality",
+        "Limited awareness"
+      ],
+      "data_sources": [
+        "DGT",
+        "NSDC",
+        "ILO ISCED"
+      ],
+      "india_context_notes": "Strong employability when paired with apprenticeships.",
+      "agent_guidance_use": "Skill → apprenticeship → job mapping."
+    },
+    {
+      "education_level_code": "EDU_07",
+      "education_level_name": "Diploma Education",
+      "global_standard_alignment": {
+        "isced_level": "ISCED 4–5",
+        "sdg4_indicator_links": [
+          "4.3.1",
+          "4.4.1"
+        ],
+        "unesco_category": "Post-secondary non-tertiary education"
+      },
+      "typical_age_range": "16–22",
+      "education_stage": "Technical",
+      "entry_requirements": [
+        "10th or 12th pass"
+      ],
+      "exit_outcomes": [
+        "Technician roles",
+        "Lateral entry to degree"
+      ],
+      "formal_or_informal": "Formal",
+      "recognized_by_government": true,
+      "learning_focus": [
+        "Applied engineering",
+        "Industry exposure"
+      ],
+      "assessment_type": [
+        "Semester exams"
+      ],
+      "dropout_risk_factors": [
+        "Academic rigor",
+        "Mismatch with interest"
+      ],
+      "data_sources": [
+        "AICTE",
+        "World Bank Education Stats"
+      ],
+      "india_context_notes": "Often undervalued but high ROI in core industries.",
+      "agent_guidance_use": "Alternative to engineering degree pathway."
+    },
+    {
+      "education_level_code": "EDU_08",
+      "education_level_name": "Undergraduate Degree",
+      "global_standard_alignment": {
+        "isced_level": "ISCED 6",
+        "sdg4_indicator_links": [
+          "4.3.1"
+        ],
+        "unesco_category": "Tertiary education"
+      },
+      "typical_age_range": "18–23",
+      "education_stage": "Higher Education",
+      "entry_requirements": [
+        "12th pass",
+        "Entrance exams (where applicable)"
+      ],
+      "exit_outcomes": [
+        "Graduate employment",
+        "Postgraduate eligibility"
+      ],
+      "formal_or_informal": "Formal",
+      "recognized_by_government": true,
+      "learning_focus": [
+        "Disciplinary knowledge",
+        "Critical thinking"
+      ],
+      "assessment_type": [
+        "Semester exams",
+        "Projects"
+      ],
+      "dropout_risk_factors": [
+        "Wrong degree choice",
+        "Low employability"
+      ],
+      "data_sources": [
+        "UNESCO UIS",
+        "World Bank"
+      ],
+      "india_context_notes": "Degree alone insufficient without skills.",
+      "agent_guidance_use": "Skill-stacking + internship recommendations."
+    },
+    {
+      "education_level_code": "EDU_09",
+      "education_level_name": "Postgraduate / Master's Degree",
+      "global_standard_alignment": {
+        "isced_level": "ISCED 7",
+        "sdg4_indicator_links": [
+          "4.3.1"
+        ],
+        "unesco_category": "Advanced tertiary education"
+      },
+      "typical_age_range": "22–27",
+      "education_stage": "Advanced Higher Education",
+      "entry_requirements": [
+        "Undergraduate degree"
+      ],
+      "exit_outcomes": [
+        "Specialized roles",
+        "Doctoral eligibility"
+      ],
+      "formal_or_informal": "Formal",
+      "recognized_by_government": true,
+      "learning_focus": [
+        "Specialization",
+        "Research orientation"
+      ],
+      "assessment_type": [
+        "Thesis",
+        "Examinations"
+      ],
+      "dropout_risk_factors": [
+        "Over-specialization",
+        "Limited job-market alignment"
+      ],
+      "data_sources": [
+        "UNESCO",
+        "SDG 4 Indicators"
+      ],
+      "india_context_notes": "High value when aligned with industry demand.",
+      "agent_guidance_use": "ROI analysis + career alignment advice."
+    },
+    {
+      "education_level_code": "EDU_10",
+      "education_level_name": "Doctoral / PhD",
+      "global_standard_alignment": {
+        "isced_level": "ISCED 8",
+        "sdg4_indicator_links": [
+          "4.3.1"
+        ],
+        "unesco_category": "Doctoral education"
+      },
+      "typical_age_range": "25–40",
+      "education_stage": "Research",
+      "entry_requirements": [
+        "Postgraduate degree",
+        "Research proposal"
+      ],
+      "exit_outcomes": [
+        "Academic careers",
+        "Advanced research roles"
+      ],
+      "formal_or_informal": "Formal",
+      "recognized_by_government": true,
+      "learning_focus": [
+        "Original research",
+        "Knowledge creation"
+      ],
+      "assessment_type": [
+        "Thesis defense"
+      ],
+      "dropout_risk_factors": [
+        "Funding gaps",
+        "Research isolation"
+      ],
+      "data_sources": [
+        "UNESCO",
+        "World Bank"
+      ],
+      "india_context_notes": "High time investment, niche career outcomes.",
+      "agent_guidance_use": "Expectation setting + alternative career mapping."
+    },
+    {
+      "education_level_code": "EDU_11",
+      "education_level_name": "Adult & Continuing Education",
+      "global_standard_alignment": {
+        "isced_level": "Cross-cutting",
+        "sdg4_indicator_links": [
+          "4.6.1"
+        ],
+        "unesco_category": "Lifelong learning"
+      },
+      "typical_age_range": "18+",
+      "education_stage": "Lifelong Learning",
+      "entry_requirements": [],
+      "exit_outcomes": [
+        "Reskilling",
+        "Upskilling"
+      ],
+      "formal_or_informal": "Formal + Informal",
+      "recognized_by_government": true,
+      "learning_focus": [
+        "Employability",
+        "Adaptability"
+      ],
+      "assessment_type": [
+        "Competency-based"
+      ],
+      "dropout_risk_factors": [
+        "Time constraints",
+        "Digital divide"
+      ],
+      "data_sources": [
+        "ILO",
+        "UNESCO SDG 4"
+      ],
+      "india_context_notes": "Key for workforce resilience.",
+      "agent_guidance_use": "Career switch & reskill recommendations."
+    }
+  ]
+}

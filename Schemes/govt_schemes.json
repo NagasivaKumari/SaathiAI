@@ -1,0 +1,511 @@
+{
+  "schemes": [
+    {
+      "id": "pm_kisan",
+      "name": "PM-KISAN (Pradhan Mantri Kisan Samman Nidhi)",
+      "category": "agriculture",
+      "description": "Financial support to farmers",
+      "benefit": "₹6000 per year in 3 installments",
+      "eligibility": [
+        "Small and marginal farmers",
+        "Landholding up to 2 hectares",
+        "Indian citizen"
+      ],
+      "documents": [
+        "Aadhaar card",
+        "Bank account details",
+        "Land ownership documents"
+      ],
+      "application_process": [
+        "Visit PM-KISAN portal (pmkisan.gov.in)",
+        "Click on 'Farmers Corner'",
+        "Select 'New Farmer Registration'",
+        "Fill Aadhaar number and other details",
+        "Submit land records",
+        "Verify mobile number with OTP"
+      ],
+      "common_rejections": [
+        "Aadhaar not linked to bank account",
+        "Land records mismatch",
+        "Income tax payer"
+      ],
+      "helpline": "155261 / 011-24300606",
+      "website": "https://pmkisan.gov.in"
+    },
+    {
+      "id": "ayushman_bharat",
+      "name": "Ayushman Bharat - Pradhan Mantri Jan Arogya Yojana (PM-JAY)",
+      "category": "health",
+      "description": "Health insurance for economically vulnerable families",
+      "benefit": "₹5 lakh per family per year for secondary and tertiary hospitalization",
+      "eligibility": [
+        "Families identified in SECC 2011 database",
+        "Economically vulnerable based on deprivation criteria"
+      ],
+      "documents": [
+        "Ration card",
+        "Aadhaar card",
+        "Mobile number"
+      ],
+      "application_process": [
+        "Check eligibility at https://pmjay.gov.in",
+        "Visit nearest Ayushman Mitra or empanelled hospital",
+        "Provide Aadhaar and mobile number",
+        "Get Ayushman card issued"
+      ],
+      "common_rejections": [
+        "Name not in SECC 2011 list",
+        "Aadhaar mismatch"
+      ],
+      "helpline": "14555",
+      "website": "https://pmjay.gov.in"
+    },
+    {
+      "id": "mgnrega",
+      "name": "MGNREGA (Mahatma Gandhi National Rural Employment Guarantee Act)",
+      "category": "employment",
+      "description": "Guaranteed 100 days of wage employment in rural areas",
+      "benefit": "Minimum wage for 100 days of unskilled manual work per household per year",
+      "eligibility": [
+        "Adult members of rural household",
+        "Willing to do unskilled manual work"
+      ],
+      "documents": [
+        "Job card (issued by Gram Panchayat)",
+        "Aadhaar card",
+        "Bank account details"
+      ],
+      "application_process": [
+        "Visit Gram Panchayat office",
+        "Apply for job card with household details",
+        "Submit Aadhaar and bank details",
+        "Apply for work when needed",
+        "Work will be provided within 15 days"
+      ],
+      "common_rejections": [
+        "Not a rural household",
+        "Incomplete job card application",
+        "Bank account not linked"
+      ],
+      "helpline": "1800-345-22-44",
+      "website": "https://nrega.nic.in"
+    },
+    {
+      "id": "ujjwala",
+      "name": "Pradhan Mantri Ujjwala Yojana (PMUY)",
+      "category": "welfare",
+      "description": "Free LPG connection to women from BPL households",
+      "benefit": "Free LPG connection with deposit-free cylinder and regulator",
+      "eligibility": [
+        "Woman member of BPL household",
+        "Age 18 years or above",
+        "Not already having LPG connection in household"
+      ],
+      "documents": [
+        "BPL ration card",
+        "Aadhaar card",
+        "Bank account details",
+        "Address proof"
+      ],
+      "application_process": [
+        "Visit nearest LPG distributor",
+        "Fill PMUY application form",
+        "Submit BPL certificate and documents",
+        "Connection will be provided within 7-10 days"
+      ],
+      "common_rejections": [
+        "Already have LPG connection in family",
+        "Not in BPL list",
+        "Incomplete documents"
+      ],
+      "helpline": "1906",
+      "website": "https://www.pmuy.gov.in"
+    },
+    {
+      "id": "sukanya_samriddhi",
+      "name": "Sukanya Samriddhi Yojana (SSY)",
+      "category": "savings",
+      "description": "Savings scheme for girl child with high interest rate",
+      "benefit": "High interest rate (currently ~8%), tax benefits, maturity at 21 years",
+      "eligibility": [
+        "Girl child below 10 years of age",
+        "Indian citizen",
+        "Maximum 2 girl children per family"
+      ],
+      "documents": [
+        "Girl child's birth certificate",
+        "Parent's Aadhaar and PAN",
+        "Address proof"
+      ],
+      "application_process": [
+        "Visit post office or authorized bank",
+        "Fill SSY account opening form",
+        "Minimum deposit ₹250, maximum ₹1.5 lakh per year",
+        "Can deposit till girl turns 15 years"
+      ],
+      "common_rejections": [
+        "Girl child above 10 years",
+        "More than 2 accounts already opened",
+        "Incomplete documents"
+      ],
+      "helpline": "1800-11-0001",
+      "website": "https://www.india.gov.in"
+    },
+    {
+      "id": "post_matric_sc",
+      "name": "Post Matric Scholarship for SC Students",
+      "category": "education",
+      "description": "Financial assistance to SC students for post-matriculation studies",
+      "benefit": "Maintenance allowance, tuition fees, and other compulsory fees",
+      "eligibility": [
+        "Student belongs to Scheduled Caste (SC) category",
+        "Passed matriculation/10th standard",
+        "Studying in Class 11, 12, or higher education (graduation, post-graduation, diploma, etc.)",
+        "Family income less than ₹2.5 lakh per annum",
+        "Studying in a recognized institution"
+      ],
+      "documents": [
+        "Caste certificate (SC)",
+        "Income certificate (family income less than ₹2.5 lakh)",
+        "Previous year mark sheet",
+        "Current year admission receipt",
+        "Aadhaar card",
+        "Bank account details (student's account)",
+        "Fee receipt from institution",
+        "Bonafide certificate from institution"
+      ],
+      "application_process": [
+        "Visit National Scholarship Portal (scholarships.gov.in)",
+        "Click on 'New Registration' if first time",
+        "Fill registration form with personal details",
+        "Login with credentials",
+        "Select 'Post Matric Scholarship for SC Students'",
+        "Fill application form with academic and family details",
+        "Upload all required documents (PDF format)",
+        "Submit application before deadline (usually October-November)",
+        "Note down application ID for tracking",
+        "Institute will verify your application",
+        "Scholarship amount will be credited to bank account after approval"
+      ],
+      "common_rejections": [
+        "Income certificate shows income above ₹2.5 lakh",
+        "Caste certificate not valid or expired",
+        "Documents not properly uploaded or unclear",
+        "Bank account not in student's name",
+        "Application submitted after deadline",
+        "Institute verification pending or rejected",
+        "Aadhaar not linked to bank account"
+      ],
+      "helpline": "0120-6619540 (National Scholarship Portal)",
+      "website": "https://scholarships.gov.in",
+      "important_notes": [
+        "Apply online only through National Scholarship Portal",
+        "Keep checking application status regularly",
+        "Ensure all documents are clear and readable",
+        "Scholarship is renewed every year - must reapply",
+        "Different states may have additional requirements"
+      ]
+    },
+    {
+      "id": "mgnrega",
+      "name": "MGNREGA (Mahatma Gandhi National Rural Employment Guarantee Act)",
+      "category": "employment",
+      "description": "Employment guarantee scheme for rural households",
+      "benefit": "Guaranteed 100 days of wage employment per year to rural households",
+      "eligibility": [
+        "Adult members of rural households",
+        "Willing to do unskilled manual work",
+        "Must be 18 years or above",
+        "Indian citizen residing in rural area"
+      ],
+      "documents": [
+        "Aadhaar card",
+        "Bank account details (for wage payment)",
+        "Passport-size photograph",
+        "Address proof"
+      ],
+      "application_process": [
+        "Visit your local Gram Panchayat office",
+        "Submit written application for job card",
+        "Provide required documents",
+        "Get job card issued within 15 days",
+        "Apply for work when needed",
+        "Work will be provided within 15 days of application",
+        "Wages paid directly to bank account"
+      ],
+      "common_rejections": [
+        "Not a rural resident",
+        "Incomplete documentation",
+        "Already employed in government job"
+      ],
+      "helpline": "1800-345-22-44 (Toll-free)",
+      "website": "https://nrega.nic.in",
+      "important_notes": [
+        "Unemployment allowance if work not provided within 15 days",
+        "Wages must be paid within 15 days of work completion",
+        "Work provided within 5 km radius of residence",
+        "Equal wages for men and women",
+        "Can apply for work multiple times in a year"
+      ]
+    },
+    {
+      "id": "pmkvy",
+      "name": "PMKVY (Pradhan Mantri Kaushal Vikas Yojana)",
+      "category": "skill_development",
+      "description": "Skill development and training program",
+      "benefit": "Free skill training and certification with monetary rewards (₹8,000 average)",
+      "eligibility": [
+        "Indian citizen",
+        "Unemployed or school/college dropout",
+        "Age between 15-45 years",
+        "Basic literacy preferred but not mandatory"
+      ],
+      "documents": [
+        "Aadhaar card",
+        "Bank account details",
+        "Educational certificates (if any)",
+        "Passport-size photograph"
+      ],
+      "application_process": [
+        "Visit PMKVY portal (pmkvyofficial.org)",
+        "Click on 'Find a Training Center'",
+        "Select your location and preferred skill",
+        "Enroll at nearest training center",
+        "Complete training and assessment",
+        "Receive certificate and monetary reward"
+      ],
+      "common_rejections": [
+        "Age not in eligible range",
+        "Already employed in formal sector",
+        "Incomplete Aadhaar verification"
+      ],
+      "helpline": "08800-055-555 (Toll-free)",
+      "website": "https://pmkvyofficial.org",
+      "important_notes": [
+        "Over 40 sectors and 200+ courses available",
+        "Training is completely free",
+        "Placement assistance provided",
+        "Certificate recognized by industry",
+        "Can upgrade skills multiple times"
+      ]
+    },
+    {
+      "id": "startup_india",
+      "name": "Startup India",
+      "category": "entrepreneurship",
+      "description": "Government initiative to promote entrepreneurship and startups",
+      "benefit": "Tax exemptions for 3 years, easier compliance, funding support, IPR fast-tracking",
+      "eligibility": [
+        "Entity incorporated as Private Limited Company or LLP",
+        "Turnover less than ₹100 crore in any financial year",
+        "Working towards innovation/development of new products",
+        "Entity not formed by splitting up existing business",
+        "Not older than 10 years from date of incorporation"
+      ],
+      "documents": [
+        "Certificate of Incorporation",
+        "PAN card of entity",
+        "Brief about innovation/business model",
+        "Pitch deck (for funding)",
+        "Financial projections"
+      ],
+      "application_process": [
+        "Visit Startup India portal (startupindia.gov.in)",
+        "Click on 'Register' and create account",
+        "Fill startup details and upload documents",
+        "Get recognition certificate",
+        "Apply for tax benefits through DPIIT",
+        "Access funding schemes and incubation support"
+      ],
+      "common_rejections": [
+        "Business not innovative enough",
+        "Entity older than 10 years",
+        "Turnover exceeds ₹100 crore",
+        "Incomplete documentation"
+      ],
+      "helpline": "1800-115-565",
+      "website": "https://startupindia.gov.in",
+      "important_notes": [
+        "Access to 50+ government schemes",
+        "Self-certification for labor and environment laws",
+        "80% rebate on patent filing fees",
+        "Free hosting on startup portal",
+        "Networking with investors and mentors"
+      ]
+    },
+    {
+      "id": "mudra_loan",
+      "name": "Pradhan Mantri MUDRA Yojana (PMMY)",
+      "category": "finance",
+      "description": "Loans for micro and small businesses",
+      "benefit": "Collateral-free loans up to ₹10 lakh for business",
+      "eligibility": [
+        "Indian citizen",
+        "Non-corporate, non-farm small/micro enterprises",
+        "Manufacturing, trading, or service sector business",
+        "Income generating activity"
+      ],
+      "documents": [
+        "Aadhaar card and PAN card",
+        "Business plan/project report",
+        "Bank statements (6 months)",
+        "Address proof (residence and business)",
+        "Quotations for equipment/machinery",
+        "GST registration (if applicable)"
+      ],
+      "application_process": [
+        "Visit nearest bank or NBFC",
+        "Fill MUDRA loan application form",
+        "Submit business plan and documents",
+        "Choose loan category: Shishu (up to ₹50k), Kishore (₹50k-₹5L), Tarun (₹5L-₹10L)",
+        "Bank verifies and approves",
+        "Loan disbursed to bank account"
+      ],
+      "common_rejections": [
+        "Poor credit score (below 650)",
+        "Incomplete business plan",
+        "Insufficient business viability",
+        "Previous loan defaults"
+      ],
+      "helpline": "1800-180-1111",
+      "website": "https://mudra.org.in",
+      "important_notes": [
+        "No collateral required",
+        "Interest rates: 8-12% per annum",
+        "Repayment period: up to 5 years",
+        "Available at all public and private banks",
+        "Special focus on women entrepreneurs"
+      ]
+    },
+    {
+      "id": "stand_up_india",
+      "name": "Stand-Up India Scheme",
+      "category": "entrepreneurship",
+      "description": "Loans for SC/ST and women entrepreneurs",
+      "benefit": "Bank loans between ₹10 lakh to ₹1 crore for greenfield enterprises",
+      "eligibility": [
+        "SC/ST and/or women entrepreneur",
+        "Age 18 years or above",
+        "Loan for greenfield enterprise (manufacturing, services, trading)",
+        "At least one SC/ST or woman entrepreneur per bank branch"
+      ],
+      "documents": [
+        "Aadhaar card and PAN card",
+        "Caste certificate (for SC/ST)",
+        "Project report/business plan",
+        "Proof of business address",
+        "Educational qualifications",
+        "Bank statements"
+      ],
+      "application_process": [
+        "Visit Stand-Up India portal (standupmitra.in)",
+        "Prepare detailed project report",
+        "Apply through nearest bank branch",
+        "Attend skill development program if needed",
+        "Bank processes and sanctions loan",
+        "Loan disbursed in installments"
+      ],
+      "common_rejections": [
+        "Not a greenfield project",
+        "Loan amount outside ₹10L-₹1Cr range",
+        "Insufficient business viability",
+        "Poor credit history"
+      ],
+      "helpline": "1800-180-1111",
+      "website": "https://standupmitra.in",
+      "important_notes": [
+        "Composite loan for business setup",
+        "Margin money: 25% of project cost",
+        "Repayment period: 7 years with moratorium",
+        "Handholding support for 2 years",
+        "Credit guarantee coverage available"
+      ]
+    },
+    {
+      "id": "jan_dhan",
+      "name": "Pradhan Mantri Jan Dhan Yojana (PMJDY)",
+      "category": "financial_inclusion",
+      "description": "Financial inclusion program for zero-balance bank accounts",
+      "benefit": "Free bank account, RuPay debit card, ₹10,000 overdraft facility, ₹2 lakh accident insurance",
+      "eligibility": [
+        "Indian citizen",
+        "No existing bank account",
+        "Age 10 years or above"
+      ],
+      "documents": [
+        "Aadhaar card (preferred)",
+        "OR any officially valid document (Voter ID, Driving License, PAN, Passport)",
+        "Passport-size photograph",
+        "For minors: Guardian's documents"
+      ],
+      "application_process": [
+        "Visit nearest bank branch",
+        "Fill PMJDY account opening form",
+        "Submit Aadhaar or other ID proof",
+        "Provide photograph",
+        "Account opened immediately",
+        "RuPay card issued within 30 days"
+      ],
+      "common_rejections": [
+        "Already has bank account",
+        "Invalid/expired documents",
+        "Aadhaar not linked to mobile"
+      ],
+      "helpline": "1800-11-0001 / 1800-180-1111",
+      "website": "https://pmjdy.gov.in",
+      "important_notes": [
+        "Zero balance requirement",
+        "Direct Benefit Transfer (DBT) enabled",
+        "Mobile banking facility",
+        "Overdraft up to ₹10,000 after 6 months",
+        "₹2 lakh accident insurance cover",
+        "₹30,000 life insurance (on meeting conditions)"
+      ]
+    },
+    {
+      "id": "atal_pension",
+      "name": "Atal Pension Yojana (APY)",
+      "category": "pension",
+      "description": "Pension scheme for unorganized sector workers",
+      "benefit": "Guaranteed pension of ₹1,000 to ₹5,000 per month after 60 years",
+      "eligibility": [
+        "Indian citizen aged 18-40 years",
+        "Bank account holder",
+        "Aadhaar card",
+        "Not covered under any statutory social security scheme",
+        "Not an income tax payer"
+      ],
+      "documents": [
+        "Aadhaar card",
+        "Bank account details",
+        "Mobile number",
+        "Nominee details"
+      ],
+      "application_process": [
+        "Visit your bank branch",
+        "Fill APY registration form",
+        "Choose pension amount (₹1,000 to ₹5,000)",
+        "Provide Aadhaar and bank details",
+        "Auto-debit setup for monthly contribution",
+        "Receive APY acknowledgment"
+      ],
+      "common_rejections": [
+        "Age above 40 years",
+        "Income tax payer",
+        "Already covered under EPF/NPS",
+        "Insufficient bank balance for contribution"
+      ],
+      "helpline": "1800-110-069",
+      "website": "https://npscra.nsdl.co.in/apy",
+      "important_notes": [
+        "Monthly contribution: ₹42 to ₹1,454 (based on age and pension choice)",
+        "Government co-contribution for eligible subscribers",
+        "Pension starts at 60 years",
+        "Spouse gets pension after subscriber's death",
+        "Nominee gets corpus if both die",
+        "Can increase/decrease pension amount once a year"
+      ]
+    }
+  ]
+}
+
