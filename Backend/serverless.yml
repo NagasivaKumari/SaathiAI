@@ -1,5 +1,6 @@
 org: nagashiva
 app: my-app
+# Force redeploy 1
 service: sathiai-backend
 
 provider:
@@ -60,8 +61,6 @@ provider:
 functions:
   api:
     handler: src.main.handler
-    layers:
-      - { Ref: PythonRequirementsLambdaLayer }
     events:
       - httpApi: '*'
 
@@ -120,12 +119,7 @@ resources:
 
 custom:
   pythonRequirements:
-    dockerizePip: true
-    layer: true
-    slim: true
-
-plugins:
-  - serverless-python-requirements
+    nativeCompile: true
 
 package:
   exclude:
