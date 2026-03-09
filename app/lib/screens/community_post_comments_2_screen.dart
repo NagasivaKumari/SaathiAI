@@ -15,7 +15,7 @@ class CommunityPostComments2Screen extends StatelessWidget {
       body: ListView.separated(
         padding: const EdgeInsets.all(16),
         itemCount: comments.length,
-        separatorBuilder: (_, __) => const Divider(),
+        separatorBuilder: (_, _) => const Divider(),
         itemBuilder: (context, idx) {
           final c = comments[idx];
           return ListTile(

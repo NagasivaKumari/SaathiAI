@@ -55,61 +55,100 @@ class ScraperService:
                     if items_saved > 0:
                         print(f"✅ Market: {items_saved} records from data.gov.in saved to DynamoDB.")
                         return True
-            except Exception as e:
-                print(f"⚠️ data.gov.in API error: {e}")
-
-        # 2. Web scrape public commodity/mandi pages for global-style data
-        try:
-            url = "https://www.commodity-online.com/mandi-prices"
-            resp = requests.get(url, headers={"User-Agent": ScraperService.USER_AGENT}, timeout=10)
-            if resp.status_code == 200:
-                soup = BeautifulSoup(resp.content, "html.parser")
-                # Common patterns: tables with commodity name and price
-                rows = soup.select("table tr") or soup.select(".mandi-price tr") or []
-                for row in rows[:30]:
-                    cells = row.select("td")
-                    if len(cells) >= 2:
-                        text = " ".join(c.get_text(strip=True) for c in cells).lower()
-                        # Try to extract commodity and number (price)
-                        numbers = re.findall(r"[\d,]+(?:\.\d+)?", text)
-                        if numbers:
-                            price_clean = numbers[-1].replace(",", "")
-                            if price_clean.isdigit() and 100 < int(price_clean) < 100000:
-                                name = cells[0].get_text(strip=True) if cells else "Crop"
-                                if len(name) > 1 and name.lower() not in ("commodity", "price", "market"):
+            @staticmethod
+            def scrape_schemes():
+                """
+                Fetch government schemes from public sources, store with multilingual fields if available.
+                """
+                print("🔍 Scraper: Fetching government schemes (multilingual)...")
+                try:
+                    schemes_api = os.getenv("SCHEMES_API_URL", "").strip()
+                    langs = ["en", "hi", "te"]  # Extend as needed
+                    table = db_service.dynamodb.Table(db_service.schemes_table.table_name) if db_service.dynamodb else None
+                    if schemes_api:
+                        resp = requests.get(schemes_api, headers={"User-Agent": ScraperService.USER_AGENT}, timeout=10)
+                        if resp.status_code == 200:
+                            data = resp.json()
+                            schemes = data if isinstance(data, list) else data.get("schemes", data.get("records", []))
+                            if table and schemes:
+                                for s in schemes[:50]:
+                                    # Try to extract multilingual fields if present
+                                    def multi(field):
+                                        if isinstance(s.get(field), dict):
+                                            return s.get(field)
+                                        # If not dict, fallback to English
+                                        return {"en": str(s.get(field, ""))}
                                     item = {
-                                        "id": f"scrape_{int(time.time())}_{items_saved}",
-                                        "crop": name[:80],
-                                        "price": price_clean,
-                                        "market": cells[1].get_text(strip=True)[:60] if len(cells) > 1 else "",
-                                        "trend": "up",
-                                        "change": "0",
-                                        "last_updated": str(time.time()),
+                                        "id": str(s.get("id", s.get("scheme_id", "")) or f"s_{hash(str(s)) % 10**8}"),
+                                        "name": multi("name"),
+                                        "description": multi("description"),
+                                        "status": multi("status"),
+                                        "category": multi("category"),
                                     }
-                                    if dynamo:
-                                        db_service.save_market_item(item)
-                                    items_saved += 1
-        except Exception as e:
-            print(f"⚠️ Commodity scrape error: {e}")
+                                    if item["name"]:
+                                        table.put_item(Item=item)
+                                print("✅ Schemes: Loaded (multilingual) from SCHEMES_API_URL into DynamoDB.")
+                                return True
+                    # Scrape a simple schemes listing page if available
+                    schemes_page = os.getenv("SCHEMES_SCRAPE_URL", "https://www.myscheme.gov.in/schemes").strip()
+                    if schemes_page.startswith("http"):
+                        resp = requests.get(schemes_page, headers={"User-Agent": ScraperService.USER_AGENT}, timeout=10)
+                        if resp.status_code == 200:
+                            soup = BeautifulSoup(resp.content, "html.parser")
+                            links = soup.select("a[href*='scheme'], .scheme-title, h3 a")[:20]
+                            if table and links:
+                                for i, a in enumerate(links):
+                                    name = a.get_text(strip=True)
+                                    if len(name) > 3 and name.lower() not in ("home", "login", "search"):
+                                        table.put_item(Item={
+                                            "id": f"scrape_s_{int(time.time())}_{i}",
+                                            "name": {"en": name[:200]},
+                                            "description": {"en": "Government scheme – see official portal for details."},
+                                            "status": {"en": "Active"},
+                                            "category": {"en": "General"},
+                                        })
+                                print("✅ Schemes: Scraped and saved to DynamoDB (multilingual).")
+                                return True
+                except Exception as e:
+                    print(f"⚠️ Schemes scrape error: {e}")
+                return False
 
-        # 3. Fallback: save demo data to DynamoDB when available
-        if items_saved == 0 and dynamo:
-            for item in [
-                {"id": "m1", "crop": "Wheat", "price": "2345", "trend": "up", "change": "120", "market": "Indore Mandi", "location": "MP", "last_updated": str(time.time())},
-                {"id": "m2", "crop": "Tomato", "price": "2450", "trend": "up", "change": "120", "market": "Azadpur Mandi", "location": "Delhi", "last_updated": str(time.time())},
-                {"id": "m3", "crop": "Potato", "price": "1580", "trend": "up", "change": "45", "market": "Agra Mandi", "location": "UP", "last_updated": str(time.time())},
-                {"id": "m4", "crop": "Rice (Basmati)", "price": "3800", "trend": "up", "change": "45", "market": "Punjab Mandi", "location": "Punjab", "last_updated": str(time.time())},
-            ]:
-                db_service.save_market_item(item)
-                items_saved += 1
-            print("✅ Market: Demo fallback data saved to DynamoDB.")
-        elif not dynamo:
-            print("✅ Market: Web scraping done (no DB). /api/market/prices will use in-memory fallback.")
-
-        return True
-
-    @staticmethod
-    def scrape_schemes():
+            @staticmethod
+            def scrape_skills():
+                """
+                Fetch skill data from public sources, store with multilingual fields if available.
+                """
+                print("🔍 Scraper: Fetching skills (multilingual)...")
+                try:
+                    skills_api = os.getenv("SKILLS_API_URL", "").strip()
+                    langs = ["en", "hi", "te"]  # Extend as needed
+                    table = db_service.dynamodb.Table(db_service.skills_table.table_name) if db_service.dynamodb else None
+                    if skills_api:
+                        resp = requests.get(skills_api, headers={"User-Agent": ScraperService.USER_AGENT}, timeout=10)
+                        if resp.status_code == 200:
+                            data = resp.json()
+                            skills = data if isinstance(data, list) else data.get("skills", data.get("records", []))
+                            if table and skills:
+                                for s in skills[:50]:
+                                    def multi(field):
+                                        if isinstance(s.get(field), dict):
+                                            return s.get(field)
+                                        return {"en": str(s.get(field, ""))}
+                                    item = {
+                                        "id": str(s.get("id", s.get("skill_id", "")) or f"sk_{hash(str(s)) % 10**8}"),
+                                        "name": multi("name"),
+                                        "description": multi("description"),
+                                        "category": multi("category"),
+                                        "duration": s.get("duration", ""),
+                                        "certificate": s.get("certificate", False),
+                                    }
+                                    if item["name"]:
+                                        table.put_item(Item=item)
+                                print("✅ Skills: Loaded (multilingual) from SKILLS_API_URL into DynamoDB.")
+                                return True
+                except Exception as e:
+                    print(f"⚠️ Skills scrape error: {e}")
+                return False
         """
         Fetch government schemes from public sources:
         1. Try data.gov.in schemes API if available / or static JSON.

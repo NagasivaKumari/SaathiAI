@@ -1,3 +1,4 @@
+
 from fastapi import APIRouter, HTTPException
 from src.s3_service import s3_service
 from src.aws_db import db_service
@@ -15,21 +16,35 @@ router = APIRouter()
 @router.get("")
 async def get_skills(q: str = None, category: str = None, lang: str = "en-US", email: str = "sunil@example.com"):
     all_skills = [
-        {"id": "1", "name": "Organic Farming", "category": "Agriculture", "description": "Learn sustainable farming", "progress": 70, "duration": "3 weeks", "certificate": True},
-        {"id": "2", "name": "Dairy Management", "category": "Agriculture", "description": "Cow care basics", "progress": 100, "duration": "2 weeks", "certificate": True},
-        {"id": "3", "name": "Digital Literacy", "category": "Digital", "description": "Using apps for market", "progress": 20, "duration": "1 week", "certificate": False},
-        {"id": "4", "name": "Small Business Accounting", "category": "Business", "description": "Manage farm finances", "progress": 0, "duration": "4 weeks", "certificate": True},
-        {"id": "5", "name": "Handicrafts & Weaving", "category": "Handicrafts", "description": "Traditional art skills", "progress": 0, "duration": "6 weeks", "certificate": True},
+        {"id": "1", "name": {"en": "Organic Farming", "hi": "जैविक खेती", "te": "సేంద్రీయ వ్యవసాయం"}, "category": {"en": "Agriculture", "hi": "कृषि", "te": "వ్యవసాయం"}, "description": {"en": "Learn sustainable farming", "hi": "टिकाऊ खेती सीखें", "te": "సుస్థిర వ్యవసాయాన్ని నేర్చుకోండి"}, "progress": 70, "duration": "3 weeks", "certificate": True},
+        {"id": "2", "name": {"en": "Dairy Management", "hi": "डेयरी प्रबंधन", "te": "పాల ఉత్పత్తి నిర్వహణ"}, "category": {"en": "Agriculture", "hi": "कृषि", "te": "వ్యవసాయం"}, "description": {"en": "Cow care basics", "hi": "गाय की देखभाल के मूल बातें", "te": "ఆవు సంరక్షణ మౌలికాలు"}, "progress": 100, "duration": "2 weeks", "certificate": True},
+        {"id": "3", "name": {"en": "Digital Literacy", "hi": "डिजिटल साक्षरता", "te": "డిజిటల్ సాక్షరత"}, "category": {"en": "Digital", "hi": "डिजिटल", "te": "డిజిటల్"}, "description": {"en": "Using apps for market", "hi": "बाजार के लिए ऐप्स का उपयोग", "te": "మార్కెట్ కోసం యాప్స్ ఉపయోగించడం"}, "progress": 20, "duration": "1 week", "certificate": False},
+        {"id": "4", "name": {"en": "Small Business Accounting", "hi": "लघु व्यवसाय लेखांकन", "te": "చిన్న వ్యాపార లెక్కలు"}, "category": {"en": "Business", "hi": "व्यापार", "te": "వ్యాపారం"}, "description": {"en": "Manage farm finances", "hi": "फार्म वित्त प्रबंधन", "te": "ఫార్మ్ ఆర్థికాలను నిర్వహించండి"}, "progress": 0, "duration": "4 weeks", "certificate": True},
+        {"id": "5", "name": {"en": "Handicrafts & Weaving", "hi": "हस्तशिल्प और बुनाई", "te": "చేతి పనులు & నేయడం"}, "category": {"en": "Handicrafts", "hi": "हस्तशिल्प", "te": "చేతి పనులు"}, "description": {"en": "Traditional art skills", "hi": "पारंपरिक कला कौशल", "te": "సాంప్రదాయ కళ నైపుణ్యాలు"}, "progress": 0, "duration": "6 weeks", "certificate": True},
     ]
-    
-    if q:
-        q = q.lower()
-        all_skills = [s for s in all_skills if q in s["name"].lower() or q in s["description"].lower()]
-    if category:
-        category = category.lower()
-        all_skills = [s for s in all_skills if category in s.get("category", "").lower()]
-        
-    return all_skills
+
+    def localize(item):
+        def pick(field):
+            val = item.get(field)
+            if isinstance(val, dict):
+                return val.get(lang) or val.get(lang.split("-")[0]) or val.get("en") or next(iter(val.values()), "")
+            return val
+        return {
+            **item,
+            "name": pick("name"),
+            "description": pick("description"),
+            "category": pick("category")
+        }
+
+    filtered = []
+    for s in all_skills:
+        s_local = localize(s)
+        if q and q.lower() not in (s_local.get("name", "") + s_local.get("description", "") + s_local.get("category", "")).lower():
+            continue
+        if category and category.lower() not in s_local.get("category", "").lower():
+            continue
+        filtered.append(s_local)
+    return filtered
 
 @router.get("/search")
 async def search_skills(query: str = "", category: str = None, lang: str = "en-US"):
@@ -101,3 +116,27 @@ async def complete_module(email: str, skill_name: str):
         "points_earned": 50,
         "certificate_url": s3_url
     }
+
+@router.get("/bulk")
+async def get_skills_bulk(lang: str = "en-US"):
+    """Return all skills in bulk for offline caching (language-aware)."""
+    all_skills = [
+        {"id": "1", "name": {"en": "Organic Farming", "hi": "जैविक खेती", "te": "సేంద్రీయ వ్యవసాయం"}, "category": {"en": "Agriculture", "hi": "कृषि", "te": "వ్యవసాయం"}, "description": {"en": "Learn sustainable farming", "hi": "टिकाऊ खेती सीखें", "te": "సుస్థిర వ్యవసాయాన్ని నేర్చుకోండి"}, "progress": 70, "duration": "3 weeks", "certificate": True},
+        {"id": "2", "name": {"en": "Dairy Management", "hi": "डेयरी प्रबंधन", "te": "పాల ఉత్పత్తి నిర్వహణ"}, "category": {"en": "Agriculture", "hi": "कृषि", "te": "వ్యవసాయం"}, "description": {"en": "Cow care basics", "hi": "गाय की देखभाल के मूल बातें", "te": "ఆవు సంరక్షణ మౌలికాలు"}, "progress": 100, "duration": "2 weeks", "certificate": True},
+        {"id": "3", "name": {"en": "Digital Literacy", "hi": "डिजिटल साक्षरता", "te": "డిజిటల్ సాక్షరత"}, "category": {"en": "Digital", "hi": "डिजिटल", "te": "డిజిటల్"}, "description": {"en": "Using apps for market", "hi": "बाजार के लिए ऐप्स का उपयोग", "te": "మార్కెట్ కోసం యాప్స్ ఉపయోగించడం"}, "progress": 20, "duration": "1 week", "certificate": False},
+        {"id": "4", "name": {"en": "Small Business Accounting", "hi": "लघु व्यवसाय लेखांकन", "te": "చిన్న వ్యాపార లెక్కలు"}, "category": {"en": "Business", "hi": "व्यापार", "te": "వ్యాపారం"}, "description": {"en": "Manage farm finances", "hi": "फार्म वित्त प्रबंधन", "te": "ఫార్మ్ ఆర్థికాలను నిర్వహించండి"}, "progress": 0, "duration": "4 weeks", "certificate": True},
+        {"id": "5", "name": {"en": "Handicrafts & Weaving", "hi": "हस्तशिल्प और बुनाई", "te": "చేతి పనులు & నేయడం"}, "category": {"en": "Handicrafts", "hi": "हस्तशिल्प", "te": "చేతి పనులు"}, "description": {"en": "Traditional art skills", "hi": "पारंपरिक कला कौशल", "te": "సాంప్రదాయ కళ నైపుణ్యాలు"}, "progress": 0, "duration": "6 weeks", "certificate": True},
+    ]
+    def localize(item):
+        def pick(field):
+            val = item.get(field)
+            if isinstance(val, dict):
+                return val.get(lang) or val.get(lang.split("-")[0]) or val.get("en") or next(iter(val.values()), "")
+            return val
+        return {
+            **item,
+            "name": pick("name"),
+            "description": pick("description"),
+            "category": pick("category")
+        }
+    return [localize(s) for s in all_skills]

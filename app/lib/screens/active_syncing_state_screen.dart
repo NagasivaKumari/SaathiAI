@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ActiveSyncingStateScreen extends StatelessWidget {
-  const ActiveSyncingStateScreen({Key? key}) : super(key: key);
+  const ActiveSyncingStateScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

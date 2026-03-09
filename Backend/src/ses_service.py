@@ -7,14 +7,22 @@ from botocore.exceptions import ClientError
 
 class EmailService:
     def __init__(self):
-        # AWS SES Config
+        # AWS SES Config – works with both local explicit creds and Lambda IAM role
         try:
-            self.ses = boto3.client(
-                'ses',
-                region_name=os.getenv("AWS_REGION", "us-east-1"),
-                aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID"),
-                aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY")
-            )
+            access_key = os.getenv("AWS_ACCESS_KEY_ID")
+            secret_key = os.getenv("AWS_SECRET_ACCESS_KEY")
+            if access_key and secret_key and "YOUR" not in access_key:
+                self.ses = boto3.client(
+                    'ses',
+                    region_name=os.getenv("AWS_REGION", "us-east-1"),
+                    aws_access_key_id=access_key,
+                    aws_secret_access_key=secret_key,
+                )
+            else:
+                self.ses = boto3.client(
+                    'ses',
+                    region_name=os.getenv("AWS_REGION", "us-east-1"),
+                )
         except Exception:
             self.ses = None
             

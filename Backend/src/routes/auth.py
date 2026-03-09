@@ -1,11 +1,16 @@
-from src.device_fingerprint import get_device_fingerprint
-
 from fastapi import APIRouter, HTTPException, Body, Response, Request
 from pydantic import BaseModel, EmailStr
-# ...existing code...
-
-
-# ...existing code...
+import random
+import datetime
+import jwt
+import secrets
+import bcrypt
+import os
+from typing import Optional
+from src.aws_db import db_service
+from src.ses_service import ses_service
+from src.rate_limit import check_rate_limit
+from src.device_fingerprint import get_device_fingerprint
 
 router = APIRouter()
 
@@ -25,23 +30,6 @@ async def resend_otp(request: ResendOtpRequest, req: Request):
         print(f"DEBUG: OTP {otp} for {request.email} (SES failed or not setup)")
         return {"message": "OTP generated (Trial Mode)", "otp": otp}
     return {"message": "OTP resent successfully to your email"}
-from src.device_fingerprint import get_device_fingerprint
-
-from fastapi import APIRouter, HTTPException, Body, Response, Request
-from pydantic import BaseModel, EmailStr
-import random
-import datetime
-import jwt
-import secrets
-import bcrypt
-import os
-from typing import Optional
-from src.aws_db import db_service
-from src.ses_service import ses_service
-from src.rate_limit import check_rate_limit
-
-
-router = APIRouter()
 
 # In-memory refresh token store (for demo; use DynamoDB/Redis in prod)
 refresh_tokens = {}
@@ -175,39 +163,6 @@ async def login(request: LoginRequest, response: Response, req: Request):
     check_rate_limit(req)
     fingerprint = get_device_fingerprint(req)
     print(f"Login attempt from device: {fingerprint}")
-    # Example suspicious activity alert: log if login fails
-    # Password reset request (send OTP)
-    @router.post("/password-reset-request")
-    async def password_reset_request(email: str = Body(...), req: Request = None):
-        check_rate_limit(req)
-        user = db_service.get_user_by_email(email)
-        if not user:
-            raise HTTPException(status_code=404, detail="User not found")
-        otp = str(random.randint(100000, 999999))
-        db_service.save_otp(email, otp)
-        ses_service.send_otp_email(email, otp)
-        return {"message": "OTP sent to your email"}
-
-    # Password reset confirm (verify OTP and set new password)
-    @router.post("/password-reset-confirm")
-    async def password_reset_confirm(email: str = Body(...), otp: str = Body(...), new_password: str = Body(...)):
-        if not db_service.verify_otp(email, otp):
-            raise HTTPException(status_code=400, detail="Invalid or expired OTP")
-        hashed = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-        db_service.users_table.update_item(
-            Key={"email": email},
-            UpdateExpression="SET password = :pw",
-            ExpressionAttributeValues={":pw": hashed}
-        )
-        db_service.delete_otp(email)
-        return {"message": "Password reset successful"}
-
-    # User feedback endpoint
-    @router.post("/feedback")
-    async def user_feedback(email: str = Body(...), feedback: str = Body(...)):
-        # Store feedback in DynamoDB or log (for demo, just print)
-        print(f"Feedback from {email}: {feedback}")
-        return {"message": "Feedback received. Thank you!"}
     user = db_service.get_user_by_email(request.email)
     if not user or not bcrypt.checkpw(request.password.encode('utf-8'), user['password'].encode('utf-8')):
         print(f"Suspicious login failed for {request.email} from device {fingerprint}")
@@ -255,3 +210,41 @@ async def refresh_token_endpoint(request: Request, response: Response):
     }, JWT_SECRET, algorithm="HS256")
     response.set_cookie(key="access_token", value=access_token, httponly=True, secure=True, samesite="lax")
     return {"access_token": access_token}
+
+
+# Password reset request (send OTP)
+@router.post("/password-reset-request")
+async def password_reset_request(email: str = Body(...), req: Request = None):
+    check_rate_limit(req)
+    user = db_service.get_user_by_email(email)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    otp = str(random.randint(100000, 999999))
+    db_service.save_otp(email, otp)
+    from src.ses_service import ses_service
+    ses_service.send_otp_email(email, otp)
+    return {"message": "OTP sent to your email"}
+
+
+# Password reset confirm (verify OTP and set new password)
+@router.post("/password-reset-confirm")
+async def password_reset_confirm(email: str = Body(...), otp: str = Body(...), new_password: str = Body(...)):
+    if not db_service.verify_otp(email, otp):
+        raise HTTPException(status_code=400, detail="Invalid or expired OTP")
+    import bcrypt
+    hashed = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+    db_service.users_table.update_item(
+        Key={"email": email},
+        UpdateExpression="SET password = :pw",
+        ExpressionAttributeValues={":pw": hashed}
+    )
+    db_service.delete_otp(email)
+    return {"message": "Password reset successful"}
+
+
+# User feedback endpoint
+@router.post("/feedback")
+async def user_feedback(email: str = Body(...), feedback: str = Body(...)):
+    # Store feedback in DynamoDB or log (for demo, just print)
+    print(f"Feedback from {email}: {feedback}")
+    return {"message": "Feedback received. Thank you!"}

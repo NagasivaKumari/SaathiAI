@@ -1,0 +1,694 @@
+{
+  "service": {
+    "service": "sathiai-backend",
+    "serviceObject": {
+      "name": "sathiai-backend"
+    },
+    "provider": {
+      "name": "aws",
+      "runtime": "python3.11",
+      "region": "us-east-1",
+      "environment": {
+        "AWS_S3_BUCKET": "sathiai-assets",
+        "DYNAMO_PASSWORD_RESET_TABLE": "SathiAI_PasswordResetTokens",
+        "DYNAMO_ADDRESSES_TABLE": "SathiAI_Addresses",
+        "DYNAMO_SUPPORT_TABLE": "SathiAI_SupportTickets",
+        "DYNAMO_USERS_TABLE": "SathiAI_Users",
+        "DYNAMO_SCHEMES_TABLE": "SathiAI_Schemes",
+        "DYNAMO_OTPS_TABLE": "SathiAI_OTPs",
+        "AWS_BEDROCK_MODEL_ID": "anthropic.claude-3-haiku-20240307-v1:0"
+      },
+      "iam": {
+        "role": {
+          "statements": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "dynamodb:PutItem",
+                "dynamodb:GetItem",
+                "dynamodb:Query",
+                "dynamodb:Scan",
+                "dynamodb:UpdateItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:BatchWriteItem"
+              ],
+              "Resource": "arn:aws:dynamodb:us-east-1:*:table/SathiAI_*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "ses:SendEmail",
+                "ses:SendRawEmail"
+              ],
+              "Resource": "*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "polly:SynthesizeSpeech"
+              ],
+              "Resource": "*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "bedrock:InvokeModel"
+              ],
+              "Resource": "*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "sns:Publish"
+              ],
+              "Resource": "*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "s3:GetObject",
+                "s3:PutObject"
+              ],
+              "Resource": "arn:aws:s3:::sathiai-assets/*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "transcribe:StartTranscriptionJob",
+                "transcribe:GetTranscriptionJob"
+              ],
+              "Resource": "*"
+            }
+          ]
+        }
+      },
+      "stage": "dev",
+      "versionFunctions": true,
+      "compiledCloudFormationTemplate": {
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Description": "The AWS CloudFormation template for this Serverless application",
+        "Resources": {
+          "ApiLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/sathiai-backend-dev-api"
+            }
+          },
+          "IamRoleLambdaExecution": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+              "AssumeRolePolicyDocument": {
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Principal": {
+                      "Service": [
+                        "lambda.amazonaws.com"
+                      ]
+                    },
+                    "Action": [
+                      "sts:AssumeRole"
+                    ]
+                  }
+                ]
+              },
+              "Policies": [
+                {
+                  "PolicyName": {
+                    "Fn::Join": [
+                      "-",
+                      [
+                        "sathiai-backend",
+                        "dev",
+                        "lambda"
+                      ]
+                    ]
+                  },
+                  "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:CreateLogStream",
+                          "logs:CreateLogGroup",
+                          "logs:TagResource"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/sathiai-backend-dev*:*"
+                          }
+                        ]
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:PutLogEvents"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/sathiai-backend-dev*:*:*"
+                          }
+                        ]
+                      },
+                      {
+                        "$ref": "$[\"service\"][\"provider\"][\"iam\"][\"role\"][\"statements\"][0]"
+                      },
+                      {
+                        "$ref": "$[\"service\"][\"provider\"][\"iam\"][\"role\"][\"statements\"][1]"
+                      },
+                      {
+                        "$ref": "$[\"service\"][\"provider\"][\"iam\"][\"role\"][\"statements\"][2]"
+                      },
+                      {
+                        "$ref": "$[\"service\"][\"provider\"][\"iam\"][\"role\"][\"statements\"][3]"
+                      },
+                      {
+                        "$ref": "$[\"service\"][\"provider\"][\"iam\"][\"role\"][\"statements\"][4]"
+                      },
+                      {
+                        "$ref": "$[\"service\"][\"provider\"][\"iam\"][\"role\"][\"statements\"][5]"
+                      },
+                      {
+                        "$ref": "$[\"service\"][\"provider\"][\"iam\"][\"role\"][\"statements\"][6]"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "Path": "/",
+              "RoleName": {
+                "Fn::Join": [
+                  "-",
+                  [
+                    "sathiai-backend",
+                    "dev",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    "lambdaRole"
+                  ]
+                ]
+              }
+            }
+          },
+          "PythonRequirementsLambdaLayer": {
+            "Type": "AWS::Lambda::LayerVersion",
+            "Properties": {
+              "Content": {
+                "S3Bucket": "serverless-framework-deployments-us-east-1-8a05c816-30ce",
+                "S3Key": "serverless/sathiai-backend/dev/1773071785709-2026-03-09T15:56:25.709Z/pythonRequirements.zip"
+              },
+              "LayerName": "sathiai-backend-dev-python-requirements",
+              "Description": "Python requirements generated by serverless-python-requirements.",
+              "CompatibleRuntimes": [
+                "python3.11"
+              ]
+            }
+          },
+          "ApiLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": "serverless-framework-deployments-us-east-1-8a05c816-30ce",
+                "S3Key": "serverless/sathiai-backend/dev/1773073607765-2026-03-09T16:26:47.765Z/sathiai-backend.zip"
+              },
+              "Handler": "src.main.handler",
+              "Runtime": "python3.11",
+              "FunctionName": "sathiai-backend-dev-api",
+              "MemorySize": 1024,
+              "Timeout": 6,
+              "Environment": {
+                "Variables": {
+                  "AWS_S3_BUCKET": "sathiai-assets",
+                  "DYNAMO_PASSWORD_RESET_TABLE": "SathiAI_PasswordResetTokens",
+                  "DYNAMO_ADDRESSES_TABLE": "SathiAI_Addresses",
+                  "DYNAMO_SUPPORT_TABLE": "SathiAI_SupportTickets",
+                  "DYNAMO_USERS_TABLE": "SathiAI_Users",
+                  "DYNAMO_SCHEMES_TABLE": "SathiAI_Schemes",
+                  "DYNAMO_OTPS_TABLE": "SathiAI_OTPs",
+                  "AWS_BEDROCK_MODEL_ID": "anthropic.claude-3-haiku-20240307-v1:0"
+                }
+              },
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              },
+              "Layers": [
+                {
+                  "Ref": "PythonRequirementsLambdaLayer"
+                }
+              ]
+            },
+            "DependsOn": [
+              "ApiLogGroup"
+            ]
+          },
+          "ApiLambdaVersionEedsq6d30wcueLEmYbBpvkWaswBCXwPYGoa8X1qQQ": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "ApiLambdaFunction"
+              },
+              "CodeSha256": "V6O1lX475iK4GwOgZhdUr/YLDGD4ER55StdWn0zXHEo="
+            }
+          },
+          "HttpApi": {
+            "Type": "AWS::ApiGatewayV2::Api",
+            "Properties": {
+              "Name": "dev-sathiai-backend",
+              "ProtocolType": "HTTP"
+            }
+          },
+          "HttpApiStage": {
+            "Type": "AWS::ApiGatewayV2::Stage",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "StageName": "$default",
+              "AutoDeploy": true,
+              "DefaultRouteSettings": {
+                "DetailedMetricsEnabled": false
+              }
+            }
+          },
+          "ApiLambdaPermissionHttpApi": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "ApiLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "HttpApi"
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "HttpApiIntegrationApi": {
+            "Type": "AWS::ApiGatewayV2::Integration",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "IntegrationType": "AWS_PROXY",
+              "IntegrationUri": {
+                "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"ApiLambdaPermissionHttpApi\"][\"Properties\"][\"FunctionName\"]"
+              },
+              "PayloadFormatVersion": "2.0",
+              "TimeoutInMillis": 30000
+            }
+          },
+          "HttpApiRouteDefault": {
+            "Type": "AWS::ApiGatewayV2::Route",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "RouteKey": "$default",
+              "Target": {
+                "Fn::Join": [
+                  "/",
+                  [
+                    "integrations",
+                    {
+                      "Ref": "HttpApiIntegrationApi"
+                    }
+                  ]
+                ]
+              }
+            },
+            "DependsOn": "HttpApiIntegrationApi"
+          },
+          "PasswordResetTokensTable": {
+            "Type": "AWS::DynamoDB::Table",
+            "Properties": {
+              "TableName": "SathiAI_PasswordResetTokens",
+              "AttributeDefinitions": [
+                {
+                  "AttributeName": "email",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "token",
+                  "AttributeType": "S"
+                }
+              ],
+              "KeySchema": [
+                {
+                  "AttributeName": "email",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "token",
+                  "KeyType": "RANGE"
+                }
+              ],
+              "TimeToLiveSpecification": {
+                "AttributeName": "expires_at",
+                "Enabled": true
+              },
+              "BillingMode": "PAY_PER_REQUEST"
+            }
+          },
+          "AddressesTable": {
+            "Type": "AWS::DynamoDB::Table",
+            "Properties": {
+              "TableName": "SathiAI_Addresses",
+              "AttributeDefinitions": [
+                {
+                  "AttributeName": "email",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "id",
+                  "AttributeType": "S"
+                }
+              ],
+              "KeySchema": [
+                {
+                  "AttributeName": "email",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "id",
+                  "KeyType": "RANGE"
+                }
+              ],
+              "BillingMode": "PAY_PER_REQUEST"
+            }
+          },
+          "SupportTicketsTable": {
+            "Type": "AWS::DynamoDB::Table",
+            "Properties": {
+              "TableName": "SathiAI_SupportTickets",
+              "AttributeDefinitions": [
+                {
+                  "AttributeName": "email",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "id",
+                  "AttributeType": "S"
+                }
+              ],
+              "KeySchema": [
+                {
+                  "AttributeName": "email",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "id",
+                  "KeyType": "RANGE"
+                }
+              ],
+              "BillingMode": "PAY_PER_REQUEST"
+            }
+          }
+        },
+        "Outputs": {
+          "ServerlessDeploymentBucketName": {
+            "Value": "serverless-framework-deployments-us-east-1-8a05c816-30ce",
+            "Export": {
+              "Name": "sls-sathiai-backend-dev-ServerlessDeploymentBucketName"
+            }
+          },
+          "PythonRequirementsLambdaLayerQualifiedArn": {
+            "Description": "Current Lambda layer version",
+            "Value": {
+              "Ref": "PythonRequirementsLambdaLayer"
+            },
+            "Export": {
+              "Name": "sls-sathiai-backend-dev-PythonRequirementsLambdaLayerQualifiedArn"
+            }
+          },
+          "PythonRequirementsLambdaLayerHash": {
+            "Description": "Current Lambda layer hash",
+            "Value": "2edc04343c61b648d0125aa083e7e7d539751ceb",
+            "Export": {
+              "Name": "sls-sathiai-backend-dev-PythonRequirementsLambdaLayerHash"
+            }
+          },
+          "PythonRequirementsLambdaLayerS3Key": {
+            "Description": "Current Lambda layer S3Key",
+            "Value": "serverless/sathiai-backend/dev/1773071785709-2026-03-09T15:56:25.709Z/pythonRequirements.zip",
+            "Export": {
+              "Name": "sls-sathiai-backend-dev-PythonRequirementsLambdaLayerS3Key"
+            }
+          },
+          "ApiLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "ApiLambdaVersionEedsq6d30wcueLEmYbBpvkWaswBCXwPYGoa8X1qQQ"
+            },
+            "Export": {
+              "Name": "sls-sathiai-backend-dev-ApiLambdaFunctionQualifiedArn"
+            }
+          },
+          "HttpApiId": {
+            "Description": "Id of the HTTP API",
+            "Value": {
+              "Ref": "HttpApi"
+            },
+            "Export": {
+              "Name": "sls-sathiai-backend-dev-HttpApiId"
+            }
+          },
+          "HttpApiUrl": {
+            "Description": "URL of the HTTP API",
+            "Value": {
+              "Fn::Join": [
+                "",
+                [
+                  "https://",
+                  {
+                    "Ref": "HttpApi"
+                  },
+                  ".execute-api.",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ".",
+                  {
+                    "Ref": "AWS::URLSuffix"
+                  }
+                ]
+              ]
+            },
+            "Export": {
+              "Name": "sls-sathiai-backend-dev-HttpApiUrl"
+            }
+          }
+        }
+      },
+      "vpc": {}
+    },
+    "custom": {
+      "pythonRequirements": {
+        "dockerizePip": false,
+        "layer": true,
+        "slim": true
+      }
+    },
+    "plugins": [
+      "serverless-python-requirements"
+    ],
+    "pluginsData": {},
+    "functions": {
+      "api": {
+        "handler": "src.main.handler",
+        "layers": {
+          "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"ApiLambdaFunction\"][\"Properties\"][\"Layers\"]"
+        },
+        "events": [
+          {
+            "httpApi": "*",
+            "resolvedMethod": "ANY"
+          }
+        ],
+        "name": "sathiai-backend-dev-api",
+        "package": {},
+        "memory": 1024,
+        "timeout": 6,
+        "runtime": "python3.11",
+        "vpc": {},
+        "versionLogicalId": "ApiLambdaVersionEedsq6d30wcueLEmYbBpvkWaswBCXwPYGoa8X1qQQ"
+      }
+    },
+    "resources": {
+      "Resources": {
+        "PasswordResetTokensTable": {
+          "Type": "AWS::DynamoDB::Table",
+          "Properties": {
+            "TableName": "SathiAI_PasswordResetTokens",
+            "AttributeDefinitions": [
+              {
+                "AttributeName": "email",
+                "AttributeType": "S"
+              },
+              {
+                "AttributeName": "token",
+                "AttributeType": "S"
+              }
+            ],
+            "KeySchema": [
+              {
+                "AttributeName": "email",
+                "KeyType": "HASH"
+              },
+              {
+                "AttributeName": "token",
+                "KeyType": "RANGE"
+              }
+            ],
+            "TimeToLiveSpecification": {
+              "AttributeName": "expires_at",
+              "Enabled": true
+            },
+            "BillingMode": "PAY_PER_REQUEST"
+          }
+        },
+        "AddressesTable": {
+          "Type": "AWS::DynamoDB::Table",
+          "Properties": {
+            "TableName": "SathiAI_Addresses",
+            "AttributeDefinitions": [
+              {
+                "AttributeName": "email",
+                "AttributeType": "S"
+              },
+              {
+                "AttributeName": "id",
+                "AttributeType": "S"
+              }
+            ],
+            "KeySchema": [
+              {
+                "AttributeName": "email",
+                "KeyType": "HASH"
+              },
+              {
+                "AttributeName": "id",
+                "KeyType": "RANGE"
+              }
+            ],
+            "BillingMode": "PAY_PER_REQUEST"
+          }
+        },
+        "SupportTicketsTable": {
+          "Type": "AWS::DynamoDB::Table",
+          "Properties": {
+            "TableName": "SathiAI_SupportTickets",
+            "AttributeDefinitions": [
+              {
+                "AttributeName": "email",
+                "AttributeType": "S"
+              },
+              {
+                "AttributeName": "id",
+                "AttributeType": "S"
+              }
+            ],
+            "KeySchema": [
+              {
+                "AttributeName": "email",
+                "KeyType": "HASH"
+              },
+              {
+                "AttributeName": "id",
+                "KeyType": "RANGE"
+              }
+            ],
+            "BillingMode": "PAY_PER_REQUEST"
+          }
+        }
+      },
+      "Outputs": {}
+    },
+    "configValidationMode": "warn",
+    "serviceFilename": "serverless",
+    "initialServerlessConfig": {
+      "org": "nagashiva",
+      "app": "my-app",
+      "service": "sathiai-backend",
+      "provider": {
+        "$ref": "$[\"service\"][\"provider\"]"
+      },
+      "functions": {
+        "$ref": "$[\"service\"][\"functions\"]"
+      },
+      "resources": {
+        "$ref": "$[\"service\"][\"resources\"]"
+      },
+      "custom": {
+        "$ref": "$[\"service\"][\"custom\"]"
+      },
+      "plugins": {
+        "$ref": "$[\"service\"][\"plugins\"]"
+      },
+      "package": {
+        "exclude": [
+          "node_modules/**",
+          "tests/**",
+          "scripts/**",
+          ".venv/**",
+          "__pycache__/**"
+        ],
+        "artifactsS3KeyDirname": "serverless/sathiai-backend/dev/code-artifacts",
+        "deploymentBucket": "serverless-framework-deployments-us-east-1-8a05c816-30ce",
+        "artifact": "D:\\SaathiAI\\Backend\\.serverless\\sathiai-backend.zip",
+        "artifactDirectoryName": "serverless/sathiai-backend/dev/1773073607765-2026-03-09T16:26:47.765Z"
+      }
+    },
+    "app": "my-app",
+    "appId": null,
+    "org": "nagashiva",
+    "orgId": null,
+    "layers": {
+      "pythonRequirements": {
+        "artifact": ".serverless\\pythonRequirements.zip",
+        "name": "sathiai-backend-dev-python-requirements",
+        "description": "Python requirements generated by serverless-python-requirements.",
+        "compatibleRuntimes": {
+          "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"PythonRequirementsLambdaLayer\"][\"Properties\"][\"CompatibleRuntimes\"]"
+        },
+        "package": {},
+        "artifactAlreadyUploaded": true
+      }
+    },
+    "artifact": "D:\\SaathiAI\\Backend\\.serverless\\sathiai-backend.zip"
+  },
+  "package": {
+    "artifactDirectoryName": "serverless/sathiai-backend/dev/1773073607765-2026-03-09T16:26:47.765Z",
+    "artifact": "sathiai-backend.zip"
+  }
+}

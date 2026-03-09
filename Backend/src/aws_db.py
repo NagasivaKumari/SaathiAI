@@ -43,30 +43,31 @@ class DynamoDBService:
             print(f"Error deleting all users: {e}")
 
     def __init__(self):
-        access_key = os.getenv("AWS_ACCESS_KEY_ID")
-        secret_key = os.getenv("AWS_SECRET_ACCESS_KEY")
-
-        if not access_key or "YOUR" in access_key or not secret_key:
-            print("❌ CRITICAL: AWS Credentials missing or invalid in .env!")
-            if not access_key:
-                print("   - AWS_ACCESS_KEY_ID is missing")
-            elif "YOUR" in access_key:
-                print("   - AWS_ACCESS_KEY_ID still has placeholder value")
-            if not secret_key:
-                print("   - AWS_SECRET_ACCESS_KEY is missing")
-            self.dynamodb = None
-            return
-
         try:
-            self.dynamodb = boto3.resource(
-                'dynamodb',
-                region_name=os.getenv("AWS_REGION", "us-east-1"),
-                aws_access_key_id=access_key,
-                aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY")
-            )
+            # On Lambda the IAM execution role provides credentials automatically.
+            # When running locally, boto3 picks them up from env vars / .env.
+            access_key = os.getenv("AWS_ACCESS_KEY_ID")
+            secret_key = os.getenv("AWS_SECRET_ACCESS_KEY")
+
+            if access_key and secret_key and "YOUR" not in access_key:
+                # Local dev: explicit credentials
+                self.dynamodb = boto3.resource(
+                    'dynamodb',
+                    region_name=os.getenv("AWS_REGION", "us-east-1"),
+                    aws_access_key_id=access_key,
+                    aws_secret_access_key=secret_key,
+                )
+            else:
+                # Lambda / EC2: use IAM role (no explicit keys needed)
+                self.dynamodb = boto3.resource(
+                    'dynamodb',
+                    region_name=os.getenv("AWS_REGION", "us-east-1"),
+                )
+
             self.users_table = self.dynamodb.Table(os.getenv("DYNAMO_USERS_TABLE", "SathiAI_Users"))
             self.schemes_table = self.dynamodb.Table(os.getenv("DYNAMO_SCHEMES_TABLE", "SathiAI_Schemes"))
             self.otps_table = self.dynamodb.Table(os.getenv("DYNAMO_OTPS_TABLE", "SathiAI_OTPs"))
+            print("✅ DynamoDB connected successfully")
         except Exception as e:
             print(f"❌ AWS Connection Failed: {e}")
             self.dynamodb = None

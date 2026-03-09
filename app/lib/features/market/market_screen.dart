@@ -42,26 +42,29 @@ class _MarketScreenBodyState extends State<MarketScreenBody> {
     fetchMarketData();
   }
 
-  static List<Map<String, dynamic>> get _fallbackCrops => [
-    {'crop': 'Tomato', 'price': '2450', 'trend': 'up', 'change': '120'},
-    {'crop': 'Wheat', 'price': '2125', 'trend': 'down', 'change': '15'},
-    {'crop': 'Rice (Basmati)', 'price': '3800', 'trend': 'up', 'change': '45'},
-  ];
-
   Future<void> fetchMarketData() async {
-    setState(() { loading = true; error = null; });
+    setState(() {
+      loading = true;
+      error = null;
+    });
     try {
       final data = await api.marketPrices();
-      if (mounted) setState(() { crops = List<dynamic>.from(data); loading = false; });
-    } catch (_) {
-      if (mounted) setState(() { crops = _fallbackCrops; loading = false; });
+      setState(() {
+        crops = List<dynamic>.from(data);
+        loading = false;
+      });
+    } catch (e) {
+      setState(() {
+        error = 'Error: $e';
+        loading = false;
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final lang = context.watch<LanguageProvider>();
-    final t = (String key) => lang.translate(key);
+    String t(String key) => lang.translate(key);
 
     return Scaffold(
       backgroundColor: _Design.background,
@@ -213,8 +216,9 @@ class _MarketScreenBodyState extends State<MarketScreenBody> {
             final trend = (item['trend'] ?? 'up').toString();
             final change = (item['change'] ?? '0').toString();
             IconData icon = Icons.agriculture;
-            if (cropName.toLowerCase().contains('tomato')) icon = Icons.local_florist;
-            else if (cropName.toLowerCase().contains('wheat')) icon = Icons.grass;
+            if (cropName.toLowerCase().contains('tomato')) {
+              icon = Icons.local_florist;
+            } else if (cropName.toLowerCase().contains('wheat')) icon = Icons.grass;
             else if (cropName.toLowerCase().contains('rice')) icon = Icons.eco;
             final isUp = trend == 'up';
             final trendColor = isUp ? _Design.primary : Colors.red;

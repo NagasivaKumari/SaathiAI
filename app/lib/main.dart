@@ -9,10 +9,12 @@ import 'features/market/market_screen.dart';
 import 'features/skills/skills_screen.dart';
 import 'features/voice/voice_screen.dart';
 import 'features/onboarding/splash_screen.dart';
-import 'features/onboarding/language_screen.dart';
-import 'features/onboarding/location_screen.dart';
+
 import 'features/notifications/notifications_screen.dart';
 import 'features/profile/settings_screen.dart';
+import 'features/profile/login_screen.dart';
+import 'features/profile/signup_screen.dart';
+import 'features/profile/otp_verification_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,41 +36,23 @@ class SathiAIApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: '/splash',
-      routes: {
-        '/splash': (context) => const SplashScreen(),
-        '/language': (context) => const LanguageScreen(),
-        '/location': (context) => const LocationScreen(),
-        '/home': (context) => MainNavigation(),
-        '/notifications': (context) => const NotificationsScreen(),
-        '/settings': (context) => const SettingsScreen(),
-        // Stitch dashboard screens for demo/testing
-        '/achievements1': (context) => const AchievementsBadges1Screen(),
-        '/achievements2': (context) => const AchievementsBadges2Screen(),
-        '/availableSchemes': (context) => const AvailableGovtSchemesScreen(),
-        '/offlineDashboard': (context) => const HomeDashboardOfflineScreen(),
-        '/comments1': (context) => const CommunityPostComments1Screen(),
-        '/comments2': (context) => const CommunityPostComments2Screen(),
-        '/adviceDashboard': (context) => const HomeDashboardWithAdviceNotificationScreen(),
-        // Add more as needed
-      },
+        routes: {
+          '/splash': (context) => const SplashScreen(),
 
-      // Import Stitch dashboard screens
-      import 'screens/achievements_badges_1_screen.dart';
-      import 'screens/achievements_badges_2_screen.dart';
-      import 'screens/available_govt_schemes_screen.dart';
-      import 'screens/home_dashboard_offline_screen.dart';
-      import 'screens/community_post_comments_1_screen.dart';
-      import 'screens/community_post_comments_2_screen.dart';
-      import 'screens/home_dashboard_with_advice_notification_screen.dart';
+          '/home': (context) => MainNavigation(),
+          '/notifications': (context) => const NotificationsScreen(),
+          '/settings': (context) => const SettingsScreen(),
+          '/signup': (context) => const SignupScreen(),
+          '/login': (context) => const LoginScreen(),
+          '/otp': (context) => OTPVerificationScreen(
+            emailOrPhone: '',
+            isEmail: true,
+          ), // Placeholder, pass real args in push
+        },
       ),
     );
   }
 }
-
-
-
-
-
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
@@ -90,39 +74,10 @@ class _MainNavigationState extends State<MainNavigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(color: Color(0xFF4CDF20)),
-              child: Text('SathiAI Screens', style: TextStyle(color: Colors.white, fontSize: 22)),
-            ),
-            _drawerItem(context, 'Achievements 1', '/achievements1'),
-            _drawerItem(context, 'Achievements 2', '/achievements2'),
-            _drawerItem(context, 'Available Schemes', '/availableSchemes'),
-            _drawerItem(context, 'Offline Dashboard', '/offlineDashboard'),
-            _drawerItem(context, 'Community Comments 1', '/comments1'),
-            _drawerItem(context, 'Community Comments 2', '/comments2'),
-            _drawerItem(context, 'Advice Dashboard', '/adviceDashboard'),
-            // Add more as needed
-          ],
-        ),
-      ),
       body: _screens[_selectedIndex],
       floatingActionButton: _buildMicButton(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: _buildBottomBar(),
-    );
-  }
-
-  Widget _drawerItem(BuildContext context, String title, String route) {
-    return ListTile(
-      title: Text(title),
-      onTap: () {
-        Navigator.pop(context);
-        Navigator.pushNamed(context, route);
-      },
     );
   }
 
@@ -145,7 +100,10 @@ class _MainNavigationState extends State<MainNavigation> {
             FloatingActionButton(
               backgroundColor: const Color(0xFF4CDF20),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => VoiceScreen()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => VoiceScreen()),
+                );
               },
               tooltip: 'Ask Saathi',
               elevation: 6,
@@ -155,7 +113,14 @@ class _MainNavigationState extends State<MainNavigation> {
           ],
         ),
         const SizedBox(height: 4),
-        const Text('Bol Kar Poochein', style: TextStyle(color: Color(0xFF4CDF20), fontWeight: FontWeight.bold, fontSize: 12)),
+        const Text(
+          'Bol Kar Poochein',
+          style: TextStyle(
+            color: Color(0xFF4CDF20),
+            fontWeight: FontWeight.bold,
+            fontSize: 12,
+          ),
+        ),
       ],
     );
   }
@@ -188,11 +153,20 @@ class _MainNavigationState extends State<MainNavigation> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: isSelected ? const Color(0xFF4CDF20) : Colors.grey, size: 28),
-          Text(label, style: TextStyle(color: isSelected ? const Color(0xFF4CDF20) : Colors.grey, fontSize: 13)),
+          Icon(
+            icon,
+            color: isSelected ? const Color(0xFF4CDF20) : Colors.grey,
+            size: 28,
+          ),
+          Text(
+            label,
+            style: TextStyle(
+              color: isSelected ? const Color(0xFF4CDF20) : Colors.grey,
+              fontSize: 13,
+            ),
+          ),
         ],
       ),
     );
   }
 }
-
