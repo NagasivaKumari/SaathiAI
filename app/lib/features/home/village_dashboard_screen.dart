@@ -68,7 +68,7 @@ class _VillageDashboardScreenState extends State<VillageDashboardScreen> {
         });
       }
     } catch (_) {
-      if (mounted) setState(() {
+      setState(() {
         dashboard = {
           'user': {'name': 'Ramesh Ji', 'nextPayout': '15th Oct', 'nextScheme': 'PM Kisan'},
           'points': 750,
@@ -77,7 +77,7 @@ class _VillageDashboardScreenState extends State<VillageDashboardScreen> {
         };
       });
     }
-    if (mounted) setState(() => loading = false);
+    setState(() => loading = false);
   }
 
   void _loadRecentUpdates() {
@@ -197,23 +197,7 @@ class _VillageDashboardScreenState extends State<VillageDashboardScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text('Sakhi Learner Level', style: TextStyle(color: _Design.textMuted, fontSize: 12, fontWeight: FontWeight.w500)),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          '/achievements1',
-                        );
-                      },
-                      child: Text(
-                        badge,
-                        style: const TextStyle(
-                          color: _Design.primary,
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                    ),
+                    Text(badge, style: const TextStyle(color: _Design.primary, fontSize: 22, fontWeight: FontWeight.bold)),
                   ],
                 ),
                 Container(

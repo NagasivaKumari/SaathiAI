@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:provider/provider.dart';
-import '../../core/config.dart';
 import '../../core/providers/language_provider.dart';
+import '../../core/config.dart';
+import '../../services/api_client.dart';
 
 class UserGamificationScreen extends StatefulWidget {
   final String userId;
@@ -15,20 +14,35 @@ class UserGamificationScreen extends StatefulWidget {
 
 class _UserGamificationScreenState extends State<UserGamificationScreen> {
   Map<String, dynamic>? userData;
-  bool loading = false;
+  bool loading = true;
   String? error;
+  late final ApiClient api;
 
   @override
   void initState() {
     super.initState();
-    // Use mock data that looks real
-    userData = {
-      'name': 'Amit Sharma',
-      'points': 1280,
-      'level': 7,
-      'streak': 9,
-      'milestone': true,
-    };
+    api = ApiClient(baseUrl: AppConfig.BASE_URL);
+    fetchUserGamification();
+  }
+
+  Future<void> fetchUserGamification() async {
+    setState(() {
+      loading = true;
+      error = null;
+    });
+    try {
+      final res = await api._client.get(Uri.parse('${api.baseUrl}/api/gamification/user/${widget.userId}'));
+      if (res.statusCode == 200) {
+        userData = Map<String, dynamic>.from(jsonDecode(res.body));
+      } else {
+        error = 'Failed to load user data';
+      }
+    } catch (e) {
+      error = 'Network error';
+    }
+    setState(() {
+      loading = false;
+    });
   }
 
   @override

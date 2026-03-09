@@ -23,8 +23,8 @@ class SchemesScreen extends StatefulWidget {
 }
 
 class _SchemesScreenState extends State<SchemesScreen> {
-  List<dynamic> schemes = _fallbackSchemes;
-  bool loading = false;
+  List<dynamic> schemes = [];
+  bool loading = true;
   String? error;
   String searchQuery = '';
   String selectedCategory = 'All';
@@ -37,8 +37,7 @@ class _SchemesScreenState extends State<SchemesScreen> {
   void initState() {
     super.initState();
     api = ApiClient(baseUrl: AppConfig.BASE_URL);
-    // Show fallback data immediately, then try to fetch real data
-    Future.microtask(() => fetchSchemes());
+    fetchSchemes();
   }
 
   @override
@@ -47,20 +46,14 @@ class _SchemesScreenState extends State<SchemesScreen> {
     super.dispose();
   }
 
-  static List<Map<String, dynamic>> get _fallbackSchemes => [
-    {'id': 's1', 'name': 'PM-Kisan Samman Nidhi', 'description': '₹6,000 yearly support for small and marginal farmers.', 'status': 'Active', 'category': 'Agriculture'},
-    {'id': 's2', 'name': 'Ayushman Bharat (PM-JAY)', 'description': 'Free health cover up to ₹5 Lakhs per family per year.', 'status': 'Active', 'category': 'Health'},
-    {'id': 's3', 'name': 'PM Awas Yojana (Gramin)', 'description': 'Housing for all in rural areas.', 'status': 'Active', 'category': 'Housing'},
-  ];
-
   Future<void> fetchSchemes() async {
-    setState(() { error = null; });
+    setState(() { loading = true; error = null; });
     try {
       schemes = await api.getSchemes();
-    } catch (_) {
-      schemes = _fallbackSchemes;
+    } catch (e) {
+      error = 'Network error';
     }
-    if (mounted) setState(() { loading = false; });
+    setState(() { loading = false; });
   }
 
   List<dynamic> get _filteredSchemes {
@@ -100,9 +93,14 @@ class _SchemesScreenState extends State<SchemesScreen> {
   @override
   Widget build(BuildContext context) {
     final lang = context.watch<LanguageProvider>();
-    final t = (String key) => lang.translate(key);
+    String t(String key) => lang.translate(key);
 
-    // Always show at least fallback/demo data
+    if (loading) {
+      return Scaffold(
+        backgroundColor: _Design.background,
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
     if (error != null) {
       return Scaffold(
         backgroundColor: _Design.background,
@@ -151,7 +149,7 @@ class _SchemesScreenState extends State<SchemesScreen> {
               if (filtered.isEmpty)
                 Padding(
                   padding: const EdgeInsets.all(24),
-                  child: Center(child: Text(t('no_schemes_for') + ' "${searchQuery.isEmpty ? selectedCategory : searchQuery}"')),
+                  child: Center(child: Text('${t('no_schemes_for')} "${searchQuery.isEmpty ? selectedCategory : searchQuery}"')),
                 )
               else
                 ListView.separated(
@@ -159,7 +157,7 @@ class _SchemesScreenState extends State<SchemesScreen> {
                   physics: const NeverScrollableScrollPhysics(),
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
                   itemCount: filtered.length,
-                  separatorBuilder: (_, __) => const SizedBox(height: 20),
+                  separatorBuilder: (_, _) => const SizedBox(height: 20),
                   itemBuilder: (context, idx) => _buildSchemeCard(context, t, filtered[idx]),
                 ),
             ],
@@ -279,7 +277,7 @@ class _SchemesScreenState extends State<SchemesScreen> {
               AspectRatio(
                 aspectRatio: 16 / 9,
                 child: imageUrl != null && imageUrl.isNotEmpty
-                    ? Image.network(imageUrl, fit: BoxFit.cover, errorBuilder: (_, __, ___) => _placeholderImage())
+                    ? Image.network(imageUrl, fit: BoxFit.cover, errorBuilder: (_, _, _) => _placeholderImage())
                     : _placeholderImage(),
               ),
               if (isTop)

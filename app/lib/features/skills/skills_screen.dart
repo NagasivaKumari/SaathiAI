@@ -10,8 +10,8 @@ class SkillsScreen extends StatefulWidget {
 }
 
 class _SkillsScreenState extends State<SkillsScreen> {
-  List<dynamic> skills = _fallbackSkills;
-  bool loading = false;
+  List<dynamic> skills = [];
+  bool loading = true;
   String? error;
   late final ApiClient api;
 
@@ -19,24 +19,17 @@ class _SkillsScreenState extends State<SkillsScreen> {
   void initState() {
     super.initState();
     api = ApiClient(baseUrl: AppConfig.BASE_URL);
-    // Show fallback data immediately, then try to fetch real data
-    Future.microtask(() => fetchSkills());
+    fetchSkills();
   }
 
-  static List<Map<String, dynamic>> get _fallbackSkills => [
-    {'id': '1', 'name': 'Organic Farming', 'category': 'Agriculture', 'description': 'Learn sustainable farming', 'progress': 0.7, 'duration': '3 weeks', 'certificate': true, 'status': 'In Progress'},
-    {'id': '2', 'name': 'Dairy Management', 'category': 'Agriculture', 'description': 'Cow care basics', 'progress': 1.0, 'duration': '2 weeks', 'certificate': true, 'status': 'Completed'},
-    {'id': '3', 'name': 'Digital Literacy', 'category': 'Digital', 'description': 'Using apps for market', 'progress': 0.2, 'duration': '1 week', 'certificate': false, 'status': 'In Progress'},
-  ];
-
   Future<void> fetchSkills() async {
-    setState(() { error = null; });
+    setState(() { loading = true; error = null; });
     try {
       skills = await api.getSkills();
-    } catch (_) {
-      skills = _fallbackSkills;
+    } catch (e) {
+      error = 'Network error';
     }
-    if (mounted) setState(() { loading = false; });
+    setState(() { loading = false; });
   }
 
   IconData _skillIcon(String name) {
@@ -48,7 +41,11 @@ class _SkillsScreenState extends State<SkillsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Always show at least fallback/demo data
+    if (loading) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
     if (error != null) {
       return Scaffold(
         body: Center(child: Text(error!, style: TextStyle(color: Colors.red))),

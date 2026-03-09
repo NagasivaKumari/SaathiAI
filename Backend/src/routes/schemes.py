@@ -1,3 +1,4 @@
+
 from fastapi import APIRouter, HTTPException
 from src.aws_db import db_service
 
@@ -15,18 +16,34 @@ async def get_schemes(q: str = None, category: str = None, state: str = None, la
     schemes = db_service.get_all_schemes()
     if not schemes:
         schemes = list(_SCHEMES_FALLBACK)
-    
-    if q:
-        q = q.lower()
-        schemes = [s for s in schemes if q in s.get("name", "").lower() or q in s.get("description", "").lower() or q in s.get("category", "").lower()]
-    if category:
-        category = category.lower()
-        schemes = [s for s in schemes if category in s.get("category", "").lower()]
-    if state:
-        state = state.lower()
-        schemes = [s for s in schemes if state in s.get("state_availability", "").lower() or "all india" in s.get("state_availability", "").lower()]
-        
-    return schemes
+
+    # Multilingual support: try to return fields in requested language, fallback to English
+    def localize(item):
+        def pick(field):
+            val = item.get(field)
+            if isinstance(val, dict):
+                # e.g. {"en": "...", "hi": "...", "te": "..."}
+                return val.get(lang) or val.get(lang.split("-")[0]) or val.get("en") or next(iter(val.values()), "")
+            return val
+        return {
+            **item,
+            "name": pick("name"),
+            "description": pick("description"),
+            "category": pick("category"),
+            "status": pick("status")
+        }
+
+    filtered = []
+    for s in schemes:
+        s_local = localize(s)
+        if q and q.lower() not in (s_local.get("name", "") + s_local.get("description", "") + s_local.get("category", "")).lower():
+            continue
+        if category and category.lower() not in s_local.get("category", "").lower():
+            continue
+        if state and state.lower() not in s.get("state_availability", "").lower() and "all india" not in s.get("state_availability", "").lower():
+            continue
+        filtered.append(s_local)
+    return filtered
 @router.get("/{scheme_id}")
 async def get_scheme(scheme_id: str):
     """Return a single scheme by its ID with full detail fields."""
@@ -45,3 +62,24 @@ async def refresh_schemes():
     if success:
         return {"message": "Government schemes synchronized live!"}
     raise HTTPException(status_code=500, detail="Failed to sync schemes")
+
+@router.get("/bulk")
+async def get_schemes_bulk(lang: str = "en-US"):
+    """Return all schemes in bulk for offline caching (language-aware)."""
+    schemes = db_service.get_all_schemes()
+    if not schemes:
+        schemes = list(_SCHEMES_FALLBACK)
+    def localize(item):
+        def pick(field):
+            val = item.get(field)
+            if isinstance(val, dict):
+                return val.get(lang) or val.get(lang.split("-")[0]) or val.get("en") or next(iter(val.values()), "")
+            return val
+        return {
+            **item,
+            "name": pick("name"),
+            "description": pick("description"),
+            "category": pick("category"),
+            "status": pick("status")
+        }
+    return [localize(s) for s in schemes]

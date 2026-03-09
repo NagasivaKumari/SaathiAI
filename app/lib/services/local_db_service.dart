@@ -1,5 +1,7 @@
+
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:flutter/material.dart';
 
 class LocalDatabaseService {
     static Future<void> cachePredictiveRecommendations(Map<String, dynamic> data) async {

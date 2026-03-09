@@ -15,7 +15,7 @@ class AvailableGovtSchemesScreen extends StatelessWidget {
       body: ListView.separated(
         padding: const EdgeInsets.all(16),
         itemCount: schemes.length,
-        separatorBuilder: (_, __) => const SizedBox(height: 16),
+        separatorBuilder: (_, _) => const SizedBox(height: 16),
         itemBuilder: (context, idx) {
           final scheme = schemes[idx];
           return Card(
