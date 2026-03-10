@@ -73,6 +73,11 @@ awsconfiguration.json
 amplify/
 
 # =========================
+# Serverless Framework
+# =========================
+**/.serverless/
+
+# =========================
 # Optional: Personal Notes
 # =========================
 prsentation old.txt
