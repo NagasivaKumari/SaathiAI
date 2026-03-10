@@ -152,16 +152,21 @@ class _SignupScreenState extends State<SignupScreen> {
                   obscureText: _obscurePassword,
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'Enter password';
-                    if (value.length < 8)
+                    if (value.length < 8) {
                       return 'At least 8 characters required';
-                    if (!RegExp(r'[A-Z]').hasMatch(value))
+                    }
+                    if (!RegExp(r'[A-Z]').hasMatch(value)) {
                       return 'Requires uppercase letter';
-                    if (!RegExp(r'[a-z]').hasMatch(value))
+                    }
+                    if (!RegExp(r'[a-z]').hasMatch(value)) {
                       return 'Requires lowercase letter';
-                    if (!RegExp(r'[0-9]').hasMatch(value))
+                    }
+                    if (!RegExp(r'[0-9]').hasMatch(value)) {
                       return 'Requires number';
-                    if (!RegExp(r'[!@#\$&*~]').hasMatch(value))
+                    }
+                    if (!RegExp(r'[!@#\$&*~]').hasMatch(value)) {
                       return 'Requires special character';
+                    }
                     return null;
                   },
                 ),

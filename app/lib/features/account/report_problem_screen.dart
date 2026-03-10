@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../../core/services/support_service.dart';
 
 class ReportProblemScreen extends StatefulWidget {
+  const ReportProblemScreen({super.key});
+
   @override
   _ReportProblemScreenState createState() => _ReportProblemScreenState();
 }
@@ -41,7 +43,7 @@ class _ReportProblemScreenState extends State<ReportProblemScreen> {
         child: Column(
           children: [
             DropdownButtonFormField<String>(
-              value: _typeController.text,
+              initialValue: _typeController.text,
               items: ['Bug', 'Feature Request', 'Other'].map((String val) {
                 return DropdownMenuItem(value: val, child: Text(val));
               }).toList(),

@@ -175,7 +175,7 @@ class SettingsScreen extends StatelessWidget {
                     children: [
                       SwitchListTile(
                         value: true,
-                        activeColor: Colors.green,
+                        activeThumbColor: Colors.green,
                         onChanged: (v) {},
                         title: const Text(
                           'Voice Assistance',
@@ -188,7 +188,7 @@ class SettingsScreen extends StatelessWidget {
                       _buildDivider(),
                       SwitchListTile(
                         value: true,
-                        activeColor: Colors.green,
+                        activeThumbColor: Colors.green,
                         onChanged: (v) {},
                         title: const Text(
                           'Push Notifications',

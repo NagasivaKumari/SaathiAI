@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     // Placeholder profile data
@@ -25,9 +27,9 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            Text('Name: ' + profile['name']),
-            Text('Email: ' + profile['email']),
-            Text('Phone: ' + profile['phone']),
+            Text('Name: ${profile['name']}'),
+            Text('Email: ${profile['email']}'),
+            Text('Phone: ${profile['phone']}'),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {},

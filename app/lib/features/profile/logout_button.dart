@@ -3,7 +3,7 @@ import '../../core/services/secure_storage_service.dart';
 
 class LogoutButton extends StatelessWidget {
   final VoidCallback? onLogout;
-  const LogoutButton({Key? key, this.onLogout}) : super(key: key);
+  const LogoutButton({super.key, this.onLogout});
 
   @override
   Widget build(BuildContext context) {

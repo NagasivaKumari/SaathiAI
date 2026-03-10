@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../../core/services/legal_service.dart';
 
 class TermsScreen extends StatelessWidget {
+  const TermsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

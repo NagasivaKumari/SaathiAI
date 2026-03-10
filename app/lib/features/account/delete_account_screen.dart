@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../../core/services/legal_service.dart';
 
 class DeleteAccountScreen extends StatefulWidget {
+  const DeleteAccountScreen({super.key});
+
   @override
   _DeleteAccountScreenState createState() => _DeleteAccountScreenState();
 }
@@ -42,8 +44,8 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                 ? CircularProgressIndicator()
                 : ElevatedButton(
                     onPressed: _delete,
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
                     child: Text('Delete Account'),
-                    style: ElevatedButton.styleFrom(primary: Colors.red),
                   ),
           ],
         ),
