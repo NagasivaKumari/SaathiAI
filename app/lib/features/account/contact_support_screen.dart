@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../../core/services/support_service.dart';
 
 class ContactSupportScreen extends StatefulWidget {
+  const ContactSupportScreen({super.key});
+
   @override
   _ContactSupportScreenState createState() => _ContactSupportScreenState();
 }
@@ -13,8 +15,9 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
 
   Future<void> _submit() async {
     if (_subjectController.text.trim().isEmpty ||
-        _messageController.text.trim().isEmpty)
+        _messageController.text.trim().isEmpty) {
       return;
+    }
     setState(() => _isLoading = true);
     try {
       await SupportService.contactSupport(

@@ -5,6 +5,8 @@ import 'faq_screen.dart';
 import 'report_problem_screen.dart';
 
 class SupportScreen extends StatelessWidget {
+  const SupportScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

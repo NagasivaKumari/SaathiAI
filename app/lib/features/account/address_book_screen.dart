@@ -3,6 +3,8 @@ import '../../core/services/address_service.dart';
 import 'address_edit_screen.dart';
 
 class AddressBookScreen extends StatefulWidget {
+  const AddressBookScreen({super.key});
+
   @override
   _AddressBookScreenState createState() => _AddressBookScreenState();
 }
@@ -88,8 +90,8 @@ class _AddressBookScreenState extends State<AddressBookScreen> {
           );
           _loadAddresses();
         },
-        child: Icon(Icons.add),
         tooltip: 'Add Address',
+        child: Icon(Icons.add),
       ),
     );
   }

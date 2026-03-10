@@ -4,7 +4,7 @@ import '../../core/services/address_service.dart';
 class AddressEditScreen extends StatefulWidget {
   final Map<String, dynamic>? address;
 
-  AddressEditScreen({this.address});
+  const AddressEditScreen({super.key, this.address});
 
   @override
   _AddressEditScreenState createState() => _AddressEditScreenState();

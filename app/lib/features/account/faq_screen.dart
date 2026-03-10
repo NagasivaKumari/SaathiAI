@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../../core/services/support_service.dart';
 
 class FAQScreen extends StatefulWidget {
+  const FAQScreen({super.key});
+
   @override
   _FAQScreenState createState() => _FAQScreenState();
 }
